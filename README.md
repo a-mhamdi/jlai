@@ -1,6 +1,6 @@
 # JLML
 
-A convenient way to run machine learning labs on various platform using Docker.
+A convenient way to run machine learning codes on multiple platforms via Docker.
 
 [![JLML CI](https://github.com/a-mhamdi/jlml/actions/workflows/docker-image.yml/badge.svg)](https://github.com/a-mhamdi/jlml/actions/workflows/docker-image.yml)
 [![Docker Stars](https://img.shields.io/docker/stars/abmhamdi/jlml)](https://hub.docker.com/r/abmhamdi/jlml)
@@ -10,7 +10,7 @@ A convenient way to run machine learning labs on various platform using Docker.
 [![Docker Build](https://img.shields.io/docker/cloud/build/abmhamdi/jlml)](https://hub.docker.com/r/abmhamdi/jlml)
 
 
-The repository contains the Dockerfile I use to create an image where students can run the labs of Machine Learning. I opted for `Julia` as the main programming language.
+The repository contains the Dockerfile I use to create an image where you are able to run codes of Machine Learning using `Julia`.
 
 The latest image is built upon every push to this repo. Every update is available at [dockerhub](https://hub.docker.com/) via [abmhamdi/jlml](https://hub.docker.com/repository/docker/abmhamdi/jlml)
 
