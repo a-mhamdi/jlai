@@ -1,5 +1,12 @@
-version: '3'
+version: "3.9"
 
 services:
-  julia-docker:
-    image: abmhamdi/jlml
+  jlml:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: jlml-kernel
+    ports:
+      - 1234:1234
+    container_name: jlml-raia
+    
