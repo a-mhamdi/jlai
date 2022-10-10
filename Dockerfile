@@ -1,4 +1,4 @@
-FROM --platform=${BUILDPLATFORM} julia:1.6
+FROM --platform=${BUILDPLATFORM} julia:1.6.2
 
 ENV USER ml
 ENV USER_HOME_DIR /home/${USER}
