@@ -1,4 +1,4 @@
-name: JLML CI
+name: AI RAIA CI
 
 on:
   push:
