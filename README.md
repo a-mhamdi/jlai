@@ -2,7 +2,7 @@
 
 A convenient way to run machine learning codes on multiple platforms via Docker.
 
-[![ai-raia CI](https://github.com/a-mhamdi/ai-raia/actions/workflows/docker-image.yml/badge.svg)](https://github.com/a-mhamdi/ai-raia/actions/workflows/docker-image.yml)
+[![AI-RAIA CI](https://github.com/a-mhamdi/ai-raia/actions/workflows/docker-image.yml/badge.svg)](https://github.com/a-mhamdi/ai-raia/actions/workflows/docker-image.yml)
 [![Docker Stars](https://img.shields.io/docker/stars/abmhamdi/ai-raia)](https://hub.docker.com/r/abmhamdi/ai-raia)
 [![Docker Pulls](https://img.shields.io/docker/pulls/abmhamdi/ai-raia)](https://hub.docker.com/r/abmhamdi/ai-raia)
 [![Docker Version](https://img.shields.io/docker/v/abmhamdi/ai-raia?sort=semver)](https://hub.docker.com/r/abmhamdi/ai-raia)
