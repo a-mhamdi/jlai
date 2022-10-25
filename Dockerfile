@@ -1,6 +1,6 @@
 FROM --platform=${BUILDPLATFORM} julia:1.6.2
 
-ENV USER ml
+ENV USER iset 
 ENV USER_HOME_DIR /home/${USER}
 ENV JULIA_DEPOT_PATH ${USER_HOME_DIR}/.julia
 ENV WORKING_DIR ${USER_HOME_DIR}/repo
@@ -21,4 +21,4 @@ WORKDIR ${WORKING_DIR}
 # Default command: Julia Pluto
 CMD julia -e "import Pluto; Pluto.run(host=\"0.0.0.0\", port=1234, launch_browser=false, require_secret_for_open_links=false, require_secret_for_access=false)"
 
-# docker exec -u root -it jlml-raia /bin/bash
+# docker exec -u root -it aijl /bin/bash
