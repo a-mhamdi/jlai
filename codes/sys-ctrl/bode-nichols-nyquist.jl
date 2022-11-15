@@ -1,0 +1,15 @@
+# IMPORT CONTROL SYSTEMS 
+using ControlSystems
+# LAPLACE OPERATOR
+s = tf("s")
+# SYSTEM DEFINITION
+sys = 2/(s+1)
+# IMPORT PLOTS
+using Plots
+# PLOT BODE FREQUENCY RESPONSE
+bodeplot(sys)
+# PLOT NICHOLS FREQUENCY RESPONSE
+nicholsplot(sys)
+# PLOT NYQUIST FREQUENCY RESPONSE
+nyquistplot(sys)
+
