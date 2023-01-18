@@ -1,0 +1,669 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass book
+\begin_preamble
+% DO NOT ALTER THIS PREAMBLE!!!
+%
+%This preamble is designed to ensure that the document prints
+% out as advertised. If you mess with this preamble,
+% parts of the document may not print out as expected.  If you
+% have problems LaTeXing this file, please contact 
+% the documentation team
+% email: lyx-docs@lists.lyx.org
+
+\usepackage{inputenc}
+\usepackage[ec]{aeguill}
+\usepackage{ifpdf} % part of the hyperref bundle
+\ifpdf % if pdflatex is used
+%\usepackage[square, comma, authoryear]{natbib}
+%\citestyle{nature}
+%\makeatletter
+%\newcommand*{\@***@ofmt}[1]{#1}
+%\makeatother
+\usepackage{comment}
+\includecomment{comment}
+\usepackage{minitoc}
+ % set fonts for nicer pdf view
+ \IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
+
+\fi % end if pdflatex is used
+%\usepackage[utf8]{inputenc}
+%\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+%\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+%\fancyhf{}
+%\fancyhead[LE]{\bfseries\leftmark}
+%\fancyhead[RO]{\bfseries\rightmark}
+\usepackage{charter}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand\headrulewidth{0.75pt}
+%\fancyhead[L]{\chaptername \thechapter}
+%\fancyhead[R]{***
+\fancyfoot[C]{\thepage}
+%Define a short command for \textvisiblespace
+%\newcommand{\spce}{\textvisiblespace}
+%\renewcommand \thepart {\@Roman\c@part}
+%\renewcommand \thechapter {\@arabic\c@chapter}
+%\renewcommand \thesection {\thechapter.\@arabic\c@section}
+%\renewcommand\thesubsection {\thesection.\@arabic\c@subsection}
+%\renewcommand\thesubsubsection{\thesubsection.\@alph\c@subsubsection)}
+%\renewcommand\theparagraph {\thesubsubsection.\@arabic\c@paragraph}
+%\renewcommand\thesubparagraph {\theparagraph.\@arabic\c@subparagraph} 
+\renewcommand{\thesubsubsection}{\alph{subsubsection})}
+
+% provides commands to set caption
+% beside tables/images
+%\newcommand{\TabBesBeg}[1][1.0]{%
+ %\let\MyTable\table
+ %\let\MyEndtable\endtable
+ %\renewenvironment{table}[1]{\begin{SCtable}[#1]##1}{\end{SCtable}}}
+
+%\newcommand{\TabBesEnd}{%
+ %\let\table\MyTable
+ %\let\endtable\MyEndtable}
+
+%\newcommand{\FigBesBeg}[1][1.0]{%
+% \let\MyFigure\figure
+% \let\MyEndfigure\endfigure
+% \renewenvironment{figure}[1]{\begin{SCfigure}[#1]##1}{\end{SCfigure}}}
+
+%\newcommand{\FigBesEnd}{%
+%\let\figure\MyFigure
+% \let\endfigure\MyEndfigure}%}
+%}
+%\usepackage[nottoc, notlof, notlot]{tocbibind}
+\usepackage{graphicx}
+
+%\usepackage[style=authoryear,natbib=true]{biblatex}
+%\usepackage[natbib=true,bibstyle=apalike,citestyle=authoryear]{biblatex}
+%\bibliographystyle{apalike} 
+%\usepackage[italic]{mathastext}
+%\usepackage[figure]{hypcap}
+\newcommand{\spce}{\textvisiblespace}
+\newcommand{\IndexDef}[1]{\textit{#1}}
+%\usepackage{fancyhdr}
+%\renewcommand{\headrulewidth}{1pt}
+% the pages of the TOC is numbered roman
+% and a pdf-bookmark for the TOC is added
+\let\myTOC\tableofcontents
+\renewcommand\tableofcontents{%
+  \frontmatter
+  \pdfbookmark[1]{\contentsname}{}
+  \myTOC
+  \mainmatter }
+\usepackage{array, multirow}
+\let\mySection\section\renewcommand{\section}{\suppressfloats[t]\mySection}
+% redefine the \LyX macro for PDF bookmarks
+\def\LyX{\texorpdfstring{%
+  L\kern-.1667em\lower.25em\hbox{Y}\kern-.125emX\@}
+  {LyX}}
+
+\usepackage{epstopdf}
+\end_preamble
+\options intoc,bibliography=totoc,index=totoc,BCOR10mm,captions=tableheading,titlepage,square,utf8
+\use_default_options true
+\begin_modules
+logicalmkup
+theorems-ams
+theorems-chap
+customHeadersFooters
+\end_modules
+\maintain_unincluded_children false
+\language british
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "palatino" "default"
+\font_sans "helvet" "default"
+\font_typewriter "courier" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 90 90
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement H
+\paperfontsize 11
+\spacing single
+\use_hyperref true
+\pdf_title "***"
+\pdf_author "***"
+\pdf_subject "***"
+\pdf_keywords "***"
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\pdf_quoted_options "linkcolor=black, citecolor=black, urlcolor=blue, filecolor=blue,pdfpagelayout=OneColumn, pdfnewwindow=true, pdfstartview=XYZ, plainpages=false"
+\papersize a4paper
+\use_geometry true
+\use_package amsmath 2
+\use_package amssymb 2
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plainnat
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 3.5cm
+\topmargin 3cm
+\rightmargin 2.5cm
+\bottommargin 3cm
+\secnumdepth 2
+\tocdepth 2
+\paragraph_separation skip
+\defskip medskip
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style british
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+\bullet 0 2 5 4
+\bullet 1 2 12 -1
+\bullet 2 0 0 -1
+\bullet 3 0 10 4
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+input{to-include/cover-page}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+input{to-include/front-mat.tex}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Left Header
+Table of Contents
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Left Header
+List of Figures
+\end_layout
+
+\begin_layout Standard
+\begin_inset FloatList figure
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Left Header
+List of Tables
+\end_layout
+
+\begin_layout Standard
+\begin_inset FloatList table
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter*
+General Introduction
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+addcontentsline{toc}{chapter}{General Introduction}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Left Header
+General Introduction
+\end_layout
+
+\begin_layout Section*
+Context and motivations
+\end_layout
+
+\begin_layout Standard
+***
+\end_layout
+
+\begin_layout Section*
+Outline
+\end_layout
+
+\begin_layout Standard
+***
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+adjustmtc
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+\noindent
+***
+\end_layout
+
+\begin_layout Left Header
+\noindent
+***
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+minitoc
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+\noindent
+Introduction
+\end_layout
+
+\begin_layout Section
+\noindent
+Conclusion
+\end_layout
+
+\begin_layout Chapter
+\noindent
+***
+\end_layout
+
+\begin_layout Left Header
+\noindent
+***
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+minitoc
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+\noindent
+Introduction
+\end_layout
+
+\begin_layout Section
+\noindent
+Conclusion
+\end_layout
+
+\begin_layout Chapter
+***
+\end_layout
+
+\begin_layout Left Header
+\noindent
+***
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+minitoc
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+\noindent
+Introduction
+\end_layout
+
+\begin_layout Section
+\noindent
+Conclusion
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter*
+\noindent
+General Conclusion
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+addcontentsline{toc}{chapter}{General Conclusion}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Left Header
+\noindent
+General Conclusion
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+adjustmtc
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+nocite{*}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+lhead{Bibliography}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+btprint "btPrintCited"
+bibfiles "biblio/my-biblio"
+options "bibtotoc,apalike2"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+thispagestyle{empty}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+\noindent
+Résumé
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\color black
+***
+\end_layout
+
+\begin_layout Description
+\noindent
+Mots
+\begin_inset space ~
+\end_inset
+
+clés
+\end_layout
+
+\begin_layout Standard
+\noindent
+***, ***.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator parbreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+\noindent
+Abstract
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\color black
+***
+\end_layout
+
+\begin_layout Description
+\noindent
+Key
+\begin_inset space ~
+\end_inset
+
+Words
+\end_layout
+
+\begin_layout Standard
+\noindent
+***, ***.
+\end_layout
+
+\end_body
+\end_document
