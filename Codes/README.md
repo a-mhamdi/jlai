@@ -1,8 +1,8 @@
 Some of the materials presented here are inspired from the following references:
 
-a. [Machine Learning A-Z](https://www.superdatascience.com/pages/machine-learning)  
-a. [Machine Learning For Beginers](https://github.com/microsoft/ML-For-Beginners)  
-a. [Flux Model Zoo](https://github.com/FluxML/model-zoo)  
+1. [Machine Learning A-Z](https://www.superdatascience.com/pages/machine-learning)  
+1. [Machine Learning For Beginers](https://github.com/microsoft/ML-For-Beginners)  
+1. [Flux Model Zoo](https://github.com/FluxML/model-zoo)  
 
 Some other parts were brought by **Chat GPT** :smiley: .
 

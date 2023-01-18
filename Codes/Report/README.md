@@ -24,4 +24,4 @@ Below are links to two useful apps in order to draw schemes in Tikz and to manag
 
 
 
-[LyX](logo-lyx)
+![LyX](logo-lyx.png)
