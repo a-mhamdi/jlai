@@ -1,6 +1,6 @@
 ## Fuzzy Logic, Machine Learning and Deep Learning with Julia
 
-This repository contains slides and code examples for using `Julia` to implement some **artificial intelligence** related algorithms. Codes run on top of a `Docker` image, ensuring a consistent and reproducible environment.
+This repository contains slides, labs and code examples for using `Julia` to implement some **artificial intelligence** related algorithms. Codes run on top of a `Docker` image, ensuring a consistent and reproducible environment.
 
 To run the code, you will need to first pull the `Docker` image by running the following command:
 
