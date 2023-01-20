@@ -2,6 +2,11 @@
 
 This repository contains slides, labs and code examples for using `Julia` to implement some **artificial intelligence** related algorithms. Codes run on top of a `Docker` image, ensuring a consistent and reproducible environment.
 
+[![JLAI CI](https://github.com/a-mhamdi/jlai/actions/workflows/docker-image.yml/badge.svg)](https://github.com/a-mhamdi/jlai/actions/workflows/docker-image.yml)
+[![Docker Version](https://img.shields.io/docker/v/abmhamdi/jlai?sort=semver)](https://hub.docker.com/r/abmhamdi/jlai)
+[![Docker Pulls](https://img.shields.io/docker/pulls/abmhamdi/jlai)](https://hub.docker.com/r/abmhamdi/jlai)
+[![Docker Stars](https://img.shields.io/docker/stars/abmhamdi/jlai)](https://hub.docker.com/r/abmhamdi/jlai)
+
 To run the code, you will need to first pull the `Docker` image by running the following command:
 
 ```
@@ -9,6 +14,11 @@ docker pull abmhamdi/jlai
 ```
 
 This may take a while, as it will download and install all necessary dependencies.
+
+### How to control the containers:
+
+* ```docker-compose up``` starts the container
+* ```docker-compose down``` stops and destroys the container
 
 ### Included Algorithms
 The repository includes implementation of the following algorithms:
