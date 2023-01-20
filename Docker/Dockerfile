@@ -1,36 +1,26 @@
 FROM julia:1.8.2
+LABEL author="A. Mhamdi <a_mhamdi@outlook.com>"
 
-ENV USER isetbz
-ENV USER_HOME_DIR /home/${USER}
-# ENV JULIA_DEPOT_PATH ${USER_HOME_DIR}/.julia
-ENV WORKING_DIR ${USER_HOME_DIR}/repo
-
-RUN useradd -m -d ${USER_HOME_DIR} ${USER} \
-    && mkdir -p ${WORKING_DIR}
-
-COPY ./toml/* ${WORKING_DIR}/
-
+# Expose ports
+EXPOSE 1234 2468
+# SetENV variables
+ENV USERNAME mhamdi 
+ENV USER_HOME_DIR /home/${USERNAME}
+ENV JULIA_DEPOT_PATH ${USER_HOME_DIR}/.julia
+ENV WORKING_DIR ${USER_HOME_DIR}/work
+# Add user and set ownership
+RUN useradd -ms /bin/bash  -p $(echo "${USERNAME}" | openssl passwd -1 -stdin) "${USERNAME}"
+# Change user & working directory
+USER ${USERNAME}
 WORKDIR ${WORKING_DIR}
+# Copy TOML files (deps, ver, pkg, UUID)
+COPY Project.toml ./
+COPY Manifest.toml ./
 
-# Add Julia Packages
-RUN julia -e 'import Pkg; Pkg.activate(); Pkg.instantiate();' && \
-    julia -e 'using Pkg; pkg"add IJulia"; pkg"precompile"' && \
-    chown -R ${USER} ${USER_HOME_DIR}
+# Activate environment and add IJulia kernel
+RUN julia -e 'import Pkg; Pkg.activate("."); Pkg.instantiate(); Pkg.precompile()'
+RUN julia -e 'import Pkg; Pkg.add(["IJulia", "Pluto"]); Pkg.precompile()'
 
-USER ${USER}
-
-
-# Default command: 
-
-## Julia Pluto
-# CMD julia -e "import Pluto; Pluto.run(host=\"0.0.0.0\", port=1234, launch_browser=false, require_secret_for_open_links=false, require_secret_for_access=false)"
-# CMD julia -e "using Pkg; Pkg.add(\"IJulia\"); using IJulia; notebook()"
-## Jupyter Notebook
-CMD julia 
-# jupyter/base-notebook --host="0.0.0.0" --port=4321 --launch_browser=false --require_secret_for_open_links=false --require_secret_for_access=false
-# Jupyter:
-# Setting JUPYTER_TOKEN environment variable sets the token
-# EXPOSE 8888/tcp
-# CMD ["jupyter", "lab", "--ip", "0.0.0.0", "--port", "8888", "--launch_browser", "false", "require_secret_for_open_links", "false", "require_secret_for_access", "false"]
-
-# docker exec -u root -it aijl /bin/bash
+ENTRYPOINT julia -e "import Pluto; Pluto.run(host=\"0.0.0.0\", port=1234, launch_browser=false, require_secret_for_open_links=false, require_secret_for_access=false)"
+# Default command
+CMD julia

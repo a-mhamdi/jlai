@@ -1,34 +1,31 @@
 version: "3.9"
-
 services:
 
-  jupyter:
-    image: jupyter/datascience-notebook:latest
+  julia:
+    build:
+      context: ./
+      dockerfile: Dockerfile
     ports:
-      - 4321:8888
-    #depends_on:
-    #  - julia
+      - "2468:2468"
+      - "1234:1234"
     volumes:
       - .:/app
-    environment:
-      - JUPYTER_TOKEN=isetbz
-    #   JUPYTER_ENABLE_LAB: "yes"
-    # command: "start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''"
+    networks:
+      - jlaiNet
+    container_name: "raia"
 
-  # julia:
-  #   #build:
-  #   #  context: ./
-  #   #  dockerfile: Dockerfile
-  #   #image: jlai
-  #   # depends_on:
-  #   #  - jupyter
-  # #   # ports:
-  # #   #   - 4321:4321
-  # #   container_name: jlai
-  #   image: julia:1.8.2
-  #   command: julia
-  # #   volumes:
-  # #     - .:/app
+  jupyter:
+      image: jupyter/minimal-notebook:latest
+      # image: jupyter/datascience-notebook:latest
+      ports:
+        - "8888:8888"
+      volumes:
+        - .:/app
+      environment:
+        - JUPYTER_TOKEN=jlai
+      networks:
+        - jlaiNet
 
-
-# The `docker-compose.yml` file runs both a `Jupyter notebook` and a `Julia` service, and allows to run `Julia` from within the `Jupyter Notebook`.
+networks:
+  jlaiNet:
+    driver: bridge
