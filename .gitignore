@@ -1,3 +1,3 @@
-*.wakatime-project
+Docker/*toml
+Docker/txt
 Makefile
-txt
