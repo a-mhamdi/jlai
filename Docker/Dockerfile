@@ -14,8 +14,8 @@ RUN useradd -ms /bin/bash  -p $(echo "${USERNAME}" | openssl passwd -1 -stdin) "
 USER ${USERNAME}
 WORKDIR ${WORKING_DIR}
 # Copy TOML files (deps, ver, pkg, UUID)
-COPY Project.toml ./
-COPY Manifest.toml ./
+COPY ./Codes/Julia/Project.toml ./
+COPY ./Codes/Julia/Manifest.toml ./
 
 # Activate environment and add IJulia kernel
 RUN julia -e 'import Pkg; Pkg.activate("."); Pkg.instantiate(); Pkg.precompile()'
