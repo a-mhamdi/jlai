@@ -118,6 +118,5 @@ md"""
 fis = FISMamdani(criteria, decision, rules)
 
 md"Let's make some predictions"
-
 test_in = [9., 5.]
 eval_fis(fis, test_in)
