@@ -1,24 +1,27 @@
+###########################################
 #= COMMON DATA PREPROCESSING `WORKFLOWS` =#
+###########################################
 
-## Import Librairies
+using Markdown
+
+md"Import Librairies"
 using CSV, DataFrames
 using MLJ
 
-## Import Data From CSV File
+md"Import Data From CSV File"
 df = CSV.read("../../Datasets/Data.csv", DataFrame)
 describe(df)
 nrow(df), ncol(df)
 schema(df)
 
-## Scientific Type Coercion
+md"Scientific Type Coercion"
 df_coerced = coerce(df,
     :Country => Multiclass,
     :Age => Continuous,
     :Salary => Continuous,
     :Purchased => Multiclass);
 schema(df_coerced)
-
-## Missing Values Imputation
+md"Missing Values Imputation"
 imputer = FillImputer()
 mach = machine(imputer, df_coerced) |> fit!
 df_imputed = MLJ.transform(mach, df_coerced);
@@ -28,14 +31,13 @@ schema(df_imputed)
 df_imputed = machine(imputer, df_coerced) |> fit! |> MLJ.transform
 =#
 
-## Features & Target Selection
+md"Features & Target Selection"
 X_imputed = select(df_imputed,
     :Country,#__France, :Country__Germany, :Country__Spain, # levels(df.Country)
     :Age,
     :Salary)
 y_imputed = select(df_imputed, :Purchased)
-
-## Feature Encoding
+md"Feature Encoding"
 encoder_X = ContinuousEncoder()
 encoder_y = ContinuousEncoder(drop_last=true)
 
@@ -50,11 +52,9 @@ X = machine(encoder_X, X_imputed) |> fit! |> MLJ.transform
 y = machine(encoder_y, y_imputed) |> fit! |> MLJ.transform
 schema(X)
 schema(y)
-
-## Split Data To Train & Test Sets
+md"Split Data To Train & Test Sets"
 (Xtrain, Xtest), (ytrain, ytest) = partition((X, y), .8, rng=123, multi=true);
-
-## Standardizer
+md"Standardizer"
 sc = Standardizer()
 mach_age = machine(sc, Xtrain.Age) |> fit! 
 Xtrain.Age = MLJ.transform(mach_age, Xtrain.Age) 
