@@ -20,7 +20,7 @@ COPY ./Codes/Julia/Project.toml ./
 COPY ./Codes/Julia/Manifest.toml ./
 
 # Activate environment and add IJulia kernel
-RUN julia -e "import Pkg; Pkg.activate(\".\"); Pkg.instantiate(); Pkg.precompile()"
+RUN julia -e 'import Pkg; Pkg.activate("${WORKING_DIR}"); Pkg.instantiate(); Pkg.precompile()'
 RUN julia -e 'import Pkg; Pkg.add(["IJulia", "Pluto"]); Pkg.precompile()'
 
 ENTRYPOINT julia -e "import Pluto; Pluto.run(host=\"0.0.0.0\", port=1234, launch_browser=false, require_secret_for_open_links=false, require_secret_for_access=false)"
