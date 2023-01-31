@@ -1,58 +1,67 @@
+#######################
 #= Transfer Learning =#
+#######################
 
-# Here's some example Julia code that demonstrates how to do transfer learning using the Flux.jl library:
+using Markdown
+
+using Metalhead
+md"Load the pre-trained model"
+md"[API Reference](https://fluxml.ai/Metalhead.jl/dev/api/reference/#API-Reference)"
+resnet = ResNet(18; pretrain=true)
+
+using DataAugmentation
+tfm = CenterCrop((224, 224)) |> ImageToTensor()
 
 using Flux
-using Flux.Data.MNIST
-using Flux: onehotbatch, onecold
-using Base.Iterators: repeated, partition
+using Flux: onecold, onehotbatch
 
-# Load the pre-trained model
-model = ResNet18()
+model = Chain(
+    # Freeze the weights of the pre-trained layers
+    resnet.layers[1:end-1],
+    # Replace the last layer
+    Dense(256, 10),
+    softmax
+)
 
-# Replace the final layer
-model.layers[end] = Dense(10)
+using MLDatasets
 
-# Freeze the weights of the pre-trained layers
-for layer in model.layers[1:end-1]
-    freeze!(layer)
+md"Load the MNIST dataset"
+function get_data(split)
+    data = MNIST(split)
+    imgs, y = data.features ./ 255, onehotbatch(data.targets, 0:9);
+    X = []
+    for i in 1:length(y)
+        img = apply(tfm, Image(RGB.(imgs[:,:,i]))) |> itemdata
+        push!(X, img)
+    end
+    loader = Flux.Data.DataLoader((X, y); batchsize=64, shuffle=true);
+    return loader
 end
 
-# Load the MNIST dataset
-X_train, y_train, X_test, y_test = MNIST.load()
-
-# Split the dataset into training and validation sets
-X_train, X_val = partition(X_train, 0.8)
-y_train, y_val = partition(y_train, 0.8)
-
-# Convert the labels to one-hot encoding
-y_train = onehotbatch(y_train, 0:9)
-y_val = onehotbatch(y_val, 0:9)
+using Images
+train_loader = get_data(:train);
+test_loader = get_data(:test);
 
 # Define a loss function and an optimizer
-loss_fn = Flux.crossentropy
-opt = Flux.ADAM()
+loss_fn = Flux.logitcrossentropy
+opt_state = Flux.setup(Adam(3e-3), model[end])
 
+using ProgressMeter
+epochs = 3
 # Fine-tune the model
-for epoch in 1:10
-    for (x, y) in zip(X_train, y_train)
+for epoch in 1:epochs
+    @showprogress for (X, y) in train_loader
         # Compute the gradient of the loss with respect to the model's parameters
-        gs = gradient(params(model)) do
-            y_pred = model(x)
-            loss_fn(y_pred, y)
+        loss, ∇ = Flux.withgradient(model) do m
+            ŷ = m(X)
+            loss_fn(ŷ, y)
         end
-
         # Update the model's parameters using the optimizer
-        Flux.update!(opt, params(model), gs)
+        Flux.update!(opt_state, model, ∇[1])
     end
-
-    # Calculate the accuracy on the validation set
-    accuracy = sum(onecold(model(X_val)) .== onecold(y_val)) / length(y_val)
-
-    println("Epoch: $epoch, Accuracy: $accuracy")
+    @info "Calculate the accuracy on the test set"
+    for (X, y) in test_loader
+        accuracy = sum(onecold(model(X)) .== onecold(y)) / length(y)
+        println("Epoch: $epoch, Accuracy: $accuracy")
+    end
 end
-
-# Test the model on the test set
-accuracy = sum(onecold(model(X_test)) .== onecold(y_test)) / length(y_test)
-println("Test accuracy: $accuracy")
-
