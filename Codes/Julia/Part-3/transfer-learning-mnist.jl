@@ -1,3 +1,5 @@
+# NOT WORKING YET
+
 #######################################
 #= Transfer Learning (MNIST DATASET) =#
 #######################################
@@ -17,7 +19,6 @@ using Flux
 using Flux: onecold, onehotbatch
 
 model = Chain(
-    # Freeze the weights of the pre-trained layers
     resnet.layers[1:end-1],
     # Replace the last layer
     Dense(256, 10),
@@ -25,7 +26,6 @@ model = Chain(
 )
 
 using MLDatasets
-
 md"Load the MNIST dataset"
 function get_data(split)
     data = MNIST(split)
@@ -45,7 +45,7 @@ test_loader = get_data(:test);
 
 # Define a loss function and an optimizer
 loss_fn = Flux.logitcrossentropy
-opt_state = Flux.setup(Adam(3e-3), model[end])
+opt_state = Flux.setup(Adam(3e-3), model[end]) # Freeze the weights of the pre-trained layers
 
 using ProgressMeter
 epochs = 3
