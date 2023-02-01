@@ -10,7 +10,7 @@ using Markdown
 using Metalhead
 md"Load the pre-trained model"
 md"[API Reference](https://fluxml.ai/Metalhead.jl/dev/api/reference/#API-Reference)"
-resnet = ResNet(18; pretrain=true)
+vgg = VGG(; pretrain=true).layers;
 
 using DataAugmentation
 tfm = CenterCrop((224, 224)) |> ImageToTensor()
@@ -19,9 +19,10 @@ using Flux
 using Flux: onecold, onehotbatch
 
 model = Chain(
-    resnet.layers[1:end-1],
+    vgg[1:end-1],
+    vgg[end][1:end-1],
     # Replace the last layer
-    Dense(256, 10),
+    Dense(4096, 10),
     softmax
 )
 

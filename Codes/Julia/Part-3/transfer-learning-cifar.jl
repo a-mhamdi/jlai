@@ -23,28 +23,34 @@ mdl = Chain(
 
 using MLDatasets
 md"Load the CIFAR10 dataset"
-function get_data(split)
+function get_data(split, lm::Integer=1024)
     data = CIFAR10(split)
-    X, y = data.features ./ 255, onehotbatch(data.targets, 0:9);
-    loader = Flux.Data.DataLoader((X, y); batchsize=512, shuffle=true);
+    X, y = data.features[:,:,:,1:lm] ./ 255, onehotbatch(data.targets[1:lm], 0:9);
+    loader = Flux.Data.DataLoader((X, y); batchsize=16, shuffle=true);
     return loader
 end
 
-train_loader = get_data(:train);
-test_loader = get_data(:test);
+train_loader = get_data(:train, 512);
+test_loader = get_data(:test, 128);
 
 md"Define a setup of the optimizer"
 loss(X, y) = Flux.Losses.logitcrossentropy(mdl(X), y)
 opt = Adam(3e-3)
 ps = Flux.params(mdl[3:end])
 
-using Fux: @epochs
-@epochs 5 Flux.train!(loss, ps, train_loader, opt) # , cb = throttle(() -> println("training"), 10))
+using Flux: @epochs
+@epochs 5 Flux.train!(loss, ps, train_loader, opt, cb = Flux.throttle( () -> println("Training"), 10) )
+
+using ImageShow, ImageInTerminal
+idx = rand(1:50000)
+convert2image(d, idx)
+printstyled("Label is $(d.targets[idx])"; bold=true, color=:red)
 
 #=
-opt_state = Optimisers.setup(Adam(3e-3), model[end]) # Freeze the weights of the pre-trained layers
+using Optimisers
+opt_state = Optimisers.setup(Adam(3e-3), mdl[3:end]) # Freeze the weights of the pre-trained layers
 using ProgressMeter
-epochs = 3
+epochs = 5
 # Fine-tune the model
 for epoch in 1:epochs
     @showprogress for (X, y) in train_loader
