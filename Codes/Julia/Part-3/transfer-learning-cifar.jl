@@ -7,17 +7,18 @@ using Markdown
 using Metalhead
 md"Load the pre-trained model"
 md"[API Reference](https://fluxml.ai/Metalhead.jl/dev/api/reference/#API-Reference)"
-vgg = VGG(19)
+resnet = ResNet(; pretrain=true).layers;
 
 using Flux
 using Flux: onecold, onehotbatch
 
 mdl = Chain(
-    resnet.layers[1:end-1],
-    # Dense(16 => 12, relu),
+    resnet[1:end-1],
+    resnet[end][1:end-1],
     # Replace the last layer
-    Dense(512, 10),
-    # softmax
+    Dense(2048 => 256, relu),
+    Dense(256 => 10),
+    softmax
 )
 
 using MLDatasets
@@ -35,8 +36,9 @@ test_loader = get_data(:test);
 md"Define a setup of the optimizer"
 loss(X, y) = Flux.Losses.logitcrossentropy(mdl(X), y)
 opt = Adam(3e-3)
-ps = Flux.params(mdl)
+ps = Flux.params(mdl[3:end])
 
+using Fux: @epochs
 @epochs 5 Flux.train!(loss, ps, train_loader, opt) # , cb = throttle(() -> println("training"), 10))
 
 #=
