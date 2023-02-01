@@ -235,7 +235,7 @@ mytitle{Title}
 \backslash
 def
 \backslash
-meauthor{Author(s)}
+myauthor{Author(s)}
 \end_layout
 
 \end_inset
@@ -245,7 +245,7 @@ meauthor{Author(s)}
 
 \begin_layout Standard
 \begin_inset ERT
-status open
+status collapsed
 
 \begin_layout Plain Layout
 
@@ -529,7 +529,7 @@ Large
 \backslash
 textsc{
 \backslash
-meauthor}}
+myauthor}}
 \end_layout
 
 \begin_layout Plain Layout
