@@ -1,31 +1,13 @@
 version: "3.9"
+
 services:
-
-  julia:
-    build:
-      context: ./
-      dockerfile: Dockerfile
-    ports:
-      - "2468:2468"
-      - "1234:1234"
-    volumes:
-      - .:/app
-    networks:
-      - jlaiNet
-    container_name: "raia"
-
-  jupyter:
-      image: jupyter/minimal-notebook:latest
-      # image: jupyter/datascience-notebook:latest
-      ports:
-        - "8888:8888"
-      volumes:
-        - .:/app
-      environment:
-        - JUPYTER_TOKEN=jlai
-      networks:
-        - jlaiNet
-
-networks:
-  jlaiNet:
-    driver: bridge
+ jupyter:
+  image: abmhamdi/jlai
+  ports:
+   - "2468:2468"
+  command: /home/mhamdi/.julia/conda/3/bin/jupyter lab --NotebookApp.token='' --ip 0.0.0.0 --port 2468 --allow-root --no-browser
+ pluto:
+  image: abmhamdi/jlai
+  ports:
+   - "1234:1234"
+  command: julia -e "import Pluto; Pluto.run(host=\"0.0.0.0\", port=1234, launch_browser=false, require_secret_for_open_links=false, require_secret_for_access=false)"
