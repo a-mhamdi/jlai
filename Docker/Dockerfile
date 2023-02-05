@@ -15,17 +15,14 @@ RUN useradd -ms /bin/bash  -p $(echo ${USERNAME} | openssl passwd -1 -stdin) ${U
 USER ${USERNAME}
 WORKDIR ${WORKING_DIR}
 
-RUN mkdir -p ${USER_HOME_DIR}/.jupyter/lab/user-settings/@jupyterlab/apputils-extension & \
-    echo '{"theme": "JupyterLab Dark"}' > themes.jupyterlab-settings
-
 # Copy datasets
-COPY ./Codes/Julia/Datasets ./
+COPY ./Codes/Julia/Datasets ./datasets/
 # Copy TOML files (deps, ver, pkg, UUID)
 COPY ./Codes/Julia/Project.toml ./
 COPY ./Codes/Julia/Manifest.toml ./
 
 # Activate environment and add IJulia kernel, Pluto and JupyterLab IDE
-# RUN julia -e 'import Pkg; Pkg.activate("."); Pkg.instantiate(); Pkg.precompile()'
+RUN julia -e 'import Pkg; Pkg.activate("."); Pkg.instantiate(); Pkg.precompile()'
 RUN julia -e 'import Pkg; Pkg.add(["Conda", "IJulia", "Pluto"]); Pkg.precompile()'
 RUN julia -e 'import Conda; Conda.add("JupyterLab")'
 
