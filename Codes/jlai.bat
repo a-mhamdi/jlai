@@ -1,18 +1,24 @@
-::The `docker-compose.yml` file runs both a `Jupyter Lab` and a `Pluto` services, and allows to run `Julia` from within the `Jupyter Notebook`.
+cd %USERPROFILE%\jlai
 
-start "" c:\jlai\"Lab-AI (Part-1)".pdf
-start "" c:\jlai\"Lab-AI (Part-2)".pdf
-start "" c:\jlai\"Lab-AI (Part-3)".pdf
+REM The `docker-compose.yml` file runs both a `Jupyter Lab` and a `Pluto` services, and allows to run `Julia` from within the `Jupyter Notebook`.
 
-::LAUNCH CHROME
+start "" "Lab-AI (Part-1)".pdf
+start "" "Lab-AI (Part-2)".pdf
+start "" "Lab-AI (Part-3)".pdf
+
+REM LAUNCH CHROME
+REM Run `pluto` on port `1234`
+:: start chrome /incognito 192.168.99.100:1234
+REM Run `Jupyter Lab` on port `2468`
 start chrome /incognito 192.168.99.100:2468
-::START DOCKER DEAMON
+REM START DOCKER DEAMON
 docker-machine start
-::Destroy the container to liberate port.
+REM Destroy the containers to liberate ports.
 docker-compose down
-::Start a new container
+REM Start new containers
 docker-compose up -d
-::RUN A CONTAINER "raia" FROM IMAGE "jlai"
-:: `docker run --rm --name raia -d -p 2468:2468 jlai`
-::EXIT UPON COMPLETION
+REM RUN A CONTAINER "raia" FROM IMAGE "abmhamdi/jlai"
+:: `docker run --rm --name raia -d -p 2468:2468 abmhamdi/jlai`
+REM EXIT UPON COMPLETION
 exit
+
