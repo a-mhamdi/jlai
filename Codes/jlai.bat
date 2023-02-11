@@ -17,8 +17,12 @@ REM Destroy the containers to liberate ports.
 docker-compose down
 REM Start new containers
 docker-compose up -d
+
+echo Please, type `docker-compose down` before leaving.
+
 REM RUN A CONTAINER "raia" FROM IMAGE "abmhamdi/jlai"
 :: `docker run --rm --name raia -d -p 2468:2468 abmhamdi/jlai`
+
 REM EXIT UPON COMPLETION
-exit
+:: exit
 
