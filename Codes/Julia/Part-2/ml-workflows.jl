@@ -9,7 +9,7 @@ using CSV, DataFrames
 using MLJ
 
 md"Import Data From CSV File"
-df = CSV.read("../../Datasets/Data.csv", DataFrame)
+df = CSV.read("../Datasets/Data.csv", DataFrame)
 describe(df)
 nrow(df), ncol(df)
 schema(df)
@@ -21,6 +21,7 @@ df_coerced = coerce(df,
     :Salary => Continuous,
     :Purchased => Multiclass);
 schema(df_coerced)
+
 md"Missing Values Imputation"
 imputer = FillImputer()
 mach = machine(imputer, df_coerced) |> fit!
@@ -33,10 +34,11 @@ df_imputed = machine(imputer, df_coerced) |> fit! |> MLJ.transform
 
 md"Features & Target Selection"
 X_imputed = select(df_imputed,
-    :Country,#__France, :Country__Germany, :Country__Spain, # levels(df.Country)
+    :Country, # __France, :Country__Germany, :Country__Spain, # levels(df.Country)
     :Age,
     :Salary)
 y_imputed = select(df_imputed, :Purchased)
+
 md"Feature Encoding"
 encoder_X = ContinuousEncoder()
 encoder_y = ContinuousEncoder(drop_last=true)
@@ -52,16 +54,20 @@ X = machine(encoder_X, X_imputed) |> fit! |> MLJ.transform
 y = machine(encoder_y, y_imputed) |> fit! |> MLJ.transform
 schema(X)
 schema(y)
+
 md"Split Data To Train & Test Sets"
 (Xtrain, Xtest), (ytrain, ytest) = partition((X, y), .8, rng=123, multi=true);
+
 md"Standardizer"
-sc = Standardizer()
-mach_age = machine(sc, Xtrain.Age) |> fit! 
-Xtrain.Age = MLJ.transform(mach_age, Xtrain.Age) 
-Xtest.Age = MLJ.transform(mach_age, Xtest.Age) 
-mach_salary = machine(sc, Xtrain.Salary) |> fit! 
-Xtrain.Salary = MLJ.transform(mach_salary, Xtrain.Salary) 
-Xtest.Salary = MLJ.transform(mach_salary, Xtest.Salary) 
+sc_ = Standardizer()
+
+sc_age = machine(sc_, Xtrain.Age) |> fit! 
+Xtrain.Age = MLJ.transform(sc_age, Xtrain.Age) 
+Xtest.Age = MLJ.transform(sc_age, Xtest.Age) 
+
+sc_salary = machine(sc_, Xtrain.Salary) |> fit! 
+Xtrain.Salary = MLJ.transform(sc_salary, Xtrain.Salary) 
+Xtest.Salary = MLJ.transform(sc_salary, Xtest.Salary) 
 
 #=
 vscodedisplay(Xtrain), vscodedisplay(Xtest)

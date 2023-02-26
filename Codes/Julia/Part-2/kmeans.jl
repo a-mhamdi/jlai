@@ -12,26 +12,33 @@ using Plots; # unicodeplots()
 using MLJ
 
 md"Load Data From CSV File"
-df = CSV.read("../../Datasets/Mall_Customers.csv", DataFrame);
+df = CSV.read("../Datasets/Mall_Customers.csv", DataFrame);
 schema(df)
 first(df, 5)
+
 md"Features"
 income, ss = df[!, 4], df[!, 5];
 X = hcat(ss, income);
 typeof(X)
+
 md"Take a Loot @ Data"
 scatter(income, ss, legend=false)
+
 md"Load & Instantiate `KMeans` Object"
 KMeans = @load KMeans pkg=Clustering
-kmeans = KMeans(k=5)
+kmeans_ = KMeans(k=5)
+
 md"Train & Regroup Into Clusters"
-mach = machine(kmeans, table(X)) |> fit!
+kmeans = machine(kmeans_, table(X)) |> fit!
+
 md"Clusters & Centroids"
-clusters = predict(mach);
-centroids = permutedims(mach.fitresult[1]);
+clusters = predict(kmeans);
+centroids = permutedims(kmeans.fitresult[1]);
+
 md"Extract Clusters Values"
 using CategoricalArrays
 y = levelcode.(clusters);
+
 md"Scatter Plots"
 scatter(ss, income, marker_z=y, color=:winter, legend=false)
 scatter!(centroids[:,1], centroids[:,2], color=:red, labels=["1" "2" "3" "4" "5"])
