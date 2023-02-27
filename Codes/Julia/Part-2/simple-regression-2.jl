@@ -28,9 +28,11 @@ lr_ = LR()
 md"Train & Fit"
 lr = machine(lr_, Tables.table(xtrain), ytrain) |> fit!
 
+md"Fitted Parameters"
+fitted_params(lr)
+
 md"Prediction"
 yhat = predict(lr, Tables.table(xtest))
 
-md"Results & Metrics"
-fitted_params(lr)
+md"Metric"
 println("Error is $(sum( (yhat .- ytest).^2 ))")
