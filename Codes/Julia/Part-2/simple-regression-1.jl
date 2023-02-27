@@ -1,6 +1,7 @@
 ##############################
 #= SIMPLE LINEAR REGRESSION =#
 ##############################
+# SALARY vs. YEARSEXPERIENCE #
 
 using Markdown
 

@@ -1,6 +1,7 @@
 #######################
 #= LINEAR REGRESSION =#
 #######################
+#  WEIGHT vs. HEIGHT  #
 
 using Markdown
 
