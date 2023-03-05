@@ -16,6 +16,10 @@ md"Unpacking Features & Target"
 x = df.Height
 y = df.Weight
 
+md"Scatter Plot of `Weight` vs. `Height`"
+using Plots
+scatter(x, y, label=:none, title="Weight vs. Height")
+
 md"Preparing The Split"
 train, test = partition(eachindex(y), 0.8, shuffle=true, rng=123)
 xtrain, xtest = x[train], x[test]
@@ -35,4 +39,7 @@ md"Prediction"
 yhat = predict(lr, Tables.table(xtest))
 
 md"Metric"
-println("Error is $(sum( (yhat .- ytest).^2 ))")
+println("Error is $(sum( (yhat .- ytest).^2 ) ./ length(ytest) )")
+
+scatter(xtest, ytest, label=:none)
+scatter!(xtest, yhat, label=:none)
