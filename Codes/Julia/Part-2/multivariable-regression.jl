@@ -1,6 +1,6 @@
-################################
-#= MULTIPLE LINEAR REGRESSION =#
-################################
+#####################################
+#= MULTIVARIABLE LINEAR REGRESSION =#
+#####################################
 
 using Markdown
 
@@ -36,10 +36,10 @@ lr_ = LR()
 
 md"Train & Fit"
 lr = machine(lr_, Xtrain, ytrain) |> fit!
-println("Params of fitted model are $(fitted_params(mach))")
+println("Params of fitted model are $(fitted_params(lr))")
 
 md"Prediction"
 yhat = predict(lr, Xtest)
 
 md"Results & Metrics"
-println("Error is $(sum( (yhat .- ytest).^2 ))")
+println("Error is $(sum((yhat .- ytest).^2) ./ length(ytest))")

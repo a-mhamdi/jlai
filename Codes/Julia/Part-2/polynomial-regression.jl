@@ -41,7 +41,7 @@ params = fitted_params(lr)
 
 md"Predict & Measure The Error"
 yhat = predict(lr, table(Xtest))
-println("Error is $(sum(( yhat.- ytest ).^2))")
+println("Error is $(sum(( yhat.- ytest ).^2) ./ length(ytest) )")
 
 md"Plot & Compare"
 using LaTeXStrings
