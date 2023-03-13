@@ -20,9 +20,12 @@ md"Stocastic Gradient Descent"
 \alpha = .3
 \theta = [1; .5]
 n = 5
+for _ in 1:1000
 for i in 1:5
+
 	\theta = \theta + \alpha*( y[i] - X[i, :]' * \theta ) * X[i, :] 
 	println("\theta is $(\theta))"
+end
 end
 
 md"Batch Gradient Descent"
