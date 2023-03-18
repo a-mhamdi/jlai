@@ -3,33 +3,44 @@
 ###########################################
 
 using Markdown
-md"*NORMAL EQUATION*"
+md"**NORMAL EQUATION**"
 
-md"Matrix of features"
-X = [1,0; 1,25; 1,50; 1,75; 1,100]
+md"Features matrix"
+X = [1 0; 1 25; 1 50; 1 75; 1 100]
 
 md"Target vector"
 y = [14, 38, 54, 76, 95]
 
-md"Estimated \theta"
-\theta = (X'*X)\X'*y 
+md"Estimated θ"
+θ = (X' * X) \ X' * y
 
-md"*GRADIENT DESCENT*"
-md"Stocastic Gradient Descent"
+md"**GRADIENT DESCENT**"
+using Random
+using Plots
 
-\alpha = .3
-\theta = [1; .5]
-n = 5
-for _ in 1:1000
-for i in 1:5
-
-	\theta = \theta + \alpha*( y[i] - X[i, :]' * \theta ) * X[i, :] 
-	println("\theta is $(\theta))"
+md"*Stocastic Gradient Descent (SGD)*"
+α, n, θ = 0.0003, 5, [10; .5]
+J = []
+for _ in 1:1_000 # RUN IT MULTIPLE TIMES TO CONVERGE
+    for i in shuffle(1:5)
+		cost = ( y[i] - X[i, :]' * θ )^2
+		push!(J, cost);
+        θ += α * (y[i] - X[i, :]' * θ) * X[i, :]
+        println("θ is $(θ)")
+    end
 end
+
+plot(J)
+
+md"*Batch Gradient Descent*"
+α, n, θ = 0.0003, 5, [10; .5]
+J = []
+for _ in 1:1_000
+    ϵ = (y-X*θ)[:, 1]
+    cost = (2*n)\ ϵ'*ϵ
+	push!(J, cost)
+    θ += n\α * sum((y - X * θ) .* X, dims=1)'
+    println("θ is $(θ)")
 end
 
-md"Batch Gradient Descent"
-for _ in 1:1000
-	\theta = \theta + \alpha/n*sum( ( y - X * \theta ) .* X , dims=1)
-	J = sum( (y - X * \theta ) .^ 2 ) ./ (2*n)	 
-end
+plot(J)
