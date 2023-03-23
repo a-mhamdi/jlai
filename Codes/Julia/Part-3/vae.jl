@@ -5,6 +5,7 @@
 using Markdown
 md"VAE implemented in `Julia` using the `Flux.jl` library"
 
+using DrWatson: struct2dict
 using BSON
 
 md"Import the machine learning library `Flux`" 
@@ -22,12 +23,12 @@ Base.@kwdef mutable struct Args
     η = 3f-3                # Learning rate
     λ = 1f-2                # Regularization parameter
     batchsize = 64          # Batch size
-    epochs = 8              # Number of epochs
+    epochs = 16             # Number of epochs
     split = :train          # Split data into `train` and `test`
     input_dim = 28*28       # Input dimension
     hidden_dim = 512        # Hidden dimension
     latent_dim = 2          # Latent dimension
-    save_path = "Output"    # Results folder
+    save_path = "Part-3/Output"    # Results folder
 end
 
 md"Load the **MNIST** dataset"
@@ -120,15 +121,14 @@ function train(; kws...)
         end
     end
     
-    #=
     md"Save the model"
     mdl_path = joinpath(args.save_path, "vae.bson")
-    let encoder=enc_mdl, decoder=dec_mdl, args=struct2dict(args)
+    let args=struct2dict(args)
     	BSON.@save mdl_path encoder decoder args
     	@info "Model saved to $(mdl_path)"
     end
-    =#
+    
     enc_mdl, dec_mdl
 end
 
-a, b = train()
+enc_model, dec_model = train()
