@@ -6,7 +6,7 @@ using Markdown
 md"Handwritten digits classification using **CNN**. This solution is implemented in `Julia` using the `Flux.jl` library"
 
 using Statistics
-using ProgressMeter
+using ProgressMeter: Progress, next!
 using Plots
 
 md"Import the machine learning library `Flux`" 
@@ -18,17 +18,17 @@ using MLDatasets
 d = MNIST()
 
 Base.@kwdef mutable struct Args
-    η = 3e-3                # Learning rate
+    η = 3f-3                # Learning rate
     batchsize = 64          # Batch size
-    epochs = 8             # Number of epochs
+    epochs = 8              # Number of epochs
     split = :train          # Split data into `train` and `test`
 end
 
 md"Load the **MNIST** dataset"
 function get_data(; kws...)
     args = Args(; kws...);
-    data = MNIST(split=args.split);
     md"Split and normalize data"
+    data = MNIST(split=args.split);
     X, y = data.features ./ 255, data.targets;
     X = reshape(X, (28, 28, 1, :));
     y = onehotbatch(y, 0:9);
@@ -78,18 +78,24 @@ function train(; kws...)
     for epoch in 1:args.epochs
         printstyled("\t***\t === EPOCH $(epoch) === \t*** \n", color=:magenta, bold=true)
         @info "TRAINING"
-        @showprogress for (X, y) in train_loader
+        prg_train = Progress(length(train_loader))
+        for (X, y) in train_loader
             loss, grads = Flux.withgradient(model) do m
                 ŷ = m(X);
                 l(ŷ, y);
             end
             Flux.update!(optim_state, model, grads[1]); # Upd `W` and `b`
+				# Show progress meter
+            next!(prg_train, showvalues=[(:loss, loss)])
         end
         @info "TESTING"
-        @showprogress for (X, y) in test_loader
+        prg_test = Progress(length(test_loader))
+        for (X, y) in test_loader
             ŷ = model(X);
             push!(vec_loss, l(ŷ, y));  # log `loss` value -> `vec_loss` vector
-            push!(vec_acc, acc(ŷ, y)); # log `acc` value -> `vec_acc` vector
+            push!(vec_acc, acc(ŷ, y)); # log `accuracy` value -> `vec_acc` vector
+          	# Show progress meter
+            next!(prg_test, showvalues=[(:loss, vec_loss[end]), (:accuracy, vec_acc[end])])
         end
     end
     return vec_loss, vec_acc     
@@ -98,7 +104,7 @@ end
 vec_loss, vec_acc = train()
 
 # Plot results
-plot(vec_loss, label="Training Loss")
+plot(vec_loss, label="Test Loss")
 plot(vec_acc, label="Test Accuracy")
 
 # Let's make some predictions
@@ -106,5 +112,5 @@ idx = rand(1:1000, 16)
 xs, ys = test_loader.data[1][:,:,:,idx], onecold(test_loader.data[2][:, idx]) .- 1
 yp = onecold(model(xs)) .- 1
 for i in 1:length(yp)
-    @info  "**Predicted is $(yp[i]). Label is $(ys[i]).**"
+    @info "**Prediction is $(yp[i]). Label is $(ys[i]).**"
 end
