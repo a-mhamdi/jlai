@@ -71,30 +71,28 @@ decoder(input_dim::Int, hidden_dim::Int, latent_dim::Int) = Chain(
 )
 
 md"Reconstruction of the input data"
-function vae(X, enc, dec)
-    # Encode `X` into the latent space
-    μ, log_σ = enc(X)
-    # `Z` si a sample from the latent distribution
-    Z = μ + randn(Float32, size(log_σ)) .* exp.(log_σ)
-    # Decode the latent representation into a reconstruction of `X`
-    x̂ = dec(Z)
+function vae(x, enc, dec)
+    # Encode `x` into the latent space
+    μ, log_σ = enc(x)
+    # `z` si a sample from the latent distribution
+    z = μ + randn(Float32, size(log_σ)) .* exp.(log_σ)
+    # Decode the latent representation into a reconstruction of `x`
+    x̂ = dec(z)
     # Return μ, log_σ and x̂
     μ, log_σ, x̂
 end
 
-function l(X, enc, dec)
-    μ, log_σ, x̂ = vae(X, enc, dec)
-    len = size(X)[end]
+function l(x, enc, dec, λ)
+    μ, log_σ, x̂ = vae(x, enc, dec)
+    len = size(x)[end]
     # The reconstruction loss measures how well the VAE was able to reconstruct the input data
     logp_x_z = -Flux.logitbinarycrossentropy(x̂, x, agg=sum) / len
     # The KL divergence loss measures how close the latent distribution is to the prior distribution
     kl_q_p = 5f-1 * sum(@. (exp(2f0 * log_σ) + μ^2 - 1f0 - 2f0 * log_σ)) / len
-    #=
     # L2 Regularization
-    reg = args.λ * sum(x->sum(x.^2), Flux.params(decoder))
-    =#
+    reg = λ * sum(x->sum(x.^2), Flux.params(dec))
     # Sum of the reconstruction loss and the KL divergence loss
-    -logp_x_z + kl_q_p # + reg
+    -logp_x_z + kl_q_p + reg
 end
 
 function train(; kws...)
@@ -113,7 +111,7 @@ function train(; kws...)
         progress = Progress(length(train_loader))
         for X in train_loader
                 loss, back = Flux.pullback(enc_mdl, dec_mdl) do enc, dec
-                    l(X, enc, dec)
+                    l(X, enc, dec, args.λ)
                 end
                 grad_enc, grad_dec = back(1f0)
                 Flux.update!(opt_enc, enc_mdl, grad_enc) # Upd `encoder` params
