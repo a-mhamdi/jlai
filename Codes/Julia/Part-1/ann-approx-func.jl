@@ -12,16 +12,20 @@ using Random
 md"`Plots` to plot values of the loss function."
 using Plots
 
-n, η, epochs = 256, .01, 10
-α, β = 3, 2
+n, η, epochs = 512, 1f-2, 16
+α, β = 32f-1, -23f-1
+
 md"Generate some synthetic data" 
-x = rand(n)
+x = 5 .+ randn(Float32, n)
 y = α .* x .+ β
+
 md"Construct the **SLP**: single neuron, *(i.e, 1 input, 1 output)*"
 f = Dense( 1 => 1, relu)
 f.weight, f.bias
+
 md"Setup the optimizer and train the **SLP**"
 st = Flux.setup(Adam(η), f)
+
 vec_loss = []
 for epoch in 1:epochs
     println("Epoch # $epoch")
@@ -33,8 +37,10 @@ for epoch in 1:epochs
         Flux.update!(st, f, ∇[1]);
         push!(vec_loss, loss)
     end
-    println("Coefficient ̂α is $(f.weight[1])")
-    println("Coefficient ̂β is $(f.bias[1])")
+
+    println("Coefficient α̂ is $(f.weight[1])")
+    println("Coefficient β̂ is $(f.bias[1])")
 end
+
 md"Plot the loss vector `vec_loss`"
 plot(1:n*epochs, vec_loss, legend=false, title="Loss Function J")
