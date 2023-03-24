@@ -87,9 +87,9 @@ function l(x, enc, dec, λ)
     μ, log_σ, x̂ = vae(x, enc, dec)
     len = size(x)[end]
     # The reconstruction loss measures how well the VAE was able to reconstruct the input data
-    logp_x_z = -Flux.logitbinarycrossentropy(x̂, x, agg=sum) / len
-    # The KL divergence loss measures how close the latent distribution is to the prior distribution
-    kl_q_p = 5f-1 * sum(@. (exp(2f0 * log_σ) + μ^2 - 1f0 - 2f0 * log_σ)) / len
+    logp_x_z = -Flux.Losses.logitbinarycrossentropy(x̂, x, agg=sum) / len
+    # The KL divergence loss measures how close the latent distribution is to the normal distribution
+    kl_q_p = 5f-1 * sum(@. (-2f0 * log_σ - 1f0 + exp(2f0 * log_σ) + μ^2)) / len
     # L2 Regularization
     reg = λ * sum(x->sum(x.^2), Flux.params(dec))
     # Sum of the reconstruction loss and the KL divergence loss
