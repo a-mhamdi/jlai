@@ -16,7 +16,7 @@ md"Unpacking Data"
 x, y = unpack(df,
     ==(:EstimatedSalary),           # `x` is the :EstimatedSalary Column
     ==(:Purchased);                 # `y` is the :Purchased Column
-    :EstimatedSalary => Continuous, # Correcting Wrong Scitypes
+    :EstimatedSalary => Continuous, # Updating Scitypes
     :Purchased => Multiclass)
     
 md"Splitting Data into Train and Test"
