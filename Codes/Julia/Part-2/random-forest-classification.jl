@@ -6,7 +6,6 @@ using Markdown
 
 md"Import Librairies"
 using CSV, DataFrames
-using Plots; # unicodeplots()
 using MLJ
 
 md"Read Dataset => `df`"
