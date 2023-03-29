@@ -31,5 +31,7 @@ KNN = @load KNNClassifier pkg=NearestNeighborModels
 knn_ = KNN(K=3)
 knn = machine(knn_, x, y) |> fit!
 
+md"You may want to see [NearestNeighborModels.jl](https://github.com/JuliaAI/NearestNeighborModels.jl) and the unwrapped model type [`NearestNeighborModels.KNNClassifier`](@ref)."
+
 md"Evaluate Model"
 evaluate!(knn)
