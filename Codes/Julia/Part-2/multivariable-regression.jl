@@ -34,6 +34,8 @@ md"Load & Instantiate The Linear Regressor Model"
 LR = @load LinearRegressor pkg=MLJLinearModels
 lr_ = LR()
 
+md"You may want to see [MLJLinearModels.jl](https://github.com/JuliaAI/MLJLinearModels.jl) and the unwrapped model type [`MLJLinearModels.LinearRegressor`](@ref)."
+
 md"Train & Fit"
 lr = machine(lr_, Xtrain, ytrain) |> fit!
 println("Params of fitted model are $(fitted_params(lr))")
