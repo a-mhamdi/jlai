@@ -34,7 +34,7 @@ df_imputed = machine(imputer, df_coerced) |> fit! |> MLJ.transform
 
 md"Features & Target Selection"
 X_imputed = select(df_imputed,
-    :Country, # __France, :Country__Germany, :Country__Spain, # levels(df.Country)
+    :Country, # :Country__France, :Country__Germany, :Country__Spain, # levels(df.Country)
     :Age,
     :Salary)
 y_imputed = select(df_imputed, :Purchased)
