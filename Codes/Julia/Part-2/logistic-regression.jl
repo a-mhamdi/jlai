@@ -34,6 +34,8 @@ md"Load The `LogisticClassifier` & Bind It To `lc`"
 LC = @load LogisticClassifier pkg=MLJLinearModels
 lc_ = LC()
 
+md"You may want to see [MLJLinearModels.jl](https://github.com/JuliaAI/MLJLinearModels.jl) and the unwrapped model type [`MLJLinearModels.LogisticClassifier`](@ref)."
+
 md"Train The Logistic Classifier"
 lc = machine(lc_, Xtrain, ytrain) |> fit!
 
