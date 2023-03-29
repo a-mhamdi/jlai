@@ -44,3 +44,5 @@ for _ in 1:1_000
 end
 
 plot(J)
+
+md"TO DO: Add Regularization Term To Cost Function"
