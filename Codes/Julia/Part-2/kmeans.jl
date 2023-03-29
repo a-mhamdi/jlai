@@ -28,6 +28,8 @@ md"Load & Instantiate `KMeans` Object"
 KMeans = @load KMeans pkg=Clustering
 kmeans_ = KMeans(k=5)
 
+md"You may want to see [Clustering.jl](https://github.com/JuliaStats/Clustering.jl) and the unwrapped model type [`Clustering.KMeans`](@ref)."
+
 md"Train & Regroup Into Clusters"
 kmeans = machine(kmeans_, table(X)) |> fit!
 
