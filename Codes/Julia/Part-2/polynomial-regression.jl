@@ -27,7 +27,7 @@ md"Load Linear Regressor"
 LR = @load LinearRegressor pkg=MLJLinearModels
 lr_ = LR()
 
-md"Features Scaling"
+md"Add Extra Features & Scaling"
 sc_ = Standardizer()
 for i in 1:n
     sc = machine(sc_, x.Level[train].^i) |> fit!
