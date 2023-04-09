@@ -13,22 +13,22 @@ df = CSV.read("../Datasets/Social_Network_Ads.csv", DataFrame)
 schema(df)
 
 md"Unpack Features & Target"
-y, features = unpack(df,
-    ==(:Purchased),
-    !=(:Age);
-    :EstimatedSalary => Continuous,
-    :Purchased => Multiclass)
+target, features = unpack(df,
+                            ==(:Purchased),
+                            !=(:Age);
+                            :EstimatedSalary => Continuous,
+                            :Purchased => Multiclass)
 
 md"Split The Data Into Train & Test Sets"
-train, test = partition(eachindex(y), 0.8, rng=123)
-Xtrain, Xtest = Tables.table(features[train, :]), Tables.table(features[test, :])
-ytrain, ytest = y[train], y[test]
+train, test = partition(eachindex(target), 0.8, rng=123)
+xtrain, xtest = table(features[train, :]), table(features[test, :])
+ytrain, ytest = target[train], target[test]
 
 md"Standardizer"
-sc = Standardizer()
-mach = machine(sc, Xtrain) |> fit!
-Xtrain = MLJ.transform(mach, Xtrain);
-Xtest = MLJ.transform(mach, Xtest);
+sc_ = Standardizer()
+sc = machine(sc_, xtrain) |> fit!
+Xtrain = MLJ.transform(sc, xtrain);
+Xtest = MLJ.transform(sc, xtest);
 
 md"Load The `LogisticClassifier` & Bind It To `lc`"
 LC = @load LogisticClassifier pkg=MLJLinearModels
@@ -37,14 +37,23 @@ lc_ = LC()
 md"You may want to see [MLJLinearModels.jl](https://github.com/JuliaAI/MLJLinearModels.jl) and the unwrapped model type [`MLJLinearModels.LogisticClassifier`](@ref)."
 
 md"Train The Logistic Classifier"
-lc = machine(lc_, Xtrain, ytrain) |> fit!
+lc = machine(lc_, xtrain, ytrain) |> fit!
 
-md"Predict The `Xtest`"
-yhat = predict_mode(lc, Xtest);
+md"Predict The `xtest`"
+yhat = predict_mode(lc, xtest);
 
 md"Accuracy"
 acc = mean( yhat .== ytest);
 println("Accuracy is about $(round(100*acc))%")
 
-md"Evaluation"
+md"Confusion Matrix"
+confusion_matrix(yhat, ytest)
+
+md"Evaluation Metrics"
+accuracy(yhat, ytest)
+precision(yhat, ytest)
+recall(yhat, ytest)
+f1score(yhat, ytest)
+
+md"Estimate the performance of `lc`"
 evaluate!(lc)
