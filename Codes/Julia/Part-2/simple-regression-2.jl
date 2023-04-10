@@ -12,7 +12,7 @@ using MLJ
 md"Load the dataset"
 df = CSV.read("../Datasets/Weight_Height.csv", DataFrame)
 
-md"Unpacking Features & Target"
+md"Unpacking features & target"
 x = df.Height
 y = df.Weight
 
@@ -20,19 +20,19 @@ md"Scatter Plot of `Weight` vs. `Height`"
 using Plots
 scatter(x, y, label=:none, title="Weight vs. Height")
 
-md"Preparing The Split"
+md"Split the data"
 train, test = partition(eachindex(y), 0.8, shuffle=true, rng=123)
 xtrain, xtest = x[train], x[test]
 ytrain, ytest = y[train], y[test]
 
-md"Load & Instantiate The Linear Regressor Object"
+md"Load & instantiate the linear regression Object"
 LR = @load LinearRegressor pkg=MLJLinearModels
 lr_ = LR()
 
-md"Train & Fit"
+md"Train & fit"
 lr = machine(lr_, Tables.table(xtrain), ytrain) |> fit!
 
-md"Fitted Parameters"
+md"Fitted parameters"
 fitted_params(lr)
 
 md"Prediction"
