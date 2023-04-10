@@ -8,18 +8,18 @@ md"This an example of how we implemented an `SVM` in _Julia_ for classification 
 using CSV, DataFrames
 using MLJ
 
-md"Load Data"
+md"Load data"
 df = CSV.read("../Datasets/Social_Network_Ads.csv", DataFrame)
 schema(df)
 
-md"Unpacking Data"
+md"Unpacking data"
 features, target = unpack(df,
                             ==(:EstimatedSalary),           # `x` is the :EstimatedSalary Column
                             ==(:Purchased);                 # `y` is the :Purchased Column
                             :EstimatedSalary => Continuous, # Updating Scitypes
                             :Purchased => Multiclass)
     
-md"Split The Data Into Train & Test Sets"
+md"Split the data into train & test sets"
 train, test = partition(eachindex(target), 0.8, rng=123)
 xtrain, xtest = table(features[train, :]), table(features[test, :])
 ytrain, ytest = target[train], target[test]
