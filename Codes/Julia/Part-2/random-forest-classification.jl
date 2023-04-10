@@ -4,33 +4,33 @@
 
 using Markdown
 
-md"Import Librairies"
+md"Import librairies"
 using CSV, DataFrames
 using MLJ
 
-md"Read Dataset => `df`"
+md"Read dataset -> `df`"
 df = CSV.read("../Datasets/Social_Network_Ads.csv", DataFrame)
 
-md"Unpack Data"
+md"Unpack data"
 features, target = unpack(df,
                           ==(:EstimatedSalary),
                           ==(:Purchased);
                           :EstimatedSalary => Continuous,
                           :Purchased => Multiclass)
 
-md"Scatter Plot"
+md"Scatter plot"
 scatter(features, target; group=target, legend=false)
 
-md"Convert Data"
+md"Convert data to tabular format"
 x = Tables.table(features);
 y = target;
 
-md"Bind An Instance `rfc_` Model To Training Data"
+md"Bind an instance `rfc_` model to training data"
 RFC = @load RandomForestClassifier pkg=DecisionTree
 rfc_ = RFC(max_depth=5, min_samples_split=3)
 rfc = machine(rfc_, x, y) |> fit!
 
 md"You may want to see [DecisionTree.jl](https://github.com/bensadeghi/DecisionTree.jl) and the unwrapped model type [`MLJDecisionTreeInterface.DecisionTree.RandomForestClassifier`](@ref)."
 
-md"Evaluate Model"
+md"Evaluate the model"
 evaluate!(rfc)
