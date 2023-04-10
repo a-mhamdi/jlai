@@ -6,45 +6,48 @@ using Markdown
 
 md"Import librairies"
 using CSV, DataFrames
-using Plots; # unicodeplots()
 using MLJ
 
-md"Read dataset -> `df`"
+md"Read data from CSV file"
 df = CSV.read("../Datasets/Social_Network_Ads.csv", DataFrame)
+schema(df)
 
-md"Unpack data"
-features, target = unpack(df,
-                            ==(:EstimatedSalary),
-                            ==(:Purchased);
-                            :EstimatedSalary => Continuous,
-                            :Purchased => Multiclass)
+coerce!(df, 
+        :Age => Continuous,
+        :EstimatedSalary => Continuous,
+        :Purchased => Multiclass)
+schema(df)
+
+md"Unpack features & target"
+target, features = unpack(df, ==(:Purchased))
 
 md"Scatter plot"
-scatter(features, target; group=target, legend=false)
+using Plots
+scatter(features.Age, features.EstimatedSalary; group=target)
 
 md"Split the data into train & test sets"
 train, test = partition(eachindex(target), 0.8, rng=123)
-xtrain, xtest = table(features[train, :]), table(features[test, :])
+Xtrain, Xtest = features[train, :], features[test, :]
 ytrain, ytest = target[train], target[test]
 
-md"Find nearest neighbors"
+md"Standardizer"
+sc_ = Standardizer()
+
+md"Load a knn classifier, w/ # neighbors = 3"
 KNN = @load KNNClassifier pkg=NearestNeighborModels
 knn_ = KNN(K=3)
-knn = machine(knn_, xtrain, ytrain) |> fit!
 
 md"You may want to see [NearestNeighborModels.jl](https://github.com/JuliaAI/NearestNeighborModels.jl) and the unwrapped model type [`NearestNeighborModels.KNNClassifier`](@ref)."
 
-md"Make predictions on `xtest`"
-yhat = predict_mode(knn, xtest)
+md"Fit a pipeline to the training data"
+pipe_ = Pipeline(sc_, knn_)
+pipe = machine(pipe_, Xtrain, ytrain) |> fit!
 
-md"Confusion matrix"
-confusion_matrix(yhat, ytest)
+md"Let's make some predictions"
+ŷ = predict_mode(pipe, Xtest)
 
-md"Evaluation the model's performances"
-accuracy(yhat, ytest)
-precision(yhat, ytest)
-recall(yhat, ytest)
-f1score(yhat, ytest)
+md"Confusion Matrix"
+confusion_matrix(ŷ, ytest)
 
-md"Estimate the performance of `knn`"
-evaluate!(knn)
+md"We can estimate the performance of `pipe` through the `evaluate!` command."
+evaluate!(pipe, operation=predict_mode, measures=[accuracy, precision, recall, f1score])
