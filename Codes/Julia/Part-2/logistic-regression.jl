@@ -21,6 +21,10 @@ schema(df)
 md"Unpack features & target"
 target, features = unpack(df, ==(:Purchased))
 
+md"Scatter plot"
+using Plots
+scatter(features.Age, features.EstimatedSalary; group=target)
+
 md"Split the data into train & test sets"
 train, test = partition(eachindex(target), 0.8, rng=123)
 Xtrain, Xtest = features[train, :], features[test, :]
