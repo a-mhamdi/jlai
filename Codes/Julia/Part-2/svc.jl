@@ -3,45 +3,51 @@
 ###############################################
 
 using Markdown
+
 md"This an example of how we implemented an `SVM` in _Julia_ for classification task using the `LIBSVM` package interfacing with `MLJ` module."
 
+md"Import librairies"
 using CSV, DataFrames
 using MLJ
 
-md"Load data"
+md"Read data from CSV file"
 df = CSV.read("../Datasets/Social_Network_Ads.csv", DataFrame)
 schema(df)
 
-md"Unpacking data"
-features, target = unpack(df,
-                            ==(:EstimatedSalary),           # `x` is the :EstimatedSalary Column
-                            ==(:Purchased);                 # `y` is the :Purchased Column
-                            :EstimatedSalary => Continuous, # Updating Scitypes
-                            :Purchased => Multiclass)
-    
+coerce!(df, 
+        :Age => Continuous,
+        :EstimatedSalary => Continuous,
+        :Purchased => Multiclass)
+schema(df)
+
+md"Unpack features & target"
+target, features = unpack(df, ==(:Purchased))
+
+md"Scatter plot"
+using Plots
+scatter(features.Age, features.EstimatedSalary; group=target)
+
 md"Split the data into train & test sets"
 train, test = partition(eachindex(target), 0.8, rng=123)
-xtrain, xtest = table(features[train, :]), table(features[test, :])
+Xtrain, Xtest = features[train, :], features[test, :]
 ytrain, ytest = target[train], target[test]
+
+md"Standardizer"
+sc_ = Standardizer()
 
 md"Import SVC and bind it to SVM"
 SVM = @load SVC pkg=LIBSVM
-svm_ = SVM()
+svm_ = SVM() # If you want to change the `kernel`, please install `LIBSVM` pkg.
 
-md"Train the classifier on the training data"
-svm = machine(svm_, xtrain, ytrain) |> fit!
+md"Fit a pipeline to the training data"
+pipe_ = Pipeline(sc_, svm_)
+pipe = machine(pipe_, Xtrain, ytrain) |> fit!
 
-md"Use the trained classifier to make predictions on the test data"
-yhat = predict(svm, xtest)
+md"Let's make some predictions"
+ŷ = predict(pipe, Xtest)
 
 md"Confusion Matrix"
-confusion_matrix(yhat, ytest)
+confusion_matrix(ŷ, ytest)
 
-md"Evaluation the model's performances"
-accuracy(yhat, ytest)
-precision(yhat, ytest)
-recall(yhat, ytest)
-f1score(yhat, ytest)
-
-md"Estimate the performance of `svm`"
-evaluate!(svm)
+md"We can estimate the performance of `pipe` through the `evaluate!` command."
+evaluate!(pipe, operation=predict, measures=[accuracy, precision, recall, f1score])
