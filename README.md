@@ -20,6 +20,8 @@ This may take a while, as it will download and install all necessary dependencie
 * ```docker-compose up``` starts the container
 * ```docker-compose down``` stops and destroys the container
 
+Services can be run by typing the command `docker compose up`. This will start the `Jupyter Lab` on [http://localhost:2468](http://localhost:2468) and you should be able to use `Julia` from within the notebook by starting a new `Julia` notebook. You can parallelly start `Pluto` on [http://localhost:1234](http://localhost:1234).
+
 ### Included Algorithms
 The repository includes implementation of the following algorithms:
 >1. Linear Regression, Logistic Regression, k-NN, SVM, K-MEANS
