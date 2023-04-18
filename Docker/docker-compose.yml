@@ -5,7 +5,7 @@ services:
   image: abmhamdi/jlai
   ports:
    - "2468:2468"
-  command: /home/mhamdi/.julia/conda/3/bin/jupyter lab --NotebookApp.token='' --ip 0.0.0.0 --port 2468 --allow-root --no-browser
+  command: /home/mhamdi/.julia/conda/3/x86_64/bin/jupyter lab --NotebookApp.token='' --ip 0.0.0.0 --port 2468 --allow-root --no-browser
  pluto:
   image: abmhamdi/jlai
   ports:
