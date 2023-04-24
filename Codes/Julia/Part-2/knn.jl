@@ -15,7 +15,7 @@ schema(df)
 coerce!(df, 
         :Age => Continuous,
         :EstimatedSalary => Continuous,
-        :Purchased => Multiclass)
+        :Purchased => OrderedFactor)
 schema(df)
 
 md"Unpack features & target"
