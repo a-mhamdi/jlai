@@ -34,13 +34,11 @@ md"Train & regroup into clusters"
 kmeans = machine(kmeans_, table(X)) |> fit!
 
 md"Clusters & centroids"
-clusters = predict(kmeans);
-centroids = permutedims(kmeans.fitresult[1]);
+centroids = fitted_params(kmeans).centers
 
 md"Extract clusters values"
-using CategoricalArrays
-y = levelcode.(clusters);
+y = report(kmeans).assignments
 
 md"Scatter plots"
 scatter(ss, income, marker_z=y, color=:winter, legend=false)
-scatter!(centroids[:,1], centroids[:,2], color=:red, labels=["1" "2" "3" "4" "5"])
+scatter!(centroids[1,:], centroids[2,:], color=:red, labels=["1" "2" "3" "4" "5"])
