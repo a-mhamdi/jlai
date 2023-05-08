@@ -41,4 +41,4 @@ y = report(kmeans).assignments
 
 md"Scatter plots"
 scatter(ss, income, marker_z=y, color=:winter, legend=false)
-scatter!(centroids[1,:], centroids[2,:], color=:red, labels=["1" "2" "3" "4" "5"])
+scatter!(centroids[1,:], centroids[2,:], color=:red, labels=['1', '2', '3', '4', '5'])
