@@ -9,7 +9,11 @@
 		"vscode": {
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
-				"julialang.language-julia"
+				"julialang.language-julia",
+				"eamodio.gitlens",
+				"yzhang.markdown-all-in-one",
+				"ms-toolsai.jupyter",
+				"ms-toolsai.jupyter-renderers"
 			]
 		}
 	},
