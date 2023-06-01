@@ -1,5 +1,5 @@
 #########################
-#= k-Nearest Neighbors =#
+#= k-NEAREST NEIGHBORS =#
 #########################
 
 using Markdown
