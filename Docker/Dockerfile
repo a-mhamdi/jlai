@@ -1,5 +1,5 @@
 FROM julia:1.8.2
-LABEL author="A. Mhamdi <abmhamdi@hotmail.com>"
+LABEL author="A. Mhamdi <a_mhamdi@outlook.com>"
 
 # Expose ports
 EXPOSE 1234 2468
