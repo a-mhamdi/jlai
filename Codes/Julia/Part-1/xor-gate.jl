@@ -4,7 +4,7 @@
 
 using Markdown
 
-md"This code considers the XOR problem. In order to be able to run it, simply execute `julia -e 'import Pkg; Pkg.activate(\".\"); include(\"Part-1/xor-gate.jl\")'`"
+md"This code considers the XOR problem. In the terminal, run `julia -e 'import Pkg; Pkg.activate(\".\"); include(\"Part-1/xor-gate.jl\")'`"
 
 using Flux
 md"Create the dataset for an \"XOR\" problem"

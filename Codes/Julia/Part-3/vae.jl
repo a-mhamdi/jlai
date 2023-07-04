@@ -20,15 +20,15 @@ using MLDatasets
 d = MNIST()
 
 Base.@kwdef mutable struct Args
-    η = 3f-3                # Learning rate
-    λ = 1f-2                # Regularization parameter
-    batchsize = 64          # Batch size
-    epochs = 16             # Number of epochs
-    split = :train          # Split data into `train` and `test`
-    input_dim = 28*28       # Input dimension
-    hidden_dim = 512        # Hidden dimension
-    latent_dim = 2          # Latent dimension
-    save_path = "Part-3/Output"    # Results folder
+    η = 3f-3                        # Learning rate
+    λ = 1f-2                        # Regularization parameter
+    batchsize = 64                  # Batch size
+    epochs = 16                     # Number of epochs
+    split = :train                  # Split data into `train` and `test`
+    input_dim = 28*28               # Input dimension
+    hidden_dim = 512                # Hidden dimension
+    latent_dim = 2                  # Latent dimension
+    save_path = "Part-3/Output"     # Results folder
 end
 
 md"Load the **MNIST** dataset"

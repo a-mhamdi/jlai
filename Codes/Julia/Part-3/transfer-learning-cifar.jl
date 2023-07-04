@@ -7,7 +7,7 @@ using Markdown
 using Metalhead
 md"Load the pre-trained model"
 md"[API Reference](https://fluxml.ai/Metalhead.jl/dev/api/reference/#API-Reference)"
-resnet = ResNet(; pretrain=true).layers;
+resnet = ResNet(18; pretrain=true).layers;
 
 using Flux
 using Flux: onecold, onehotbatch
@@ -16,17 +16,16 @@ mdl = Chain(
     resnet[1:end-1],
     resnet[end][1:end-1],
     # Replace the last layer
-    Dense(2048 => 256, relu),
-    Dense(256 => 10),
-    softmax
+    Dense(512 => 256, relu),
+    Dense(256 => 10)
 )
 
 using MLDatasets
 md"Load the CIFAR10 dataset"
 function get_data(split, lm::Integer=1024)
     data = CIFAR10(split)
-    X, y = data.features[:,:,:,1:lm] ./ 255, onehotbatch(data.targets[1:lm], 0:9);
-    loader = Flux.Data.DataLoader((X, y); batchsize=16, shuffle=true);
+    X, y = data.features[:, :, :, 1:lm] ./ 255, onehotbatch(data.targets[1:lm], 0:9)
+    loader = Flux.Data.DataLoader((X, y); batchsize=16, shuffle=true)
     return loader
 end
 
@@ -39,7 +38,7 @@ opt = Adam(3e-3)
 ps = Flux.params(mdl[3:end])
 
 using Flux: @epochs
-@epochs 5 Flux.train!(loss, ps, train_loader, opt, cb = Flux.throttle( () -> println("Training"), 10) )
+@epochs 5 Flux.train!(loss, ps, train_loader, opt, cb=Flux.throttle(() -> println("Training"), 10))
 
 using ImageShow, ImageInTerminal
 idx = rand(1:50000)

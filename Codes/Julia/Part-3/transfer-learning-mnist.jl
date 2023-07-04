@@ -10,7 +10,7 @@ using Markdown
 using Metalhead
 md"Load the pre-trained model"
 md"[API Reference](https://fluxml.ai/Metalhead.jl/dev/api/reference/#API-Reference)"
-vgg = VGG(; pretrain=true).layers;
+vgg = VGG(16; pretrain=true).layers;
 
 using DataAugmentation
 tfm = CenterCrop((224, 224)) |> ImageToTensor()
@@ -22,8 +22,8 @@ model = Chain(
     vgg[1:end-1],
     vgg[end][1:end-1],
     # Replace the last layer
-    Dense(4096, 10),
-    softmax
+    Dense(4096, 256),
+    Dense(256, 10)
 )
 
 using MLDatasets

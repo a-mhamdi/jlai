@@ -20,7 +20,8 @@ md"Specify the features matrix `X`"
 Xdf = select(df, Not([:RowNumber, :CustomerId, :Surname, :Exited]))
 coerce!(Xdf,
     :Geography => Multiclass,
-    :Gender => Multiclass)
+    :Gender => Multiclass
+)
 md"Onehotencoding of multiclass variables"
 ce = ContinuousEncoder()
 Xdf = machine(ce, Xdf) |> fit! |> MLJ.transform
