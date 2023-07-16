@@ -1,3 +1,7 @@
-Here are some codes written in `Julia`
+Here are some codes written in `Julia`.
+
+It is preferable to use the `Docker` image I provided. For users with little `Julia` experience, the codes can be run in an interactive environment through the link that follows:
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/a-mhamdi/jlai/main?labpath=Codes%2FJulia)
 
 ![Julia](logo-julia.png)
