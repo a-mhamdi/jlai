@@ -19,7 +19,7 @@ WORKDIR ${WORKING_DIR}
 COPY ./Codes/Julia/Datasets ./datasets/
 # Copy TOML files (deps, ver, pkg, UUID)
 COPY ./Codes/Julia/Project.toml ./
-COPY ./Codes/Julia/Manifest.toml ./
+# COPY ./Codes/Julia/Manifest.toml ./
 
 # Activate environment and add IJulia kernel, Pluto and JupyterLab IDE
 RUN julia -e 'import Pkg; Pkg.activate("."); Pkg.instantiate(); Pkg.precompile()'
