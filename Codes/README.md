@@ -1,4 +1,4 @@
-Other code samples can be found [here](https://www.github.com/a-mhamdi/Showcasing-ML) -> _Julia_.
+Other code samples can be found [here](https://www.github.com/a-mhamdi/journey-into-ML) -> _Julia_.
 
 Some of the materials presented here are inspired by the following references:
 
