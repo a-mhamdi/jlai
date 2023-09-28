@@ -1,6 +1,7 @@
 [deps]
 BSON = "fbb218c0-5317-5bc6-957e-2ee96dd4b1f0"
 CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
+CUDA = "052768ef-5323-5732-b1bb-66c8b64840ba"
 Clustering = "aaaa29a8-35af-508c-8bc3-b662a17a0fe5"
 DataAugmentation = "88a5189c-e7ff-4f85-ac6b-e6158070f02e"
 DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
