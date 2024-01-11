@@ -1,0 +1,6 @@
+[deps]
+Flux = "587475ba-b771-5e3f-ad9e-33799f191a9c"
+Fuzzy = "a9166f1b-85e5-4df0-9c26-e06b441f12e8"
+ImageInTerminal = "d8c32880-2388-543b-8c61-d9f865259254"
+Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
+ProgressMeter = "92933f4c-e287-5a05-a399-4b506db050ca"
