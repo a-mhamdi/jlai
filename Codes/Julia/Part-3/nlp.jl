@@ -1,4 +1,6 @@
-#= NLP =#
+#################################
+#= Natural Language Processing =#
+#################################
 
 using TextAnalysis
 
