@@ -14,8 +14,8 @@ jobs:
   clone:
     runs-on: ubuntu-latest
     steps:
-        - name: clone repo
-          uses: actions/checkout@v4
+      - name: clone repo
+        uses: actions/checkout@v4
 
   build:
     runs-on: ubuntu-latest
@@ -26,11 +26,11 @@ jobs:
   authenticate:
     runs-on: ubuntu-latest
     steps:
-        - name: Login to Docker Hub
-          uses: docker/login-action@v3
-          with:
-              username: ${{ secrets.DOCKER_HUB_USERNAME }}
-              password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
 
   jlai-p1:
@@ -43,11 +43,13 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v6
         with:
-            context: "{{defaultContext}}:Docker"
-            file: Dockerfile-1
-            # platforms: linux/amd64,linux/arm64,linux/arm/v7
-            push: true
-            tags: ${{ secrets.DOCKER_HUB_USERNAME }}/jlai-p1:latest
+          context: "{{defaultContext}}:Docker"
+          file: Dockerfile-1
+          # platforms: linux/amd64,linux/arm64,linux/arm/v7
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/jlai-p1:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
   jlai-p2:
     runs-on: ubuntu-latest
@@ -59,11 +61,13 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v6
         with:
-            context: .
-            file: ./Docker/Dockerfile-2
-            # platforms: linux/amd64,linux/arm64,linux/arm/v7
-            push: true
-            tags: ${{ secrets.DOCKER_HUB_USERNAME }}/jlai-p2:latest
+          context: "{{defaultContext}}:Docker"
+          file: Dockerfile-2
+          # platforms: linux/amd64,linux/arm64,linux/arm/v7
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/jlai-p2:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
   jlai-p3:
     runs-on: ubuntu-latest
@@ -75,8 +79,10 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v6
         with:
-            context: .
-            file: ./Docker/Dockerfile-3
-            # platforms: linux/amd64,linux/arm64,linux/arm/v7
-            push: true
-            tags: ${{ secrets.DOCKER_HUB_USERNAME }}/jlai-p3:latest
+          context: "{{defaultContext}}:Docker"
+          file: Dockerfile-3
+          # platforms: linux/amd64,linux/arm64,linux/arm/v7
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/jlai-p3:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
