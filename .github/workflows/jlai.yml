@@ -11,21 +11,13 @@ on:
 
 jobs:
    
-  authenticate:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-
   jlai-p1:
     runs-on: ubuntu-latest
-    needs: 
-      - authenticate
     steps:
       - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        with:
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
       - name: Build and push Docker images
         uses: docker/build-push-action@v6
         with:
@@ -33,16 +25,17 @@ jobs:
           file: Docker/Dockerfile-1
           # platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/jlai-p1:latest
+          tags: abmhamdi/jlai-p1:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
   jlai-p2:
     runs-on: ubuntu-latest
-    needs: 
-      - authenticate
     steps:
       - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        with:
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
       - name: Build and push Docker images
         uses: docker/build-push-action@v6
         with:
@@ -50,14 +43,15 @@ jobs:
           file: Docker/Dockerfile-2
           # platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/jlai-p2:latest
+          tags: abmhamdi/jlai-p2:latest
 
   jlai-p3:
     runs-on: ubuntu-latest
-    needs: 
-      - authenticate
     steps:
       - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        with:
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
       - name: Build and push Docker images
         uses: docker/build-push-action@v6
         with:
@@ -65,4 +59,4 @@ jobs:
           file: Docker/Dockerfile-3
           # platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/jlai-p3:latest
+          tags: abmhamdi/jlai-p3:latest
