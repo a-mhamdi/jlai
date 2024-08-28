@@ -1,13 +1,11 @@
-name: CI/CD
+name: JLAI
 
 on: 
-  
-  workflow_dispatch:
- 
   push:
     paths:
       - 'Codes/Julia/**'
       - 'Docker/**'
+  workflow_dispatch:
 
 jobs:
   
