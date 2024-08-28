@@ -41,14 +41,8 @@ jobs:
     steps:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      - name: Build and push Docker images
-        uses: docker/build-push-action@v6
-        with:
-          context: "{{defaultContext}}:Docker"
-          file: Dockerfile-1
-          # platforms: linux/amd64,linux/arm64,linux/arm/v7
-          push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/jlai-p1:latest
+      - name: Docker build 
+        run: docker build -f ./Docker/dockerfile -t abmhamdi/jlai-p1 .
 
   jlai-p2:
     runs-on: ubuntu-latest
