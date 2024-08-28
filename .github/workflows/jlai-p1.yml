@@ -1,6 +1,9 @@
 name: CI/CD-P1
 
 on:
+  
+  workflow_dispatch:
+
   push:
     paths:
       - 'Codes/Julia/**'
