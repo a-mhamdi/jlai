@@ -39,12 +39,20 @@ jobs:
       - clone
       - build
       - authenticate
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - dockerfile: ./Docker/Dockerfile-1
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Build and push Docker images
         uses: docker/build-push-action@v6
         with:
-          context: "{{defaultContext}}:Docker"
-          file: Dockerfile-1
+          context: .
+          file: ${{ matrix.dockerfile }}
           # platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/jlai-p1:latest
