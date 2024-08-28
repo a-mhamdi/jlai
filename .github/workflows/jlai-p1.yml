@@ -1,7 +1,7 @@
 name: CI/CD-P1
 
 on:
-  
+
   workflow_dispatch:
 
   push:
@@ -30,12 +30,15 @@ jobs:
       uses: docker/setup-buildx-action@v2
     -
       name: Build and push Docker images
-      uses: docker/build-push-action@v3.1.1
+      uses: docker/build-push-action@v6
       with:
           context: .
           file: ./Docker/Dockerfile-1
           # platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/jlai-p1:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
 
 
