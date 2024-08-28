@@ -48,8 +48,6 @@ jobs:
           # platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/jlai-p1:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
 
   jlai-p2:
     runs-on: ubuntu-latest
@@ -66,8 +64,7 @@ jobs:
           # platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/jlai-p2:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+
 
   jlai-p3:
     runs-on: ubuntu-latest
@@ -84,5 +81,4 @@ jobs:
           # platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/jlai-p3:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+
