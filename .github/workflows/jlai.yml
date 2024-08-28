@@ -42,7 +42,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Docker build 
-        run: docker build -f ./Docker/dockerfile -t abmhamdi/jlai-p1 .
+        run: docker build -f ./Docker/Dockerfile-1 -t abmhamdi/jlai-p1 .
 
   jlai-p2:
     runs-on: ubuntu-latest
