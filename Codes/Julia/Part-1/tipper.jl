@@ -48,8 +48,8 @@ p1 = plot(score, food_chart["values"], ylabel="Food", label=food_chart["names"],
 p2 = plot(score, service_chart["values"], ylabel="Service", label=service_chart["names"], legend=:bottomright)
 p3 = plot(score, tip_chart["values"], xlabel="Score", ylabel="Tip", label=tip_chart["names"], legend=:bottomright)
 graphs = plot(p1, p2, p3, layout=(3, 1), lw=2)
+# savefig(graphs, "mf-graphs.pdf")
 
-# savefig(graphs, "../../Docs/mf-graphs.pdf"
 md"## FUZZY INFERENCE SYSTEM: MAMDANI"
 fis = FISMamdani([food, service], tip, rules)
 eval_fis(fis, [9., 8.])
