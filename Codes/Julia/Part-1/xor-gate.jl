@@ -18,7 +18,7 @@ yoe = Flux.onehotbatch(y, [true, false])
 md"Scatter plot of `X`"
 using Plots; # unicodeplots()
 sc = scatter(X[1,:], X[2,:], group=y; labels=["False" "True"])
-loader = Flux.Data.DataLoader((X, yoe), batchsize=64, shuffle=true)
+loader = Flux.DataLoader((X, yoe), batchsize=64, shuffle=true)
 
 md"`mdl` is the model to be built"
 mdl = Chain(Dense(2 => 3, tanh),
