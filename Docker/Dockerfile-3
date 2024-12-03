@@ -2,10 +2,10 @@ FROM julia:1.11.0
 LABEL author="A. Mhamdi <a_mhamdi@outlook.com>"
 
 #= Set ENV variables =#
-ENV USERNAME mhamdi 
-ENV USER_HOME_DIR /home/${USERNAME}
-ENV JULIA_DEPOT_PATH ${USER_HOME_DIR}/.julia
-ENV JL ${JULIA_DEPOT_PATH}/conda/3/bin/jupyter\ lab
+ENV USERNAME=mhamdi 
+ENV USER_HOME_DIR=/home/${USERNAME}
+ENV JULIA_DEPOT_PATH=${USER_HOME_DIR}/.julia
+ENV JL=${JULIA_DEPOT_PATH}/conda/3/bin/jupyter\ lab
 ARG WORKING_DIR="${USER_HOME_DIR}/work/"
 
 #= Add user and set ownership =#
@@ -19,7 +19,6 @@ WORKDIR "${WORKING_DIR}"
 
 # Copy TOML files (deps, ver, pkg, UUID)
 COPY ../Codes/Julia/Part-3/. ./
-COPY script.sh .
 RUN sh -x script.sh
 
 #= Expose ports =#
