@@ -1,0 +1,5 @@
+[deps]
+Embeddings = "c5bfea45-b7f1-5224-a596-15500f5db411"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+Markdown = "d6f4376e-aef5-505a-96c1-9c027394607a"
+TextAnalysis = "a2db99b7-8b79-58f8-94bf-bbc811eef33d"
