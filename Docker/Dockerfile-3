@@ -19,6 +19,7 @@ WORKDIR "${WORKING_DIR}"
 
 # Copy TOML files (deps, ver, pkg, UUID)
 COPY ../Codes/Julia/Part-3/. ./
+COPY script.sh .
 RUN sh -x script.sh
 
 #= Expose ports =#
