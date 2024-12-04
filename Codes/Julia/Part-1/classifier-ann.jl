@@ -1,6 +1,7 @@
 #####################################################
 #= BINARY CLASSIFIER USING ANN _(CHURN MODELLING)_ =#
 #####################################################
+# `versioninfo()` -> v"1.11.1"
 
 using Markdown
 
@@ -51,13 +52,13 @@ clf = Chain(
             )
 
 md"Permute dims: ROW => features and COL => observation"
-X = permutedims(X)
-y = permutedims(y)
+X = X'; # permutedims(X)
+y = y'; # permutedims(y)
 
 md"Optimizers and data loader"
-opt = Flux.Optimise.Adam(η);
+opt = Flux.Adam(η);
 state = Flux.setup(opt, clf);
-loader = Flux.Data.DataLoader((X, y); batchsize=batchsize, shuffle=true);
+loader = Flux.DataLoader((X, y); batchsize=batchsize, shuffle=true);
 vec_loss = []
 
 md"**Training phase**"
@@ -80,13 +81,13 @@ extrema(vec_loss)
 
 md"Some metrics"
 ŷ = clf(X) |> σ;
-ŷ = (ŷ .≥ .3);
+ŷ = (ŷ .≥ .5);
 
 md"Basic way to compute the accuracy"
-accuracy = mean( ŷ .== y)
+accuracy = mean( ŷ .== y )
 
 md"Confusion Matrix"
-displayed_cm = MLJ.ConfusionMatrix()(ŷ, y)
+displayed_cm = MLJ.ConfusionMatrix(levels=[1, 0])(ŷ, y)
 cm = ConfusionMatrices.matrix(displayed_cm)
 
 md"Other metrics"

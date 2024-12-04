@@ -1,6 +1,7 @@
 ##############
 #= XOR GATE =#
 ##############
+# `versioninfo()` -> v"1.11.1"
 
 using Markdown
 
@@ -23,11 +24,11 @@ loader = Flux.DataLoader((X, yoe), batchsize=64, shuffle=true)
 md"`mdl` is the model to be built"
 mdl = Chain(Dense(2 => 3, tanh),
             BatchNorm(3),
-	        Dense(3 => 2),
-            softmax)
+	        Dense(3 => 2)
+            )
 
 md"Raw output before training"
-y_raw = mdl(X)
+y_raw = mdl(X) |> Flux.softmax
 
 md"`opt` designates the optimizer"
 opt = Adam(.01)
@@ -45,7 +46,7 @@ using ProgressMeter
             # Evaluate model:
             target_hat = m(Features)
 			# Evaluate loss:
-            Flux.crossentropy(target_hat, target)
+            Flux.logitcrossentropy(target_hat, target)
         end
         Flux.update!(state, mdl, grads[1])
         push!(vec_loss, loss)  # Log `loss` to `losses` vector `vec_loss`
@@ -53,7 +54,7 @@ using ProgressMeter
 end
 
 md"Predicted output after being trained"
-y_hat = mdl(X)
+y_hat = mdl(X) |> Flux.softmax
 y_pred = (y_hat[1, :] .> .5)
 
 md"Accuracy: How much we got right over all cases _(i.e., (TP+TN)/(TP+TN+FP+FN))_"
