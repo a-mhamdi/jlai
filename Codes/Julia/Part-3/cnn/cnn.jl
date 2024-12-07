@@ -1,7 +1,6 @@
 ##############################################
 #= HANDWRITTEN DIGITS RECOGNITION USING CNN =#
 ##############################################
-
 # `versioninfo()` -> 1.11.1
 
 using Markdown
