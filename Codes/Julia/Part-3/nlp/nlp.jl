@@ -1,6 +1,7 @@
 #################################
 #= Natural Language Processing =#
 #################################
+# `versioninfo()` -> 1.11.1
 
 using TextAnalysis
 
