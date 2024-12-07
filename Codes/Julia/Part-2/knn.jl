@@ -1,6 +1,7 @@
 #########################
 #= k-NEAREST NEIGHBORS =#
 #########################
+# `versioninfo()` -> 1.11.1
 
 using Markdown
 
@@ -49,5 +50,11 @@ ŷ = predict_mode(pipe, Xtest)
 md"Confusion Matrix"
 confusion_matrix(ŷ, ytest)
 
+md"Evaluation Metrics"
+accuracy(ŷ, ytest)
+specificity(ŷ, ytest) # specificity, true negative rate: TN/(TN+FP)
+sensitivity(ŷ, ytest) # sensitivity, true positive rate: TP/(TP+FN)
+f1score(ŷ, ytest)
+
 md"We can estimate the performance of `pipe` through the `evaluate!` command."
-evaluate!(pipe, operation=predict_mode, measures=[accuracy, precision, recall, f1score])
+evaluate!(pipe, operation=predict)

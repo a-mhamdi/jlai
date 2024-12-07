@@ -1,6 +1,7 @@
 ############
 #= KMEANS =#
 ############
+# `versioninfo()` -> 1.11.1
 
 using Markdown
 
@@ -31,7 +32,7 @@ kmeans_ = KMeans(k=5)
 md"You may want to see [Clustering.jl](https://github.com/JuliaStats/Clustering.jl) and the unwrapped model type [`Clustering.KMeans`](@ref)."
 
 md"Train & regroup into clusters"
-kmeans = machine(kmeans_, table(X)) |> fit!
+kmeans = machine(kmeans_, X) |> fit!
 
 md"Clusters & centroids"
 centroids = fitted_params(kmeans).centers

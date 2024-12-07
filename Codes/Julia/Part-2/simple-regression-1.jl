@@ -3,6 +3,8 @@
 ##############################
 # SALARY vs. YEARSEXPERIENCE #
 
+# `versioninfo()` -> 1.11.1
+
 using Markdown
 
 md"Import librairies"

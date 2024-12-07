@@ -1,11 +1,12 @@
 ##################################
 #= DECISION TREE CLASSIFICATION =#
 ##################################
+# `versioninfo()` -> 1.11.1
 
 using Markdown
 
 md"Import librairies"
-using CSV, DataFrames
+using CSV, DataFrames, Plots
 using MLJ
 
 md"Read dataset and assign it `df`"

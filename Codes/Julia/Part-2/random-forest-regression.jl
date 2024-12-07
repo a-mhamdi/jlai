@@ -1,12 +1,12 @@
 ##############################
 #= DECISION TREE REGRESSION =#
 ##############################
+# `versioninfo()` -> 1.11.1
 
 using Markdown
 
 md"Import librairies"
-using CSV, D
-ataFrames
+using CSV, DataFrames
 using MLJ
 
 md"Load data from CSV file"
