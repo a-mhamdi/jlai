@@ -1,7 +1,6 @@
 ####################################
 #= Generative Adverserial Network =#
 ####################################
-
 # `versioninfo()` -> 1.11.1
 
 using Flux # v0.14.25
@@ -9,7 +8,7 @@ using Images: Gray
 using ProgressMeter
 
 ## Generator: noise vector -> synthetic sample.
-function generator(; latent_dim=64, img_shape=(28,28,1,1))
+function generator(; latent_dim=16, img_shape=(28,28,1,1))
     return Chain(
         Dense(latent_dim, 128, relu),
         Dense(128, 256, relu),
@@ -24,15 +23,15 @@ function discriminator(; img_shape=(28,28,1,1))
         x -> reshape(x, :, size(x, 4)),
         Dense(prod(img_shape), 256, relu),
         Dense(256, 128, relu),
-        Dense(128, 1, sigmoid)
+        Dense(128, 1)
     )
 end
 
 ## Loss functions
-bce_loss(y_true, y_pred) = Flux.binarycrossentropy(y_pred, y_true)
+bce_loss(y_true, y_pred) = Flux.logitbinarycrossentropy(y_pred, y_true)
 
 ## Training function
-function train_gan(gen, disc, opt_gen, opt_disc; n_epochs=128, latent_dim=64)
+function train_gan(gen, disc, gen_opt, disc_opt; n_epochs=16, latent_dim=16)
     @showprogress for epoch in 1:n_epochs
 
         ## Train the discriminator `disc`
@@ -43,13 +42,13 @@ function train_gan(gen, disc, opt_gen, opt_disc; n_epochs=128, latent_dim=64)
         disc_loss = bce_loss(ones(Float32, 1, 1), disc(real_imgs)) + 
                         bce_loss(zeros(Float32, 1, 1), disc(fake_imgs)) # compute the loss for the real and synthetic samples
         grads = gradient(() -> disc_loss, Flux.params(disc))
-        Flux.update!(opt_disc, Flux.params(disc), grads) # update the discriminator weights
+        Flux.update!(disc_opt, Flux.params(disc), grads) # update the discriminator weights
 
         ## Train the generator `gen`
         noise = randn(Float32, latent_dim, 1)
-        gen_loss = bce_loss(ones(Float32, 1, 1), disc(gen(noise))) # compute the loss for the synthetic samples
+        gen_loss = bce_loss( ones(Float32, 1, 1), σ.(disc(gen(noise))) ) # compute the loss for the synthetic samples
         grads = gradient(() -> gen_loss, Flux.params(gen))
-        Flux.update!(opt_gen, Flux.params(gen), grads) # update the generator weights
+        Flux.update!(gen_opt, Flux.params(gen), grads) # update the generator weights
 
         println("Epoch $(epoch): Discriminator loss = $(disc_loss), Generator loss = $(gen_loss)")
         sleep(.1)
@@ -60,22 +59,25 @@ end
 gen = generator()
 disc = discriminator()
 
-opt_gen = Adam(0.0025, (0.5, 0.999))
-opt_disc = Adam(0.0025, (0.5, 0.999))
+gen_opt = Adam(0.001)
+disc_opt = Adam(0.0002)
 
 ## Train the GAN
-train_gan(gen, disc, opt_gen, opt_disc)
+train_gan(gen, disc, gen_opt, disc_opt)
 
 ## Generate and plot some images
-latent_dim = 64
+latent_dim = 16
 noise = randn(Float32, latent_dim, 16)
 generated_images = [ gen(noise[:, i]) for i in 1:16 ]
 
 using Plots
+
 plot_images = [ plot(Gray.(generated_images[i])[:,:,1,1]) for i in 1:16 ]
+titles = reshape([string(i) for i in 1:16], 1, :);
+
 plot(
     plot_images...,
-    layout = (4,4), 
-    title = ["($i)" for j in 1:1, i in 1:11], titleloc=:right, titlefont=font(8),
+    layout = (4, 4), 
+    title = titles, titleloc=:right, titlefont=font(8),
     size = (800, 800)
 )
