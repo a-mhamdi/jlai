@@ -1,8 +1,8 @@
 ###################################
 #= VARIATIONAL AUTOENCODER (VAE) =#
 ###################################
-
 # `versioninfo()` -> 1.11.1
+
 using Markdown
 md"VAE implemented in `Julia` using the `Flux.jl` library"
 
