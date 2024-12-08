@@ -1,18 +1,16 @@
-version: "3.9"
-
 services:
  jupyter:
   image: jlai:local
   ports:
    - "2468:2468"
-  command: /home/mhamdi/.julia/conda/3/x86_64/bin/jupyter lab --NotebookApp.token='' --ip 0.0.0.0 --port 2468 --allow-root --no-browser
+  command: /root/.julia/conda/3/x86_64/bin/jupyter lab --NotebookApp.token='' --ip 0.0.0.0 --port 2468 --allow-root --no-browser
   volumes:
-   - /home/mhamdi/.julia/scratchspaces/:/home/mhamdi/.julia/scratchspaces/
+   - $HOME/.julia/scratchspaces/:/root/.julia/scratchspaces/
  pluto:
   image: jlai:local
   ports:
    - "1234:1234"
   command: julia -e "import Pluto; Pluto.run(host=\"0.0.0.0\", port=1234, launch_browser=false, require_secret_for_open_links=false, require_secret_for_access=false)"
   volumes:
-   - /home/mhamdi/.julia/scratchspaces/:/home/mhamdi/.julia/scratchspaces/
+   - $HOME/.julia/scratchspaces/:/root/.julia/scratchspaces/
 
