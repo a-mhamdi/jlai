@@ -6,5 +6,5 @@ for dir in $DIRS; do
 	sed '/^ImageShow/d' Project.toml > tmp && cat tmp > Project.toml && rm tmp
 	# sed -i '/^Image/d' Project.toml 
 	# awk '!/^Image/' Project.toml > ${WORKING_DIR}/temp && mv ${WORKING_DIR}/temp ${WORKING_DIR}/Project.toml
-	julia -e 'import Pkg; Pkg.activate("."); Pkg.resolve(); Pkg.instantiate(); Pkg.precompile();'
+	julia -e 'import Pkg; Pkg.activate("."); Pkg.instantiate(); Pkg.resolve(); Pkg.precompile()'
 done

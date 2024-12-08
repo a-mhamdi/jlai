@@ -4,7 +4,7 @@ LABEL author="A. Mhamdi <a_mhamdi@outlook.com>"
 LABEL version="latest"
 
 #= Set ENV variables =#
-ENV JULIA_DEPOT_PATH /roo/.julia
+ENV JULIA_DEPOT_PATH=/roo/.julia
 
 WORKDIR /workspace
 
@@ -12,10 +12,10 @@ WORKDIR /workspace
 COPY ./Codes/Julia/Datasets ./datasets/
 
 #= Copy TOML files (deps, ver, pkg, UUID) =#
-COPY ./Codes/Julia/Part-2/Project.toml ./
+COPY ./Codes/Julia/Part-2/Project.toml .
 
 #= Activate environment and add IJulia kernel, Pluto and JupyterLab IDE =#
-RUN julia -e 'import Pkg; Pkg.activate("."); Pkg.resolve(); Pkg.instantiate(); Pkg.precompile()'
+RUN julia -e 'import Pkg; Pkg.activate("."); Pkg.instantiate(); Pkg.resolve(); Pkg.precompile()'
 RUN julia -e 'import Pkg; Pkg.add(["Conda", "IJulia", "Pluto"]); Pkg.precompile()'
 RUN julia -e 'import Conda; Conda.add("JupyterLab")'
 

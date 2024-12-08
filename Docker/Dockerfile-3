@@ -9,13 +9,13 @@ ENV JULIA_DEPOT_PATH=/root/.julia
 WORKDIR /workspace
 
 #= Copy TOML files (deps, ver, pkg, UUID) =#
-COPY ./Codes/Julia/Part-3/. ./
+COPY ./Codes/Julia/Part-3/. .
 RUN sh -x script.sh
 
 #= Expose ports =#
 EXPOSE 1234 2468
 
-RUN julia -e 'import Pkg; Pkg.add(["Conda", "IJulia", "Pluto"]); Pkg.precompile()'
+RUN julia -e 'import Pkg; Pkg.add(["Conda", "IJulia", "Pluto"]); Pkg.resolve(); Pkg.precompile()'
 RUN julia -e 'import Conda; Conda.add("JupyterLab")'
 
 #= Default command =#
