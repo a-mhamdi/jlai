@@ -38,7 +38,7 @@ Xdf = machine(sc, Xdf) |> fit! |> MLJ.transform
 
 md"Extract only the values for `X`, i.e, rm the headers."
 n, m = size(Xdf)
-X = Array{Float64, 2}(undef, (n, m));
+X = Array{Float32, 2}(undef, (n, m));
 for i in 1:m
     X[:, i] = Xdf[!, i];
 end

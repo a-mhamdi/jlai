@@ -14,21 +14,20 @@ X = rand(Float32, 2, 1_024);
 # vscodedisplay(X, "X")
 y = [xor(col[1]>.5, col[2]>.5) for col in eachcol(X)]
 # vscodedisplay(y, "y")
-yoe = Flux.onehotbatch(y, [true, false])
 
 md"Scatter plot of `X`"
 using Plots; # unicodeplots()
 sc = scatter(X[1,:], X[2,:], group=y; labels=["False" "True"])
-loader = Flux.DataLoader((X, yoe), batchsize=64, shuffle=true)
+loader = Flux.DataLoader((X, y), batchsize=32, shuffle=true)
 
 md"`mdl` is the model to be built"
-mdl = Chain(Dense(2 => 3, tanh),
-            BatchNorm(3),
-	        Dense(3 => 2)
+mdl = Chain(Dense( 2 => 4, tanh ),
+            Dense( 4 => 4, tanh ),
+            Dense( 4 => 1, σ ),
             )
 
 md"Raw output before training"
-y_raw = mdl(X) |> Flux.softmax
+y_raw = mdl(X)
 
 md"`opt` designates the optimizer"
 opt = Adam(.01)
@@ -44,9 +43,9 @@ using ProgressMeter
 		# Begin a gradient context session
         loss, grads = Flux.withgradient(mdl) do m
             # Evaluate model:
-            target_hat = m(Features)
+            target_hat = m(Features) |> vec # loss function expects size(ŷ) = (1, :) to match size(y) = (:,)
 			# Evaluate loss:
-            Flux.logitcrossentropy(target_hat, target)
+            Flux.binarycrossentropy(target_hat, target)
         end
         Flux.update!(state, mdl, grads[1])
         push!(vec_loss, loss)  # Log `loss` to `losses` vector `vec_loss`
@@ -54,7 +53,7 @@ using ProgressMeter
 end
 
 md"Predicted output after being trained"
-y_hat = mdl(X) |> Flux.softmax
+y_hat = mdl(X)
 y_pred = (y_hat[1, :] .> .5)
 
 md"Accuracy: How much we got right over all cases _(i.e., (TP+TN)/(TP+TN+FP+FN))_"
@@ -62,7 +61,7 @@ accuracy = Flux.Statistics.mean( (y_pred .> .5) .== y )
 
 md"Plot loss vs. iteration"
 plot(vec_loss; xaxis=(:log10, "Iteration"), yaxis="Loss", label="Per Batch")
-sc1 = scatter(X[1,:], X[2,:], group=yoe[1,:]; title="TRUTH", labels=["False" "True"])
+sc1 = scatter(X[1,:], X[2,:], group=y; title="TRUTH", labels=["False" "True"])
 sc2 = scatter(X[1,:], X[2,:], zcolor=y_raw[1,:]; title="BEFORE", label=:none, clims=(0,1))
 sc3 = scatter(X[1,:], X[2,:], group=y_pred; title="AFTER", labels=["False" "True"])
 
