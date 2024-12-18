@@ -4,6 +4,18 @@
 using Markdown
 using InteractiveUtils
 
+# This Pluto notebook uses @bind for interactivity. When running this notebook outside of Pluto, the following 'mock version' of @bind gives bound variables a default value (instead of an error).
+macro bind(def, element)
+    #! format: off
+    quote
+        local iv = try Base.loaded_modules[Base.PkgId(Base.UUID("6e696c72-6542-2067-7265-42206c756150"), "AbstractPlutoDingetjes")].Bonds.initial_value catch; b -> missing; end
+        local el = $(esc(element))
+        global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : iv(el)
+        el
+    end
+    #! format: on
+end
+
 # ╔═╡ aefe9c9f-52a9-49c1-95a5-decc25fd1317
 begin
 	cd(@__DIR__)
@@ -11,28 +23,42 @@ begin
 	Pkg.activate("..")
 end
 
-# ╔═╡ dda6886c-df55-48e4-8240-b457937f708c
-using Markdown
-
 # ╔═╡ 9b0100b8-695c-4699-a0a5-8e1672aa8d7d
 using Flux
 
 # ╔═╡ 60bdb844-225d-48e9-9cf9-4886837a5ad6
 using Plots; # unicodeplots()
 
+# ╔═╡ 06cf692e-a3ec-4bbe-a8d6-d32b8db5063e
+using PlutoUI
+
 # ╔═╡ 1aa84a54-7ad0-4154-a880-1326c34c9070
 using ProgressMeter
+
+# ╔═╡ 3d94a9b8-c4ac-446f-b3c4-fec5be847f18
+md"# XOR GATE"
+
+# ╔═╡ 067f56ad-4a5a-4272-aaa3-4a4bc00fcb4c
+md"
+```julia
+versioninfo() -> v\"1.11.1\"
+```
+"
 
 # ╔═╡ 7e20991f-a74a-49d4-bec6-2a356b38f0cd
 md"Create the dataset for an \"XOR\" problem"
 
 # ╔═╡ 754381f5-9920-47b1-ad5f-dad3a86ed038
-X = rand(Float32, 2, 1_024);
-# vscodedisplay(X, "X")
+begin
+	X = rand(Float32, 2, 1_024);
+	first(X, 5)
+end
 
 # ╔═╡ de74bfca-11df-476a-bee5-b7d24a363c55
-y = [xor(col[1]>.5, col[2]>.5) for col in eachcol(X)]
-# vscodedisplay(y, "y")
+begin
+	y = [xor(col[1]>.5, col[2]>.5) for col in eachcol(X)]
+	first(y, 5)
+end
 
 # ╔═╡ b043d570-294b-4d1d-8774-458ca9656d32
 md"Scatter plot of `X`"
@@ -61,8 +87,11 @@ y_raw = mdl(X)
 # ╔═╡ 9f178f7f-a89e-4626-8065-dc68e2219f9c
 md"`opt` designates the optimizer"
 
+# ╔═╡ a7a2cf85-1a98-4408-ae68-faa3ad078474
+@bind η Slider(.0001:0.01:.1, default=.001)
+
 # ╔═╡ 185b5a65-904a-402d-9c4d-10cb917704f0
-opt = Adam(.01)
+opt = Adam(η)
 
 # ╔═╡ 63c74e5a-0338-489a-ab1f-f09e93f03c07
 md"`state` contains all trainable parameters"
@@ -73,22 +102,25 @@ state = Flux.setup(opt, mdl)
 # ╔═╡ ec19b265-dfa3-4807-a397-e6f6bf778b2e
 md"**TRAINING PHASE**"
 
-# ╔═╡ 4015c993-e5b8-4295-994b-6fa5ce24e116
-vec_loss = []
+# ╔═╡ f4d384bb-9dfe-4839-99ca-60af08c1f475
+@bind epochs Slider(1:2:64, default=4)
 
 # ╔═╡ fec114ea-9fd1-44a1-8512-854eef73cc1f
-@showprogress for epoch in 1:1_000
-    for (Features, target) in loader
-		# Begin a gradient context session
-        loss, grads = Flux.withgradient(mdl) do m
-            # Evaluate model:
-            target_hat = m(Features) |> vec # loss function expects size(ŷ) = (1, :) to match size(y) = (:,)
-			# Evaluate loss:
-            Flux.binarycrossentropy(target_hat, target)
-        end
-        Flux.update!(state, mdl, grads[1])
-        push!(vec_loss, loss)  # Log `loss` to `losses` vector `vec_loss`
-    end
+begin
+	vec_loss = []
+	@showprogress for epoch in 1:epochs
+	    for (Features, target) in loader
+			# Begin a gradient context session
+	        loss, grads = Flux.withgradient(mdl) do m
+	            # Evaluate model:
+	            target_hat = m(Features) |> vec # loss function expects size(ŷ) = (1, :) to match size(y) = (:,)
+				# Evaluate loss:
+	            Flux.binarycrossentropy(target_hat, target)
+	        end
+	        Flux.update!(state, mdl, grads[1])
+	        push!(vec_loss, loss)  # Log `loss` to `losses` vector `vec_loss`
+	    end
+	end
 end
 
 # ╔═╡ 8b63c359-ce39-47d2-be3c-71c5d55c7fb2
@@ -128,8 +160,9 @@ md"Plot of both ground truth and results after training"
 plot(sc1, sc3, layout=(1,2), size=(512,512))
 
 # ╔═╡ Cell order:
+# ╠═3d94a9b8-c4ac-446f-b3c4-fec5be847f18
+# ╠═067f56ad-4a5a-4272-aaa3-4a4bc00fcb4c
 # ╠═aefe9c9f-52a9-49c1-95a5-decc25fd1317
-# ╠═dda6886c-df55-48e4-8240-b457937f708c
 # ╠═9b0100b8-695c-4699-a0a5-8e1672aa8d7d
 # ╠═7e20991f-a74a-49d4-bec6-2a356b38f0cd
 # ╠═754381f5-9920-47b1-ad5f-dad3a86ed038
@@ -143,11 +176,13 @@ plot(sc1, sc3, layout=(1,2), size=(512,512))
 # ╠═d7522f88-d66e-4ea4-9159-36c4f307f6ac
 # ╠═023358b6-b112-4adc-b1b3-96fc378bcf5f
 # ╠═9f178f7f-a89e-4626-8065-dc68e2219f9c
+# ╠═06cf692e-a3ec-4bbe-a8d6-d32b8db5063e
+# ╠═a7a2cf85-1a98-4408-ae68-faa3ad078474
 # ╠═185b5a65-904a-402d-9c4d-10cb917704f0
 # ╠═63c74e5a-0338-489a-ab1f-f09e93f03c07
 # ╠═7b9cf9b7-18bc-4b27-8566-07cad5b75922
 # ╠═ec19b265-dfa3-4807-a397-e6f6bf778b2e
-# ╠═4015c993-e5b8-4295-994b-6fa5ce24e116
+# ╠═f4d384bb-9dfe-4839-99ca-60af08c1f475
 # ╠═1aa84a54-7ad0-4154-a880-1326c34c9070
 # ╠═fec114ea-9fd1-44a1-8512-854eef73cc1f
 # ╠═8b63c359-ce39-47d2-be3c-71c5d55c7fb2
