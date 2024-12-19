@@ -15,8 +15,7 @@ COPY ./Codes/Julia/Datasets ./Datasets/
 COPY ./Codes/Julia/Part-2/Project.toml .
 
 #= Activate environment and add IJulia kernel, Pluto and JupyterLab IDE =#
-RUN julia -e 'import Pkg; Pkg.activate("."); Pkg.instantiate(); Pkg.precompile(); Pkg.resolve()'
-RUN julia -e 'import Conda; Conda.add("JupyterLab")'
+RUN julia -e 'import Pkg; Pkg.activate("."); Pkg.instantiate(); Pkg.precompile(); Pkg.resolve(); import Conda; Conda.add("JupyterLab")'
 
 #= Expose ports =#
 EXPOSE 1234 2468
