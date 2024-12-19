@@ -1,3 +1,5 @@
 [deps]
 Flux = "587475ba-b771-5e3f-ad9e-33799f191a9c"
+Pluto = "c3e4b0f8-55cb-11ea-2926-15256bba5781"
+PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 ReinforcementLearning = "158674fc-8238-5cab-b5ba-03dfc80d1318"

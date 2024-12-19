@@ -15,7 +15,7 @@ RUN sh -x script.sh
 #= Expose ports =#
 EXPOSE 1234 2468
 
-RUN julia -e 'import Pkg; Pkg.add(["Conda", "IJulia", "Pluto"]); Pkg.precompile(); Pkg.resolve()'
+RUN julia -e 'import Pkg; Pkg.add(["Conda", "IJulia"]); Pkg.precompile(); Pkg.resolve()'
 RUN julia -e 'import Conda; Conda.add("JupyterLab")'
 
 #= Default command =#
