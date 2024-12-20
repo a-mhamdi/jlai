@@ -1,3 +1,0 @@
-
-![Pluto](pluto.svg)
-
