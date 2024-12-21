@@ -21,32 +21,35 @@
     </nav>
     <main class="main-content">
         <div class="container">
-            <div class="dropdown">
-                <button class="dropdown-button">Select Notebook</button>
-                <div class="dropdown-content" id="notebooks">
-                    <a href="#" onclick="loadPage('part-1/xor-gate.html')">Tipper</a>';
-                    <a href="#" onclick="loadPage('part-1/xor-gate.html')">Selection Process</a>';
-                    <a href="#" onclick="loadPage('part-1/xor-gate.html')">XOR Gate</a>';
-                    <a href="#" onclick="loadPage('part-1/xor-gate.html')">Binary Classifier using ANN</a>';
+
+            <div>
+                <div class="radio-buttons">
+                    <form>
+                        <input type="radio" name="part" value="part1" checked> Part 1
+                        <input type="radio" name="part" value="part2"> Part 2
+                        <input type="radio" name="part" value="part3"> Part 3
+                    </form>
+                </div>
+                <div class="dropdown">
+                    <button class="dropdown-button">Select Notebook</button>
+                    <div class="dropdown-content" id="notebooks">
+                        <a href="#" onclick="loadPage('part-1/xor-gate.html')">Tipper</a>';
+                        <a href="#" onclick="loadPage('part-1/xor-gate.html')">Selection Process</a>';
+                        <a href="#" onclick="loadPage('part-1/xor-gate.html')">XOR Gate</a>';
+                        <a href="#" onclick="loadPage('part-1/xor-gate.html')">Binary Classifier using ANN</a>';
+                    </div>
                 </div>
             </div>
-
-            <div class="radio-buttons">
-                <form>
-                    <input type="radio" name="part" value="part1" checked> Part 1
-                    <input type="radio" name="part" value="part2"> Part 2
-                    <input type="radio" name="part" value="part3"> Part 3
-                </form>
+            <div>
+                <img src="julia.png" alt="Julia" width="300">
             </div>
         </div>
 
         <iframe id="contentFrame" class="iframe-container" src="part-1/xor-gate.html"></iframe>
 
-        <div class="image-container">
-            <img src="julia.png" alt="Julia" width="300">
-            <img src="pluto.svg" alt="Pluto" width="300">
+        <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;"></div>
+        <img src="pluto.svg" alt="Pluto" width="300">
         </div>
-
         <script>
             const partSelecter = document.querySelectorAll('input[name="part"]');
             const notebooks = document.getElementById('notebooks');
