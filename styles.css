@@ -208,6 +208,13 @@ footer {
     margin-bottom: 20px;
 }
 
+.container {
+    display: flex;
+    /* Use Flexbox for side-by-side alignment */
+    gap: 20px;
+    /* Optional: Adds spacing between the divs */
+}
+
 .iframe-container {
     width: 100%;
     height: 600px;
