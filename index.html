@@ -32,20 +32,12 @@
 
         <div class="radio-buttons">
             <form>
-              <label>
                 <input type="radio" name="group" value="part1" onclick="updateDropdown('part1')" checked>
                 Part 1
-              </label>
-              <br>
-              <label>
                 <input type="radio" name="group" value="part2" onclick="updateDropdown('part2')">
                 Part 2
-              </label>
-              <br>
-              <label>
                 <input type="radio" name="group" value="part3" onclick="updateDropdown('part3')">
                 Part 3
-              </label>
             </form>
           </div>
 
@@ -55,32 +47,6 @@
             function loadPage(url) {
                 document.getElementById('contentFrame').src = url;
             }
-
-            function updateDropdown(value) {
-                const dropdown = document.getElementById("dropdown");
-                dropdown.innerHTML = ""; // Clear existing options
-
-                let options = [];
-                if (value === "part1") {
-                    options = ["Default Text 1", "Example Text A", "Option Text Alpha"];
-                } else if (value === "part2") {
-                    options = ["Default Text 2", "Example Text B", "Option Text Beta"];
-                } else if (value === "part3") {
-                    options = ["Default Text 3", "Example Text C", "Option Text Gamma"];
-                }
-
-                options.forEach(option => {
-                    const opt = document.createElement("option");
-                    opt.value = option;
-                    opt.textContent = option;
-                    dropdown.appendChild(opt);
-                });
-            }
-
-            window.onload = () => {
-                // Set default options for option1
-                updateDropdown("option1");
-            };
 
         </script>
     </main>
