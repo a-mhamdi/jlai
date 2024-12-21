@@ -48,14 +48,14 @@
         const selectedPart = part.value;
         switch (selectedPart) {
             case 'part1':
-                notebooks.innerHTM += '<a href="#" onclick="loadPage(\'part-1/xor-gate.html\')">Data Preprocessing</a>';
-                notebooks.innerHTM += '<a href="#" onclick="loadPage(\'part-1/xor-gate.html\')">Simple Linear Regression</a>';
-                notebooks.innerHTM += '<a href="#" onclick="loadPage(\'part-1/xor-gate.html\')">Multiple Linear Regression</a>';
+                notebooks.innerHTML = '<a href="#" onclick="loadPage(\'part-1/xor-gate.html\')">Data Preprocessing</a>';
+                notebooks.innerHTML += '<a href="#" onclick="loadPage(\'part-1/xor-gate.html\')">Simple Linear Regression</a>';
+                notebooks.innerHTML += '<a href="#" onclick="loadPage(\'part-1/xor-gate.html\')">Multiple Linear Regression</a>';
                     break;
                     case 'part2':
-                notebooks.innerHTM += '<a href="#" onclick="loadPage(\'part-1/classifier-ann.html\')">Data Preprocessing</a>';
-                notebooks.innerHTM += '<a href="#" onclick="loadPage(\'part-1/classifier-ann.html\')">Simple Linear Regression</a>';
-                notebooks.innerHTM += '<a href="#" onclick="loadPage(\'part-1/classifier-ann.html\')">Multiple Linear Regression</a>';
+                notebooks.innerHTML = '<a href="#" onclick="loadPage(\'part-1/classifier-ann.html\')">Data Preprocessing</a>';
+                notebooks.innerHTML += '<a href="#" onclick="loadPage(\'part-1/classifier-ann.html\')">Simple Linear Regression</a>';
+                notebooks.innerHTML += '<a href="#" onclick="loadPage(\'part-1/classifier-ann.html\')">Multiple Linear Regression</a>';
                     break;}
     });
 

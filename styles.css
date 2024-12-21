@@ -10,10 +10,8 @@ body {
     color: #e0e0e0;
     min-height: 100vh;
     overflow-x: hidden;
-    justify-content: space-between;
-    align-items: center;
-    margin: 20px;
 }
+
 
 .gradient-bg {
     position: fixed;
