@@ -23,20 +23,17 @@
     <main class="main-content">
         <div class="dropdown">
             <button class="dropdown-button">Select Notebook</button>
-            <div class="dropdown-content">
-                <a href="#" onclick="loadPage('part-1/xor-gate.html')">Data Preprocessing</a>
-                <a href="#" onclick="loadPage('part-1/xor-gate.html')">Simple Linear Regression</a>
-                <a href="#" onclick="loadPage('part-1/xor-gate.html')">Multiple Linear Regression</a>
+            <div class="dropdown-content" name="notebooks">
             </div>
         </div>
 
         <div class="radio-buttons">
             <form>
-                <input type="radio" name="group" value="part1" onclick="updateDropdown('part1')" checked>
+                <input type="radio" name="part" value="part1" onclick="updateDropdown('part1')" checked>
                 Part 1
-                <input type="radio" name="group" value="part2" onclick="updateDropdown('part2')">
+                <input type="radio" name="part" value="part2" onclick="updateDropdown('part2')">
                 Part 2
-                <input type="radio" name="group" value="part3" onclick="updateDropdown('part3')">
+                <input type="radio" name="part" value="part3" onclick="updateDropdown('part3')">
                 Part 3
             </form>
           </div>
@@ -44,10 +41,28 @@
         <iframe id="contentFrame" class="iframe-container" src="part-1/xor-gate.html"></iframe>
 
         <script>
+        const partSelecter = document.querySelectorAll('input[name="part"]');
+        const notebooks = document.getElementById('notebooks');
+        partSelecter.forEach(part => {
+        part.addEventListener('change', () => {
+        const selectedPart = part.value;
+        switch (selectedPart) {
+            case 'part1':
+                notebooks.innerHTM += '<a href="#" onclick="loadPage(\'part-1/xor-gate.html\')">Data Preprocessing</a>';
+                notebooks.innerHTM += '<a href="#" onclick="loadPage(\'part-1/xor-gate.html\')">Simple Linear Regression</a>';
+                notebooks.innerHTM += '<a href="#" onclick="loadPage(\'part-1/xor-gate.html\')">Multiple Linear Regression</a>';
+                    break;
+                    case 'part2':
+                notebooks.innerHTM += '<a href="#" onclick="loadPage(\'part-1/classifier-ann.html\')">Data Preprocessing</a>';
+                notebooks.innerHTM += '<a href="#" onclick="loadPage(\'part-1/classifier-ann.html\')">Simple Linear Regression</a>';
+                notebooks.innerHTM += '<a href="#" onclick="loadPage(\'part-1/classifier-ann.html\')">Multiple Linear Regression</a>';
+                    break;}
+    });
+
             function loadPage(url) {
                 document.getElementById('contentFrame').src = url;
             }
-
+        
         </script>
     </main>
 
