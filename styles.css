@@ -40,8 +40,13 @@ body {
 }
 
 @keyframes float {
-    0% { transform: translateY(0) rotate(0deg); }
-    100% { transform: translateY(-100vh) rotate(360deg); }
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+    }
 }
 
 .navbar {
@@ -197,6 +202,10 @@ footer {
 
 .dropdown:hover .dropdown-button {
     background-color: #45a049;
+}
+
+.radio-buttons {
+    margin-bottom: 20px;
 }
 
 .iframe-container {
