@@ -220,3 +220,17 @@ footer {
     height: 600px;
     border: 1px solid #ccc;
 }
+
+.image-container {
+    display: flex;
+    justify-content: center;
+    /* Adjusts alignment: center, flex-start, or flex-end */
+    gap: 10px;
+    /* Space between images */
+}
+
+.image-container img {
+    max-width: 100%;
+    /* Ensures responsiveness */
+    height: auto;
+}
