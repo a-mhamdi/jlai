@@ -36,33 +36,35 @@
                 <input type="radio" name="part" value="part3" onclick="updateDropdown('part3')">
                 Part 3
             </form>
-          </div>
+        </div>
 
         <iframe id="contentFrame" class="iframe-container" src="part-1/xor-gate.html"></iframe>
 
         <script>
-        const partSelecter = document.querySelectorAll('input[name="part"]');
-        const notebooks = document.getElementById('notebooks');
-        partSelecter.forEach(part => {
-        part.addEventListener('change', () => {
-        const selectedPart = part.value;
-        switch (selectedPart) {
-            case 'part1':
-                notebooks.innerHTML = '<a href="#" onclick="loadPage(\'part-1/xor-gate.html\')">Data Preprocessing</a>';
-                notebooks.innerHTML += '<a href="#" onclick="loadPage(\'part-1/xor-gate.html\')">Simple Linear Regression</a>';
-                notebooks.innerHTML += '<a href="#" onclick="loadPage(\'part-1/xor-gate.html\')">Multiple Linear Regression</a>';
-                    break;
-                    case 'part2':
-                notebooks.innerHTML = '<a href="#" onclick="loadPage(\'part-1/classifier-ann.html\')">Data Preprocessing</a>';
-                notebooks.innerHTML += '<a href="#" onclick="loadPage(\'part-1/classifier-ann.html\')">Simple Linear Regression</a>';
-                notebooks.innerHTML += '<a href="#" onclick="loadPage(\'part-1/classifier-ann.html\')">Multiple Linear Regression</a>';
-                    break;}
-    });
+            const partSelecter = document.querySelectorAll('input[name="part"]');
+            const notebooks = document.getElementById('notebooks');
+            partSelecter.forEach(part => {
+                part.addEventListener('change', () => {
+                    const selectedPart = part.value;
+                    switch (selectedPart) {
+                        case 'part1':
+                            notebooks.innerHTML = '<a href="#" onclick="loadPage(\'part-1/xor-gate.html\')">Data Preprocessing</a>';
+                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'part-1/xor-gate.html\')">Simple Linear Regression</a>';
+                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'part-1/xor-gate.html\')">Multiple Linear Regression</a>';
+                            break;
+                        case 'part2':
+                            notebooks.innerHTML = '<a href="#" onclick="loadPage(\'part-1/classifier-ann.html\')">Data Preprocessing</a>';
+                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'part-1/classifier-ann.html\')">Simple Linear Regression</a>';
+                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'part-1/classifier-ann.html\')">Multiple Linear Regression</a>';
+                            break;
+                    }
+                });
+            });
 
             function loadPage(url) {
                 document.getElementById('contentFrame').src = url;
             }
-        
+
         </script>
     </main>
 
