@@ -1,31 +1,90 @@
-<!-- meta http-equiv="refresh" content="0; url=https://a-mhamdi.github.io/jlai/src/index.html" -->
+<!DOCTYPE html>
+<html lang="en">
 
-<a href="part-1/classifier-ann.html" class="button">Binary Classifier Using ANN</a>
-<a href="part-1/xor-gate.html" class="button">XOR GATE</a>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Machine Learning with Python</title>
+</head>
 
+<body>
+    <div class="gradient-bg"></div>
+    <div class="particles" id="particles"></div>
 
-<style>
-.button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #224242;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-}
+    <nav class="navbar">
+        <ul>
+            <li><a href="https://a-mhamdi.github.io/">Home</a></li>
+            <li><a href="https://a-mhamdi.github.io/a-mhamdi">About</a></li>
+            <li><a href="https://a-mhamdi.github.io/jlai">JLAI</a></li>
+            <li><a href="https://a-mhamdi.github.io/mlpy">MLPY</a></li>
+        </ul>
+    </nav>
+    <main class="main-content">
+        <div class="dropdown">
+            <button class="dropdown-button">Select Notebook</button>
+            <div class="dropdown-content">
+                <a href="#" onclick="loadPage('part-1/xor-gate.html')">Data Preprocessing</a>
+                <a href="#" onclick="loadPage('part-1/xor-gate.html')">Simple Linear Regression</a>
+                <a href="#" onclick="loadPage('part-1/xor-gate.html')">Multiple Linear Regression</a>
+            </div>
+        </div>
 
-.button:hover {
-    background-color: #45a049;
-}
-</style>
+        <div class="radio-buttons">
+            <form>
+              <label>
+                <input type="radio" name="group" value="part1" onclick="updateDropdown('part1')" checked>
+                Part 1
+              </label>
+              <br>
+              <label>
+                <input type="radio" name="group" value="part2" onclick="updateDropdown('part2')">
+                Part 2
+              </label>
+              <br>
+              <label>
+                <input type="radio" name="group" value="part3" onclick="updateDropdown('part3')">
+                Part 3
+              </label>
+            </form>
+          </div>
 
+        <iframe id="contentFrame" class="iframe-container" src="part-1/xor-gate.html"></iframe>
 
-<button onclick="document.getElementById('frame').src='part-1/classifier-ann.html'">
-    Load Page
-</button>
+        <script>
+            function loadPage(url) {
+                document.getElementById('contentFrame').src = url;
+            }
 
-<iframe id="frame" src="about:blank" 
-        style="width:100%; height:500px; border:1px solid #ccc;">
-</iframe>
+            function updateDropdown(value) {
+                const dropdown = document.getElementById("dropdown");
+                dropdown.innerHTML = ""; // Clear existing options
+
+                let options = [];
+                if (value === "part1") {
+                    options = ["Default Text 1", "Example Text A", "Option Text Alpha"];
+                } else if (value === "part2") {
+                    options = ["Default Text 2", "Example Text B", "Option Text Beta"];
+                } else if (value === "part3") {
+                    options = ["Default Text 3", "Example Text C", "Option Text Gamma"];
+                }
+
+                options.forEach(option => {
+                    const opt = document.createElement("option");
+                    opt.value = option;
+                    opt.textContent = option;
+                    dropdown.appendChild(opt);
+                });
+            }
+
+            window.onload = () => {
+                // Set default options for option1
+                updateDropdown("option1");
+            };
+
+        </script>
+    </main>
+
+</body>
+
+</html>
