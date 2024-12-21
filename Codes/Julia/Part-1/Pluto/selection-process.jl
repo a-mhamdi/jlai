@@ -1,6 +1,16 @@
 ### A Pluto.jl notebook ###
 # v0.20.3
 
+#> [frontmatter]
+#> title = "Selection Process"
+#> tags = ["fuzzy", "julialang"]
+#> date = "2024-12-21"
+#> description = "Fuzzy Decision Maker"
+#> 
+#>     [[frontmatter.author]]
+#>     name = "A. Mhamdi"
+#>     url = "https://a-mhamdi.github.io/jlai/#"
+
 using Markdown
 using InteractiveUtils
 
@@ -184,6 +194,18 @@ test_in = [9., 5.]
 # ╔═╡ 3be1e889-8d70-4620-be13-0c0b3b59ee2e
 eval_fis(fis, test_in)
 
+# ╔═╡ 416fbb5d-e96f-4f80-98bd-68bbe820fd76
+html"""
+<style>
+	main {
+		margin: 0 auto;
+		max-width: 2000px;
+    	padding-left: max(160px, 10%);
+    	padding-right: max(160px, 10%);
+	}
+</style>
+"""
+
 # ╔═╡ Cell order:
 # ╠═65c4f4fb-cfa6-42b2-b74d-a160e3ea920f
 # ╠═76c90b07-36d5-4ab8-95f3-1cbb02d5477d
@@ -219,3 +241,4 @@ eval_fis(fis, test_in)
 # ╠═9089e155-dbba-490c-9ddf-5f3a76270cbe
 # ╠═bbc2a4c3-7095-437f-b59d-c99bfb46759e
 # ╠═3be1e889-8d70-4620-be13-0c0b3b59ee2e
+# ╟─416fbb5d-e96f-4f80-98bd-68bbe820fd76

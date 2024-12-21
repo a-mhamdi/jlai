@@ -1,6 +1,15 @@
 ### A Pluto.jl notebook ###
 # v0.20.3
 
+#> [frontmatter]
+#> title = "ML Data Preprocessing Workflows"
+#> date = "2024-12-21"
+#> tags = ["ml", "julialang", "standardization", "data-split"]
+#> 
+#>     [[frontmatter.author]]
+#>     name = "A. Mhamdi"
+#>     url = "https://a-mhamdi.github.io/jlai/"
+
 using Markdown
 using InteractiveUtils
 
@@ -139,6 +148,18 @@ Xtrain.Salary = MLJ.transform(sc_salary, Xtrain.Salary)
 
 # ╔═╡ 092355f9-6b62-4062-8687-0d4bb1e9c235
 Xtest.Salary = MLJ.transform(sc_salary, Xtest.Salary) 
+
+# ╔═╡ 09a2cb38-a2ac-4d40-8d01-7ede680510a2
+html"""
+<style>
+	main {
+		margin: 0 auto;
+		max-width: 2000px;
+    	padding-left: max(160px, 10%);
+    	padding-right: max(160px, 10%);
+	}
+</style>
+"""
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -1390,5 +1411,6 @@ version = "17.4.0+2"
 # ╠═ccee508e-ec60-46c8-88b8-b292a66bd6e7
 # ╠═e1859e5d-1d83-4461-86c1-8f032f09205e
 # ╠═092355f9-6b62-4062-8687-0d4bb1e9c235
+# ╟─09a2cb38-a2ac-4d40-8d01-7ede680510a2
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002

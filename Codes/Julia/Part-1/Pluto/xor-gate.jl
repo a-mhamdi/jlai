@@ -1,6 +1,16 @@
 ### A Pluto.jl notebook ###
 # v0.20.3
 
+#> [frontmatter]
+#> title = "XOR GATE"
+#> date = "2024-12-20"
+#> tags = ["xor", "ann", "julialan", "pluto"]
+#> description = "Build a typical `XOR` gate using artificial neural net."
+#> 
+#>     [[frontmatter.author]]
+#>     name = "A. Mhamdi"
+#>     url = "https://a-mhamdi.github.io/jlai/"
+
 using Markdown
 using InteractiveUtils
 
@@ -74,7 +84,7 @@ md"`mdl` is the model to be built"
 
 # ╔═╡ 0acd627b-cf06-464b-98e1-acf65fbe867e
 mdl = Chain(Dense( 2 => 4, tanh ),
-            Dense( 4 => 4, tanh ),
+			Dense( 4 => 4, tanh ),
             Dense( 4 => 1, σ ),
             )
 
@@ -88,7 +98,7 @@ y_raw = mdl(X)
 md"`opt` designates the optimizer"
 
 # ╔═╡ a7a2cf85-1a98-4408-ae68-faa3ad078474
-@bind η Slider(.0001:0.01:.1, default=.001)
+@bind η Slider(.001:0.001:.01, default=.003)
 
 # ╔═╡ 185b5a65-904a-402d-9c4d-10cb917704f0
 opt = Adam(η)
@@ -103,7 +113,7 @@ state = Flux.setup(opt, mdl)
 md"**TRAINING PHASE**"
 
 # ╔═╡ f4d384bb-9dfe-4839-99ca-60af08c1f475
-@bind epochs Slider(1:2:64, default=4)
+@bind epochs Slider(1:2:16, default=4)
 
 # ╔═╡ fec114ea-9fd1-44a1-8512-854eef73cc1f
 begin
@@ -159,6 +169,18 @@ md"Plot of both ground truth and results after training"
 # ╔═╡ 7491441d-19aa-49aa-a692-628d73a96611
 plot(sc1, sc3, layout=(1,2), size=(512,512))
 
+# ╔═╡ 6e6c6526-c067-4c66-8cf0-9ffe339ebf0a
+html"""
+<style>
+	main {
+		margin: 0 auto;
+		max-width: 2000px;
+    	padding-left: max(160px, 10%);
+    	padding-right: max(160px, 10%);
+	}
+</style>
+"""
+
 # ╔═╡ Cell order:
 # ╠═3d94a9b8-c4ac-446f-b3c4-fec5be847f18
 # ╠═067f56ad-4a5a-4272-aaa3-4a4bc00fcb4c
@@ -197,3 +219,4 @@ plot(sc1, sc3, layout=(1,2), size=(512,512))
 # ╠═189fbddb-1208-40e3-83d7-afe29b7c4dc1
 # ╠═65404f3d-4dd5-43bf-a90f-71a34182cfa8
 # ╠═7491441d-19aa-49aa-a692-628d73a96611
+# ╟─6e6c6526-c067-4c66-8cf0-9ffe339ebf0a

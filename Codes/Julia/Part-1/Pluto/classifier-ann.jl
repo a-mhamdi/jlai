@@ -1,6 +1,16 @@
 ### A Pluto.jl notebook ###
 # v0.20.3
 
+#> [frontmatter]
+#> title = "Binary Classifier using ANN"
+#> tags = ["ann", "flux", "julialang"]
+#> date = "2024-12-21"
+#> description = "Customer Churn Modelling"
+#> 
+#>     [[frontmatter.author]]
+#>     name = "A. Mhamdi"
+#>     url = "https://a-mhamdi.github.io/jlai/"
+
 using Markdown
 using InteractiveUtils
 
@@ -58,7 +68,7 @@ md"Import the required librairies"
 md"Hyperparameters tuning"
 
 # ╔═╡ 486ac35e-5a6e-4f7d-8bfd-3d00782eeffb
-md"Load data for csv file"
+md"Load data from csv file"
 
 # ╔═╡ 0d137d2c-db4f-4ec1-8290-9f621f956ee4
 df = CSV.read("../../Datasets/Churn_Modelling.csv", DataFrame)
@@ -67,8 +77,10 @@ df = CSV.read("../../Datasets/Churn_Modelling.csv", DataFrame)
 md"Choose the target vector `y`"
 
 # ╔═╡ 601b31ca-be6f-4b7d-bbb3-72c5dc4760f9
-ydf = select(df, :Exited)
-#coerce!(ydf, :Exited => Multiclass)
+begin
+	ydf = select(df, :Exited)
+	# coerce!(ydf, :Exited => OrderedFactor)
+end
 
 # ╔═╡ 27c7a2c0-ebd7-41bb-8a89-8a5d2c8d1300
 y_ = ydf.Exited
@@ -121,7 +133,7 @@ end
 md"Design the architecture of the classifier, denoted hereafter by `clf`"
 
 # ╔═╡ e2e6cc50-d02c-4bc9-8095-479207efa7bb
-clf = Chain(
+mdl = Chain(
             Dense( 11 => 8, relu ),
             Dense(  8 => 8, relu ),
             Dense(  8 => 8, relu ),
@@ -132,10 +144,10 @@ clf = Chain(
 md"Permute dims: ROW => features and COL => observation"
 
 # ╔═╡ b0bdb22e-8196-4046-ad6a-317d1ef2d879
-X = X_'; # permutedims(X)
+X = permutedims(X_)
 
-# ╔═╡ 2d134795-76f9-4807-92fa-203192d34b48
-y = y_'; # permutedims(y)
+# ╔═╡ 567a79d9-a0a3-4142-864e-207d3f011895
+y = permutedims(y_)
 
 # ╔═╡ e2df135a-8ce2-462a-8a25-402de6c5cd26
 md"Optimizers and data loader"
@@ -147,10 +159,7 @@ md"Optimizers and data loader"
 opt = Flux.Adam(η);
 
 # ╔═╡ 090e9957-7f97-49f7-89b5-efe39b8f94f3
-state = Flux.setup(opt, clf);
-
-# ╔═╡ 01d71ad5-e013-4dc1-bd31-0521a9e9655b
-η_, epochs_, batchsize_ = .001, 1_00, 64
+state = Flux.setup(opt, mdl);
 
 # ╔═╡ 19752951-1314-4df4-98d2-407d4a8c6e72
 @bind batchsize Slider(2:8:128, default=32)
@@ -162,18 +171,18 @@ loader = Flux.DataLoader((X, y); batchsize=batchsize, shuffle=true);
 md"**Training phase**"
 
 # ╔═╡ f83759e2-eed2-46cc-95fc-c974e6af1f04
-@bind epochs Slider(1:2:32, default=4)
+@bind epochs Slider(1:8:128, default=64)
 
 # ╔═╡ 1d0f0991-6709-4d1b-b316-3a4cf52cfdb7
 begin
 	vec_loss = []
-	@showprogress for _ in 1:epochs
-	    for (X, y) in loader
-	        loss, grads = Flux.withgradient(clf) do mdl
-	            ŷ_ = mdl(X);
-	            Flux.Losses.logitbinarycrossentropy(ŷ_, y);
+	@showprogress for epoch in 1:epochs
+	    for (mb_X, mb_y) in loader
+	        loss, grads = Flux.withgradient(mdl) do m
+	            mb_ŷ = m(mb_X);
+				Flux.logitbinarycrossentropy(mb_ŷ, mb_y);
 	        end
-	        Flux.update!(state, clf, grads[1]); # Upd `W` and `b`
+	        Flux.update!(state, mdl, grads[1]); # Upd `W` and `b`
 	        push!(vec_loss, loss); # Log `loss` to the vector `vec_loss`
 	    end
 	end
@@ -189,46 +198,86 @@ plot(vec_loss, label="Loss")
 extrema(vec_loss)
 
 # ╔═╡ f567f2ec-225c-4ab2-a9d7-e0833b972868
-md"Some metrics"
+md"**Some metrics**"
 
 # ╔═╡ 710d5efb-3c20-4655-a3cd-2490a80133c1
-ŷ_ = clf(X) |> σ;
+ŷ_ = mdl(X) |> σ;
 
 # ╔═╡ 1da45b0e-c430-4f35-8a6a-2a6a2bf0afc6
 ŷ = (ŷ_ .≥ .5);
 
 # ╔═╡ c8d291ea-8505-4304-9bb5-6177f01a5c43
-md"Basic way to compute the accuracy"
+md"_Basic way to compute the accuracy_"
 
 # ╔═╡ 086e0922-608a-4449-86e4-e86b32d20f41
 accuracy = mean( ŷ .== y )
 
 # ╔═╡ b71d3fc7-29be-49f9-994a-7371d03e81fc
-md"Confusion Matrix"
+md"_Confusion Matrix_"
 
 # ╔═╡ de87da99-5d60-4b60-b1bd-c89d18ba6bbd
-displayed_cm = MLJ.ConfusionMatrix(levels=[1, 0])(ŷ, y)
+displayed_cm = MLJ.ConfusionMatrix(levels=[0, 1])(ŷ, y)
 
 # ╔═╡ b578d4cb-eca6-4098-91c9-148ab6dbf52e
 cm = ConfusionMatrices.matrix(displayed_cm)
 
 # ╔═╡ 6cff22b5-1e50-4d8b-ab3c-1b92ba1063c6
-md"Other metrics"
+md"_Classification metrics_"
 
 # ╔═╡ a9ba36ff-0321-4cb9-a7af-0cbef12554ce
 TP, TN, FP, FN = cm[2, 2], cm[1, 1], cm[2, 1], cm[1, 2];
 
+# ╔═╡ e3487d37-edb3-46a2-909f-4e294626bae1
+md"_Accuracy_"
+
 # ╔═╡ 72c1d033-42a9-4ad4-814b-4d5c1d0d375b
-accuracy_ = (TP+TN)/(TP+TN+FP+FN) # MLJ.accuracy(cm)
+accuracy_ = (TP+TN)/(TP+TN+FP+FN)
+
+# ╔═╡ 0bb0694a-d4e2-4c15-a24d-d073a9bc514c
+MLJ.accuracy(ŷ, y)
+
+# ╔═╡ 0fb71566-73ee-4096-98b1-bfb7917f494d
+md"_True Negative Rate_"
 
 # ╔═╡ ba2efbb6-0029-4fee-b216-d537bd32b60e
-precision_ = TP/(TP+FP) # MLJ.precision(cm)
+true_negative_rate_ = TN/(TN+FP)
+
+# ╔═╡ f45cc9db-03aa-46e4-be87-1af83a3b958d
+MLJ.true_negative_rate(ŷ, y)
+
+# ╔═╡ 862a1e4c-0e68-468d-9149-94158926285a
+md"_True Positive Rate_"
 
 # ╔═╡ 5053c71a-9236-4723-8dd3-d2fe2180c357
-recall_ = TP/(TP+FN) # MLJ.recall(cm)
+true_positive_rate_ = TP/(TP+FN)
 
-# ╔═╡ b6dd27d1-5f67-4707-ac74-f31852957add
-f1score_ = 2/(1/precision_ + 1/recall_) # MLJ.f1score(cm)
+# ╔═╡ 8883aedb-7e8e-482d-9225-5ba3fd6794b1
+MLJ.true_positive_rate(ŷ, y)
+
+# ╔═╡ 25b29473-507a-4d7f-9a5e-8267e7acbdb6
+md"_f1-score_"
+
+# ╔═╡ f46fcd55-6630-4ac3-b86b-316db204bbdf
+begin
+	precision_ = TP/(TP+FP)
+	recall_ = TP/(TP+FN)
+	f1score_ = 2/(1/precision_ + 1/recall_)
+end
+
+# ╔═╡ 9748255a-b13f-4cfe-b9a7-400a15ead1f5
+MLJ.f1score(ŷ, y)
+
+# ╔═╡ 90100f84-e006-4915-9e82-c849c3d91351
+html"""
+<style>
+	main {
+		margin: 0 auto;
+		max-width: 2000px;
+    	padding-left: max(160px, 10%);
+    	padding-right: max(160px, 10%);
+	}
+</style>
+"""
 
 # ╔═╡ Cell order:
 # ╠═891eda37-95d5-46dd-a642-79e68e7bb322
@@ -259,13 +308,12 @@ f1score_ = 2/(1/precision_ + 1/recall_) # MLJ.f1score(cm)
 # ╠═e2e6cc50-d02c-4bc9-8095-479207efa7bb
 # ╠═9f737b1c-fe5a-4ec9-a47e-a05c44c15a35
 # ╠═b0bdb22e-8196-4046-ad6a-317d1ef2d879
-# ╠═2d134795-76f9-4807-92fa-203192d34b48
+# ╠═567a79d9-a0a3-4142-864e-207d3f011895
 # ╠═e2df135a-8ce2-462a-8a25-402de6c5cd26
 # ╠═d0a6e9c5-1a39-4edc-bb67-56b95d045052
 # ╠═55ecb9c4-8339-4690-84da-25407fdf4219
 # ╠═2dddfc11-9907-4e5a-b949-ef1f4e27dfac
 # ╠═090e9957-7f97-49f7-89b5-efe39b8f94f3
-# ╠═01d71ad5-e013-4dc1-bd31-0521a9e9655b
 # ╠═19752951-1314-4df4-98d2-407d4a8c6e72
 # ╠═1b2c6fe5-ec88-4a54-88d0-f3bde759d8da
 # ╠═348b2e02-a9c4-4ac7-b34a-641a218ed69d
@@ -286,7 +334,16 @@ f1score_ = 2/(1/precision_ + 1/recall_) # MLJ.f1score(cm)
 # ╠═b578d4cb-eca6-4098-91c9-148ab6dbf52e
 # ╠═6cff22b5-1e50-4d8b-ab3c-1b92ba1063c6
 # ╠═a9ba36ff-0321-4cb9-a7af-0cbef12554ce
+# ╠═e3487d37-edb3-46a2-909f-4e294626bae1
 # ╠═72c1d033-42a9-4ad4-814b-4d5c1d0d375b
+# ╠═0bb0694a-d4e2-4c15-a24d-d073a9bc514c
+# ╠═0fb71566-73ee-4096-98b1-bfb7917f494d
 # ╠═ba2efbb6-0029-4fee-b216-d537bd32b60e
+# ╠═f45cc9db-03aa-46e4-be87-1af83a3b958d
+# ╠═862a1e4c-0e68-468d-9149-94158926285a
 # ╠═5053c71a-9236-4723-8dd3-d2fe2180c357
-# ╠═b6dd27d1-5f67-4707-ac74-f31852957add
+# ╠═8883aedb-7e8e-482d-9225-5ba3fd6794b1
+# ╠═25b29473-507a-4d7f-9a5e-8267e7acbdb6
+# ╠═f46fcd55-6630-4ac3-b86b-316db204bbdf
+# ╠═9748255a-b13f-4cfe-b9a7-400a15ead1f5
+# ╟─90100f84-e006-4915-9e82-c849c3d91351

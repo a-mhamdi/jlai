@@ -1,16 +1,20 @@
 ### A Pluto.jl notebook ###
 # v0.20.3
 
+#> [frontmatter]
+#> title = "Natural Language Processing"
+#> date = "2024-12-20"
+#> tags = ["julialang", "nlp"]
+#> 
+#>     [[frontmatter.author]]
+#>     name = "A. Mhamdi"
+#>     url = "https://a-mhamdi.github.io/jlai/#"
+
 using Markdown
 using InteractiveUtils
 
-# ╔═╡ d8292e75-d298-4e8e-b7bb-acc848e01b4a
-#################################
-#= Natural Language Processing =#
-#################################
-# `versioninfo()` -> 1.11.1
-
-using Markdown
+# ╔═╡ 5f3b5700-d705-477d-8f20-6d09ecb4a8b3
+import Pkg; Pkg.activate(".")
 
 # ╔═╡ bf1da4bc-48f4-4042-a7ab-e042bbd32d41
 using TextAnalysis
@@ -20,6 +24,15 @@ using Embeddings
 
 # ╔═╡ fdd4f0b1-1cae-467a-9fbf-6fbbe1c35c1c
 using LinearAlgebra
+
+# ╔═╡ d8292e75-d298-4e8e-b7bb-acc848e01b4a
+md"# NATURAL LANGUAGE PROCESSING"
+
+# ╔═╡ 384c0666-27c6-4bc8-8e9d-c20d0fd3c919
+versioninfo() # -> v"1.11.1"
+
+# ╔═╡ 8bbf13dd-9faf-4566-91a4-cba2759048f6
+cd(@__DIR__)
 
 # ╔═╡ f336e7e2-99ae-4b91-8f93-0607eede9773
 txt = "The quick brown fox is jumping over the lazy dog" # Pangram [modif.]
@@ -175,17 +188,21 @@ md"**Text classification**"
 # ╔═╡ 65f6b972-a4fe-4b62-8dc8-80f564de8fbf
 md"https://github.com/JuliaText/TextAnalysis.jl/blob/master/docs/src/classify.md"
 
+# ╔═╡ 11fe766c-bb25-478a-bd94-e786f98d21aa
+begin
+	mdl = NaiveBayesClassifier([:legal, :financial])
+	fit!(mdl, "this is financial doc", :financial)
+	fit!(mdl, "this is legal doc", :legal)
+end
+
+# ╔═╡ 33272333-27b7-4ed1-918c-fac97e0e18fd
+predict(mdl, "this should be predicted as a legal document")
+
 # ╔═╡ 1653799c-175e-4024-b9a8-ca08446cdc79
 md"**Semantic analysis**"
 
-# ╔═╡ 3af49352-fd14-4181-8f2e-5f5aeaf6aff3
-fit!(m, "this is financial doc", :financial)
-
-# ╔═╡ 8c93b998-3e9a-4c6f-8ae2-14d1292942ce
-fit!(m, "this is legal doc", :legal)
-
-# ╔═╡ 33272333-27b7-4ed1-918c-fac97e0e18fd
-predict(m, "this should be predicted as a legal document")
+# ╔═╡ 9120c455-745e-498a-acc7-827da3f8c9ae
+m = DocumentTermMatrix(crps)
 
 # ╔═╡ 3a6c37d3-7ea9-4d5b-b486-e3c48be5e076
 md"*Latent Semantic Analysis*"
@@ -211,14 +228,23 @@ iterations = 1000  # number of Gibbs sampling iterations
 # ╔═╡ 92520517-1ba9-4436-9472-91699cb2b56c
 ϕ, θ  = lda(m, k, iterations, α, β) #
 
-# ╔═╡ 11fe766c-bb25-478a-bd94-e786f98d21aa
-m = NaiveBayesClassifier([:legal, :financial])
-
-# ╔═╡ 9120c455-745e-498a-acc7-827da3f8c9ae
-m = DocumentTermMatrix(crps)
+# ╔═╡ 1b94b44f-2c26-463e-bb24-2e8b895a2b5a
+html"""
+<style>
+	main {
+		margin: 0 auto;
+		max-width: 2000px;
+    	padding-left: max(160px, 10%);
+    	padding-right: max(160px, 10%);
+	}
+</style>
+"""
 
 # ╔═╡ Cell order:
 # ╠═d8292e75-d298-4e8e-b7bb-acc848e01b4a
+# ╠═384c0666-27c6-4bc8-8e9d-c20d0fd3c919
+# ╠═8bbf13dd-9faf-4566-91a4-cba2759048f6
+# ╠═5f3b5700-d705-477d-8f20-6d09ecb4a8b3
 # ╠═bf1da4bc-48f4-4042-a7ab-e042bbd32d41
 # ╠═f336e7e2-99ae-4b91-8f93-0607eede9773
 # ╠═40388d9d-16db-4e3c-9384-bc4638ba3663
@@ -265,8 +291,6 @@ m = DocumentTermMatrix(crps)
 # ╠═74d57c25-34f0-4f60-9ba9-6d6b507b61f2
 # ╠═65f6b972-a4fe-4b62-8dc8-80f564de8fbf
 # ╠═11fe766c-bb25-478a-bd94-e786f98d21aa
-# ╠═3af49352-fd14-4181-8f2e-5f5aeaf6aff3
-# ╠═8c93b998-3e9a-4c6f-8ae2-14d1292942ce
 # ╠═33272333-27b7-4ed1-918c-fac97e0e18fd
 # ╠═1653799c-175e-4024-b9a8-ca08446cdc79
 # ╠═9120c455-745e-498a-acc7-827da3f8c9ae
@@ -278,3 +302,4 @@ m = DocumentTermMatrix(crps)
 # ╠═46c868e8-23f8-4c22-9742-2126c5b7e15e
 # ╠═e4ea104e-0bd9-4d54-a4f3-800ad6a3dde9
 # ╠═92520517-1ba9-4436-9472-91699cb2b56c
+# ╟─1b94b44f-2c26-463e-bb24-2e8b895a2b5a
