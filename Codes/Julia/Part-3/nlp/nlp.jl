@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.20.3
+# v0.20.4
 
 #> [frontmatter]
 #> title = "Natural Language Processing"
@@ -29,10 +29,7 @@ using LinearAlgebra
 md"# NATURAL LANGUAGE PROCESSING"
 
 # ╔═╡ 384c0666-27c6-4bc8-8e9d-c20d0fd3c919
-versioninfo() # -> v"1.11.1"
-
-# ╔═╡ 8bbf13dd-9faf-4566-91a4-cba2759048f6
-cd(@__DIR__)
+versioninfo() # -> v"1.11.2"
 
 # ╔═╡ f336e7e2-99ae-4b91-8f93-0607eede9773
 txt = "The quick brown fox is jumping over the lazy dog" # Pangram [modif.]
@@ -226,7 +223,7 @@ iterations = 1000  # number of Gibbs sampling iterations
 β  = 0.1           # hyper parameter
 
 # ╔═╡ 92520517-1ba9-4436-9472-91699cb2b56c
-ϕ, θ  = lda(m, k, iterations, α, β) #
+ϕ, θ  = lda(m, k, iterations, α, β)
 
 # ╔═╡ 1b94b44f-2c26-463e-bb24-2e8b895a2b5a
 html"""
@@ -243,7 +240,6 @@ html"""
 # ╔═╡ Cell order:
 # ╠═d8292e75-d298-4e8e-b7bb-acc848e01b4a
 # ╠═384c0666-27c6-4bc8-8e9d-c20d0fd3c919
-# ╠═8bbf13dd-9faf-4566-91a4-cba2759048f6
 # ╠═5f3b5700-d705-477d-8f20-6d09ecb4a8b3
 # ╠═bf1da4bc-48f4-4042-a7ab-e042bbd32d41
 # ╠═f336e7e2-99ae-4b91-8f93-0607eede9773
