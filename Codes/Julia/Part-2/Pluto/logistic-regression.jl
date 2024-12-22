@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.20.3
+# v0.20.4
 
 #> [frontmatter]
 #> title = "Logistic Regression"
@@ -14,7 +14,10 @@ using Markdown
 using InteractiveUtils
 
 # ╔═╡ 6e6d37c7-5f08-446a-a7e4-163b496bcfd4
-import Pkg; Pkg.activate("..")
+begin
+	cd(@__DIR__)
+	import Pkg; Pkg.activate("..")
+end
 
 # ╔═╡ 7e8e0022-0faa-4efb-b1c3-1441c5945a0e
 using CSV, DataFrames
@@ -23,7 +26,7 @@ using CSV, DataFrames
 using MLJ
 
 # ╔═╡ b09f7411-867e-487a-95cd-9ca967c0799d
-using Plots
+using Plots; theme(:dracula)
 
 # ╔═╡ a037e28a-71ac-4556-bbe8-6dd888904aae
 md"# LOGISTIC REGRESSION"
@@ -31,12 +34,9 @@ md"# LOGISTIC REGRESSION"
 # ╔═╡ 0b7e3ad5-a41e-43ce-9588-c53d98428bb2
 md"
 ```julia
-versioninfo() # -> v\"1.11.1\"
+versioninfo() # -> v\"1.11.2\"
 ```
 "
-
-# ╔═╡ 7cf9eb93-a06e-45e7-b850-c37e1fc32913
-cd(@__DIR__)
 
 # ╔═╡ 2f71b33c-e4c3-4d5b-b376-3055742ab879
 md"Import librairies"
@@ -167,7 +167,6 @@ html"""
 # ╔═╡ Cell order:
 # ╠═a037e28a-71ac-4556-bbe8-6dd888904aae
 # ╠═0b7e3ad5-a41e-43ce-9588-c53d98428bb2
-# ╠═7cf9eb93-a06e-45e7-b850-c37e1fc32913
 # ╠═6e6d37c7-5f08-446a-a7e4-163b496bcfd4
 # ╠═2f71b33c-e4c3-4d5b-b376-3055742ab879
 # ╠═7e8e0022-0faa-4efb-b1c3-1441c5945a0e

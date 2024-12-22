@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.20.3
+# v0.20.4
 
 #> [frontmatter]
 #> title = "Simple Linear Regression"
@@ -12,8 +12,11 @@
 using Markdown
 using InteractiveUtils
 
-# ╔═╡ 65587c82-8bac-4bbe-8b72-4dfe26062d3b
-import Pkg; Pkg.activate("..")
+# ╔═╡ b3e9d378-0277-4219-b8e6-ff9caef39725
+begin
+	cd(@__DIR__)
+	import Pkg; Pkg.activate("..")
+end
 
 # ╔═╡ f9c34383-95c7-4e4b-a5e6-aaf661197b30
 using CSV, DataFrames
@@ -22,26 +25,23 @@ using CSV, DataFrames
 using MLJ
 
 # ╔═╡ b62abbfe-b623-4ba3-b2be-758699f20ad8
-using Plots
+using Plots; theme(:dracula)
 
 # ╔═╡ 7d95bf75-ebf9-49a8-813c-17bf24ad2c1d
-md"# SIMPLE LINEAR REGRESSION _(SALARY vs. YEARS OF EXPERIENCE)_"
+md"# SIMPLE LINEAR REGRESSION _(SALARY vs. YEARS of EXPERIENCE)_"
 
 # ╔═╡ 97c1a7c2-fb03-4463-aa4e-a16bccc94597
 md"
 ```julia
-versioninfo() # -> v\"1.11.1\"
+versioninfo() # -> v\"1.11.2\"
 ```
 "
-
-# ╔═╡ b3e9d378-0277-4219-b8e6-ff9caef39725
-cd(@__DIR__)
 
 # ╔═╡ a10b0619-4da9-4a2f-b75e-002baa5d1a92
 md"Import librairies"
 
 # ╔═╡ 5a418a7e-5779-4697-93db-c22c2b60ecfe
-md"Read data using .csv File. Convert it to `DataFrame` object"
+md"Read data using `.csv` file. Convert it to `DataFrame` object"
 
 # ╔═╡ c30699f3-9baa-4ae8-8273-3e2654186732
 df = CSV.read("../../Datasets/Salary_Data.csv", DataFrame)
@@ -131,7 +131,6 @@ html"""
 # ╠═7d95bf75-ebf9-49a8-813c-17bf24ad2c1d
 # ╠═97c1a7c2-fb03-4463-aa4e-a16bccc94597
 # ╠═b3e9d378-0277-4219-b8e6-ff9caef39725
-# ╠═65587c82-8bac-4bbe-8b72-4dfe26062d3b
 # ╠═a10b0619-4da9-4a2f-b75e-002baa5d1a92
 # ╠═f9c34383-95c7-4e4b-a5e6-aaf661197b30
 # ╠═f406ddf3-1a92-45e5-b471-81b837e30001
