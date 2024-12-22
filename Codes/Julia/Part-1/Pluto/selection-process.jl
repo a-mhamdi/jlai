@@ -22,7 +22,7 @@ begin
 end
 
 # ╔═╡ d7f0bb85-56f6-485f-910a-765e793988e0
-using Plots; theme(:dark)
+using Plots; theme(:dracula)
 
 # ╔═╡ e682be72-2190-44ed-887f-4eae11eb1b10
 using Fuzzy

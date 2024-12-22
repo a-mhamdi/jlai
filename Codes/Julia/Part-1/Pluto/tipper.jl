@@ -25,7 +25,7 @@ end
 using Fuzzy
 
 # ╔═╡ 0b178d02-d55b-4ee2-81df-dfb568bd1a31
-using Plots; theme(:dark)
+using Plots; theme(:dracula)
 
 # ╔═╡ 264261bf-4e21-4510-a106-4854cbb30c1c
 md"# TIPPER PROBLEM"

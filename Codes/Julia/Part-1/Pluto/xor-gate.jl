@@ -37,7 +37,7 @@ end
 using Flux
 
 # ╔═╡ 60bdb844-225d-48e9-9cf9-4886837a5ad6
-using Plots; theme(:dark)
+using Plots; theme(:dracula)
 
 # ╔═╡ 06cf692e-a3ec-4bbe-a8d6-d32b8db5063e
 using PlutoUI
