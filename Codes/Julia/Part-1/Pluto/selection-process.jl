@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.20.3
+# v0.20.4
 
 #> [frontmatter]
 #> title = "Selection Process"
@@ -9,7 +9,7 @@
 #> 
 #>     [[frontmatter.author]]
 #>     name = "A. Mhamdi"
-#>     url = "https://a-mhamdi.github.io/jlai/#"
+#>     url = "https://a-mhamdi.github.io/jlai/"
 
 using Markdown
 using InteractiveUtils
@@ -22,7 +22,7 @@ begin
 end
 
 # ╔═╡ d7f0bb85-56f6-485f-910a-765e793988e0
-using Plots
+using Plots; theme(:dark)
 
 # ╔═╡ e682be72-2190-44ed-887f-4eae11eb1b10
 using Fuzzy
@@ -33,7 +33,7 @@ md"# SELECTION PROCESS"
 # ╔═╡ 76c90b07-36d5-4ab8-95f3-1cbb02d5477d
 md"
 ```julia
-versioninfo() -> v\"1.11.1\"
+versioninfo() -> v\"1.11.2\"
 ```
 "
 

@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.20.3
+# v0.20.4
 
 #> [frontmatter]
 #> title = "Binary Classifier using ANN"
@@ -49,7 +49,7 @@ using PlutoUI
 using ProgressMeter
 
 # ╔═╡ 4aacfa4d-22ef-4360-9f1b-5aa9712a7aa1
-using Plots
+using Plots; theme(:dracula)
 
 # ╔═╡ 891eda37-95d5-46dd-a642-79e68e7bb322
 md"# BINARY CLASSIFIER USING ANN _(CHURN MODELLING)_"
@@ -57,7 +57,7 @@ md"# BINARY CLASSIFIER USING ANN _(CHURN MODELLING)_"
 # ╔═╡ 4f009769-c8f7-448d-83e5-ec54ff54b999
 md"
 ```julia
-versioninfo() -> v\"1.11.1\"
+versioninfo() -> v\"1.11.2\"
 ```
 "
 

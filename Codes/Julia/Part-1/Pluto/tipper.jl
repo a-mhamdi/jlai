@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.20.3
+# v0.20.4
 
 #> [frontmatter]
 #> title = "Tipper Problem"
@@ -9,7 +9,7 @@
 #> 
 #>     [[frontmatter.author]]
 #>     name = "A. Mhamdi"
-#>     url = "https://a-mhamdi.github.io/jlai/#"
+#>     url = "https://a-mhamdi.github.io/jlai/"
 
 using Markdown
 using InteractiveUtils
@@ -25,7 +25,7 @@ end
 using Fuzzy
 
 # ╔═╡ 0b178d02-d55b-4ee2-81df-dfb568bd1a31
-using Plots
+using Plots; theme(:dark)
 
 # ╔═╡ 264261bf-4e21-4510-a106-4854cbb30c1c
 md"# TIPPER PROBLEM"
@@ -33,7 +33,7 @@ md"# TIPPER PROBLEM"
 # ╔═╡ ec6eaa3e-9c69-4dc1-bc86-ae44b1977d93
 md"
 ```julia
-versioninfo() -> v\"1.11.1\"
+versioninfo() -> v\"1.11.2\"
 ```
 "
 

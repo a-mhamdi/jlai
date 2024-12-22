@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.20.3
+# v0.20.4
 
 #> [frontmatter]
 #> title = "XOR GATE"
@@ -37,7 +37,7 @@ end
 using Flux
 
 # ╔═╡ 60bdb844-225d-48e9-9cf9-4886837a5ad6
-using Plots; # unicodeplots()
+using Plots; theme(:dark)
 
 # ╔═╡ 06cf692e-a3ec-4bbe-a8d6-d32b8db5063e
 using PlutoUI
@@ -51,7 +51,7 @@ md"# XOR GATE"
 # ╔═╡ 067f56ad-4a5a-4272-aaa3-4a4bc00fcb4c
 md"
 ```julia
-versioninfo() -> v\"1.11.1\"
+versioninfo() -> v\"1.11.2\"
 ```
 "
 
@@ -98,7 +98,7 @@ y_raw = mdl(X)
 md"`opt` designates the optimizer"
 
 # ╔═╡ a7a2cf85-1a98-4408-ae68-faa3ad078474
-@bind η Slider(.001:0.001:.01, default=.003)
+@bind η Slider(logrange(.001,1,length=10), default=.003)
 
 # ╔═╡ 185b5a65-904a-402d-9c4d-10cb917704f0
 opt = Adam(η)
