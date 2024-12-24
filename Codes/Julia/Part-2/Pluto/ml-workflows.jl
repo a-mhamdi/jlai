@@ -16,7 +16,7 @@ using InteractiveUtils
 # ╔═╡ e75026f1-f5e4-48a1-b9c4-d65a19dfdd9d
 begin
 	cd(@__DIR__)
-	import Pkg; Pkg.activate("..")
+	import Pkg; Pkg.activate(".."); Pkg.status()
 end
 
 # ╔═╡ 60c276fa-3605-4cc0-9805-ca331b5892a5
@@ -155,18 +155,6 @@ Xtrain.Salary = MLJ.transform(sc_salary, Xtrain.Salary)
 # ╔═╡ 092355f9-6b62-4062-8687-0d4bb1e9c235
 Xtest.Salary = MLJ.transform(sc_salary, Xtest.Salary) 
 
-# ╔═╡ 09a2cb38-a2ac-4d40-8d01-7ede680510a2
-html"""
-<style>
-	main {
-		margin: 0 auto;
-		max-width: 2000px;
-    	padding-left: max(160px, 10%);
-    	padding-right: max(160px, 10%);
-	}
-</style>
-"""
-
 # ╔═╡ Cell order:
 # ╠═aa831e6c-66db-4884-90a4-3184bd540781
 # ╠═4ff29318-5d25-4909-adc6-3a2a8bc578b8
@@ -207,4 +195,3 @@ html"""
 # ╠═ccee508e-ec60-46c8-88b8-b292a66bd6e7
 # ╠═e1859e5d-1d83-4461-86c1-8f032f09205e
 # ╠═092355f9-6b62-4062-8687-0d4bb1e9c235
-# ╟─09a2cb38-a2ac-4d40-8d01-7ede680510a2

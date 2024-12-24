@@ -19,7 +19,7 @@ end
 # ╔═╡ c0445977-65af-4368-9e64-91ee2db27a53
 begin
 	cd(@__DIR__)
-	import Pkg; Pkg.activate("..")
+	import Pkg; Pkg.activate(".."); Pkg.status()
 end
 
 # ╔═╡ dfd07be0-e12e-41ed-837a-ff2b58a2db01
@@ -122,18 +122,6 @@ scatter(ss, income, marker_z=y, color=:winter, legend=false)
 # ╔═╡ 63df9627-b143-4778-8c78-adc048cdfb91
 scatter!(centroids[1,:], centroids[2,:], color=:red, labels=['1', '2', '3', '4', '5'])
 
-# ╔═╡ 47d02dac-fb2c-4b4f-a683-0f5ff33ac8d1
-html"""
-<style>
-	main {
-		margin: 0 auto;
-		max-width: 2000px;
-		padding-left: max(160px, 10%);
-		padding-right: max(160px, 10%);
-	}
-</style>
-"""
-
 # ╔═╡ Cell order:
 # ╠═838a220d-c8f5-42aa-a3f4-a33ffe00900d
 # ╠═89420f6d-b069-4b06-8f0f-cca5a00accad
@@ -167,4 +155,3 @@ html"""
 # ╠═4ace1040-67c4-4d22-b0fb-3626d672f9aa
 # ╠═33420260-2033-4e31-a804-bfe4a55be9f4
 # ╠═63df9627-b143-4778-8c78-adc048cdfb91
-# ╟─47d02dac-fb2c-4b4f-a683-0f5ff33ac8d1

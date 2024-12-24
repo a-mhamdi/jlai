@@ -15,7 +15,7 @@ using InteractiveUtils
 # ╔═╡ b3e9d378-0277-4219-b8e6-ff9caef39725
 begin
 	cd(@__DIR__)
-	import Pkg; Pkg.activate("..")
+	import Pkg; Pkg.activate(".."); Pkg.status()
 end
 
 # ╔═╡ f9c34383-95c7-4e4b-a5e6-aaf661197b30
@@ -115,18 +115,6 @@ begin
 	scatter!(xtest, yhat, label=:none)
 end
 
-# ╔═╡ 3af7120e-86ff-4cd8-879e-bfd6390c0302
-html"""
-<style>
-	main {
-		margin: 0 auto;
-		max-width: 2000px;
-    	padding-left: max(160px, 10%);
-    	padding-right: max(160px, 10%);
-	}
-</style>
-"""
-
 # ╔═╡ Cell order:
 # ╠═7d95bf75-ebf9-49a8-813c-17bf24ad2c1d
 # ╠═97c1a7c2-fb03-4463-aa4e-a16bccc94597
@@ -159,4 +147,3 @@ html"""
 # ╠═29bdd18a-68d4-4e55-89af-d03400bb36aa
 # ╠═292c1ce0-662d-4979-8b7a-123b5ec06bbc
 # ╠═d91aa4dd-0cdf-4bbc-978c-c5e79cfa9b1d
-# ╟─3af7120e-86ff-4cd8-879e-bfd6390c0302

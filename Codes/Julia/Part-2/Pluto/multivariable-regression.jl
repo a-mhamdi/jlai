@@ -7,7 +7,7 @@ using InteractiveUtils
 # ╔═╡ 47d72653-b058-43bd-8add-255c6a030da5
 begin
 	cd(@__DIR__)
-	import Pkg; Pkg.activate("..")
+	import Pkg; Pkg.activate(".."); Pkg.status()
 end
 
 # ╔═╡ ca65a07e-e2b9-4fdd-a775-e47af2cbfbd4
@@ -197,18 +197,6 @@ yhat_en = predict(en, Xtest)
 # ╔═╡ b1e3685c-659c-42b4-ab5d-591f3337eb71
 println("Error is $(sum((yhat_en .- ytest).^2) ./ length(ytest))")
 
-# ╔═╡ cd69639b-17a0-4dcb-8a21-ca66291d82ba
-html"""
-<style>
-	main {
-		margin: 0 auto;
-		max-width: 2000px;
-		padding-left: max(160px, 10%);
-		padding-right: max(160px, 10%);
-	}
-</style>
-"""
-
 # ╔═╡ Cell order:
 # ╠═0695ea0e-6206-453b-8df3-7561957fddd7
 # ╠═d9d6bcc4-5983-4355-bad2-678f21703572
@@ -270,4 +258,3 @@ html"""
 # ╠═133540b0-464e-469d-90d2-5e44c804bdda
 # ╠═c49e6e0e-ea7e-458f-8cc4-91fed0c52d87
 # ╠═b1e3685c-659c-42b4-ab5d-591f3337eb71
-# ╟─cd69639b-17a0-4dcb-8a21-ca66291d82ba

@@ -19,7 +19,7 @@ end
 # ╔═╡ cebea174-69cc-420f-95e4-da9577115d25
 begin
 	cd(@__DIR__)
-	import Pkg; Pkg.activate("..")
+	import Pkg; Pkg.activate(".."); Pkg.status()
 end
 
 # ╔═╡ 48ab2092-42c3-410f-b428-242eb6449c11
@@ -69,7 +69,7 @@ schema(df)
 md"Unpack features & target"
 
 # ╔═╡ 1070caa5-2781-4bfd-b948-8be52a467a35
-target, features = unpack(df, ==(:Purchased))
+target, features = unpack(df, ==(:Purchased));
 
 # ╔═╡ 08b855d9-2c72-48bb-9019-291b7fa4bad0
 md"Scatter plot"
@@ -152,18 +152,6 @@ md"We can estimate the performance of `pipe` through the `evaluate!` command."
 # ╔═╡ cb828c5d-0111-44a1-8780-f5d73bea404a
 evaluate!(pipe, operation=predict)
 
-# ╔═╡ 9d207775-f9b0-4c8f-9315-27198ee04275
-html"""
-<style>
-	main {
-		margin: 0 auto;
-		max-width: 2000px;
-		padding-left: max(160px, 10%);
-		padding-right: max(160px, 10%);
-	}
-</style>
-"""
-
 # ╔═╡ Cell order:
 # ╠═4df16c37-19d8-4cc8-8df5-9ea4b91e986a
 # ╠═2d2ad47c-e8c9-4420-a527-fe74ed9cd99f
@@ -206,4 +194,3 @@ html"""
 # ╠═520e304b-75e8-44ac-8928-84daa9e361af
 # ╠═86d91133-26ec-4272-9a1d-e6b1d2fe2b2c
 # ╠═cb828c5d-0111-44a1-8780-f5d73bea404a
-# ╟─9d207775-f9b0-4c8f-9315-27198ee04275

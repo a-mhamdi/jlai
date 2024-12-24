@@ -19,7 +19,7 @@ end
 # ╔═╡ 012037ab-71b5-4435-a083-6560d60c8255
 begin
 	cd(@__DIR__)
-	import Pkg; Pkg.activate("..")
+	import Pkg; Pkg.activate(".."); Pkg.status()
 end
 
 # ╔═╡ 29fb345c-2085-45d8-b71a-1b71bca8d140
@@ -140,18 +140,6 @@ begin
 	scatter!(x.Level[train], yhat, label="ŷ(t)")
 end
 
-# ╔═╡ a64d10e5-9b0e-4583-b29a-b4d44c634796
-html"""
-<style>
-	main {
-		margin: 0 auto;
-		max-width: 2000px;
-		padding-left: max(160px, 10%);
-		padding-right: max(160px, 10%);
-	}
-</style>
-"""
-
 # ╔═╡ Cell order:
 # ╠═7f6a4804-ac54-4b25-83da-eca14319e7ab
 # ╠═b0548d1d-8d27-4638-8d7f-999d81935219
@@ -186,4 +174,3 @@ html"""
 # ╠═58bc41c1-f0b1-4a5c-aa69-b5392fc1de74
 # ╠═8abfe033-41aa-40da-a78d-1734529eabf9
 # ╠═cde54b7f-5d41-4cde-9381-ac97f9d0ab07
-# ╟─a64d10e5-9b0e-4583-b29a-b4d44c634796
