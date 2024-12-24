@@ -29,8 +29,9 @@ end
 # ╔═╡ aefe9c9f-52a9-49c1-95a5-decc25fd1317
 begin
 	cd(@__DIR__)
-	using Pkg
+	import Pkg
 	Pkg.activate("..")
+	Pkg.status()
 end
 
 # ╔═╡ 9b0100b8-695c-4699-a0a5-8e1672aa8d7d
@@ -169,18 +170,6 @@ md"Plot of both ground truth and results after training"
 # ╔═╡ 7491441d-19aa-49aa-a692-628d73a96611
 plot(sc1, sc3, layout=(1,2), size=(512,512))
 
-# ╔═╡ 6e6c6526-c067-4c66-8cf0-9ffe339ebf0a
-html"""
-<style>
-	main {
-		margin: 0 auto;
-		max-width: 2000px;
-    	padding-left: max(160px, 10%);
-    	padding-right: max(160px, 10%);
-	}
-</style>
-"""
-
 # ╔═╡ Cell order:
 # ╠═3d94a9b8-c4ac-446f-b3c4-fec5be847f18
 # ╠═067f56ad-4a5a-4272-aaa3-4a4bc00fcb4c
@@ -219,4 +208,3 @@ html"""
 # ╠═189fbddb-1208-40e3-83d7-afe29b7c4dc1
 # ╠═65404f3d-4dd5-43bf-a90f-71a34182cfa8
 # ╠═7491441d-19aa-49aa-a692-628d73a96611
-# ╟─6e6c6526-c067-4c66-8cf0-9ffe339ebf0a

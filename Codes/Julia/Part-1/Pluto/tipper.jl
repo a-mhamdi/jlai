@@ -17,8 +17,9 @@ using InteractiveUtils
 # ╔═╡ 5882d747-06ed-46bd-8611-0cf9fd7980ce
 begin
 	cd(@__DIR__)
-	using Pkg
+	import Pkg
 	Pkg.activate("..")
+	Pkg.status()
 end
 
 # ╔═╡ 65d0a1cf-b0b7-4971-8cc9-9a0fe785477c
@@ -128,18 +129,6 @@ fis = FISMamdani([food, service], tip, rules)
 # ╔═╡ 411ae0e5-4c42-4e4e-a9dd-99ed072ed85a
 eval_fis(fis, [9., 8.])
 
-# ╔═╡ 9e7f7930-7ebb-4cd3-b299-b09d0a817f13
-html"""
-<style>
-	main {
-		margin: 0 auto;
-		max-width: 2000px;
-    	padding-left: max(160px, 10%);
-    	padding-right: max(160px, 10%);
-	}
-</style>
-"""
-
 # ╔═╡ Cell order:
 # ╠═264261bf-4e21-4510-a106-4854cbb30c1c
 # ╠═ec6eaa3e-9c69-4dc1-bc86-ae44b1977d93
@@ -172,4 +161,3 @@ html"""
 # ╠═d46fa358-3f45-4958-a540-cf8b8337bb7b
 # ╠═dfe56972-c831-4e73-b19d-dda42bbb45c8
 # ╠═411ae0e5-4c42-4e4e-a9dd-99ed072ed85a
-# ╟─9e7f7930-7ebb-4cd3-b299-b09d0a817f13

@@ -29,8 +29,9 @@ end
 # ╔═╡ 122e1c87-b4c3-4ca8-882c-a9d352ff19d9
 begin
 	cd(@__DIR__)
-	using Pkg
+	import Pkg
 	Pkg.activate("..")
+	Pkg.status()
 end
 
 # ╔═╡ 3caf8f15-5852-4108-9636-74988155197d
@@ -267,18 +268,6 @@ end
 # ╔═╡ 9748255a-b13f-4cfe-b9a7-400a15ead1f5
 MLJ.f1score(ŷ, y)
 
-# ╔═╡ 90100f84-e006-4915-9e82-c849c3d91351
-html"""
-<style>
-	main {
-		margin: 0 auto;
-		max-width: 2000px;
-    	padding-left: max(160px, 10%);
-    	padding-right: max(160px, 10%);
-	}
-</style>
-"""
-
 # ╔═╡ Cell order:
 # ╠═891eda37-95d5-46dd-a642-79e68e7bb322
 # ╠═4f009769-c8f7-448d-83e5-ec54ff54b999
@@ -346,4 +335,3 @@ html"""
 # ╠═25b29473-507a-4d7f-9a5e-8267e7acbdb6
 # ╠═f46fcd55-6630-4ac3-b86b-316db204bbdf
 # ╠═9748255a-b13f-4cfe-b9a7-400a15ead1f5
-# ╟─90100f84-e006-4915-9e82-c849c3d91351
