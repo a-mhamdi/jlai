@@ -5,7 +5,7 @@ using Markdown
 using InteractiveUtils
 
 # ╔═╡ 4c4e5a73-dfb5-4925-9b3e-5100879feee6
-	import Pkg; Pkg.activate(".")
+	import Pkg; Pkg.activate("."); Pkg.status()
 
 # ╔═╡ 5431e024-d2ae-4279-bf9e-c72e1455c7bc
 using Flux # v"0.16.0"
@@ -180,18 +180,6 @@ end
 # ╔═╡ 73aec761-ab49-4235-9d52-3c80419de7e2
 enc_model, dec_model = train()
 
-# ╔═╡ a43c274c-81fd-4d5d-a37c-858ead7dfd01
-html"""
-<style>
-	main {
-		margin: 0 auto;
-		max-width: 2000px;
-		padding-left: max(160px, 10%);
-		padding-right: max(160px, 10%);
-	}
-</style>
-"""
-
 # ╔═╡ Cell order:
 # ╠═be2eb522-922c-4cd9-9f60-3305eacef23a
 # ╠═aae8ee36-56b0-4594-9454-e0fb13bb9e32
@@ -220,4 +208,3 @@ html"""
 # ╠═db131d6e-c245-46cb-a292-b14c44a845b7
 # ╠═91d78390-28d4-456b-9a24-8708e9172233
 # ╠═73aec761-ab49-4235-9d52-3c80419de7e2
-# ╟─a43c274c-81fd-4d5d-a37c-858ead7dfd01
