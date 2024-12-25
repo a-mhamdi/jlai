@@ -1,81 +1,122 @@
 ### A Pluto.jl notebook ###
-# v0.20.3
+# v0.20.4
 
 using Markdown
 using InteractiveUtils
 
-# ╔═╡ c6090d38-8307-42c1-8265-9804ce090371
-############################
-#= REINFORCEMENT LEARNING =#
-############################
-# `versioninfo()` -> 1.11.1
+# ╔═╡ f812809a-db39-42db-81cb-25a460401789
+import Pkg; Pkg.activate("."); Pkg.status()
 
+# ╔═╡ 674599bd-8d39-4847-9e42-187cd4bdbab2
 using ReinforcementLearning
 
 # ╔═╡ 1ec39a7a-2f80-4988-8985-8c01b2cd9961
 using Flux: Descent
 
-## Define the environment
+# ╔═╡ c6090d38-8307-42c1-8265-9804ce090371
+md"# REINFORCEMENT LEARNING"
+
+# ╔═╡ 9ba566c6-470a-4232-912a-dc5d4f5ce318
+versioninfo() # -> v"1.11.2"
+
+# ╔═╡ fb20a86c-d7aa-4282-a8b9-49b31c0ea0e7
+md"## Import required librairies"
+
+# ╔═╡ ab5ce601-1f6b-4de1-bdf9-36f440abb49f
+md"## Define the environment"
 
 # ╔═╡ 68cf99a5-c64d-4a12-b4ef-d8e17021ff7c
 env = RandomWalk1D()
 
-## Instantiate the agent
+# ╔═╡ 8a8e49c5-a07a-409b-a58f-3e88936c261b
+md"## Instantiate the agent"
 
-# ╔═╡ e9addb75-be17-432c-bc3e-6d5a701314f7
+# ╔═╡ cfd93955-b3c1-451a-8ff3-e44f1b3c0536
+begin
+	approximator = TabularQApproximator(; n_state=7, n_action=2)
+	println(approximator)
+end
+
+# ╔═╡ 288620f7-784e-41d9-a297-84150b286203
+begin
+	learner = TDLearner(approximator, :SARS; γ=0.99)
+	println(learner)
+end
+
+# ╔═╡ b4831f65-57d7-4164-bf92-3d4a3db3aaa5
+policy = QBasedPolicy(;
+		learner = learner,
+        explorer = EpsilonGreedyExplorer(0.1)
+    )
+
+# ╔═╡ a304b40a-f8bb-475e-a157-28bed3d6d27a
+run(policy, env, StopAfterNEpisodes(10), TotalRewardPerEpisode())
+
+# ╔═╡ 95b16227-4bed-4af0-9624-8cd02b04299a
+trajectory = Trajectory(
+           ElasticArraySARTSTraces(;
+               state = Int64 => (),
+               action = Int64 => (),
+               reward = Float64 => (),
+               terminal = Bool => (),
+           ),
+           DummySampler(),
+           InsertSampleRatioController(),
+       )
+
+# ╔═╡ cf565284-147d-47a6-86a4-2c8900ca5083
 agent = Agent(
-    policy = QBasedPolicy(
-        learner = TDLearner(
-            approximator = TabularQApproximator(
-                n_state = 11,
-                n_action = 2,
-                init = 0.0,
-                opt = Descent(0.1) # Learning rate
-            ),
-            method = :SARSA,
-            γ = 0.99
-        ),
-        explorer = EpsilonGreedyExplorer(0.1),
-    ),
-    trajectory = VectorSARTTrajectory(),
-)
+           policy = policy,
+           trajectory = trajectory
+       )
 
-## Run the experiment
+# ╔═╡ 58020816-c6f4-49ff-b6fe-2c41a7c1d125
+md"## Run the experiment"
 
-# ╔═╡ 0e93b315-bcdb-48ad-be03-7f1a80d41b8b
+# ╔═╡ be99789f-8497-4c34-b7a2-38726693b6b2
 hook = TotalRewardPerEpisode()
 
 # ╔═╡ 4668e284-098b-49f5-bb13-70d0b7111122
-run(agent, env, StopAfterEpisode(10_000), hook)
+run(policy, env, StopAfterNEpisodes(10), hook)
 
-## Print rewards
+# ╔═╡ b3e2309f-1f1a-4b13-b6d3-07ae732c5e28
+md"## Print rewards"
 
-# ╔═╡ 67199d43-7854-4f2c-a2bb-49ef612f13a4
-println("Total reward per episode:")
+# ╔═╡ 8a69b7a1-934c-45da-ac79-b7fead1dbca3
+begin
+	println("Total reward per episode:")
+	println(hook.rewards)
+end
 
-# ╔═╡ 0070ffc4-9886-4bc9-98fd-57c0651edd03
-println(hook.rewards)
-
-## Print `Q-table``
-
-# ╔═╡ 0f1e09b8-063c-470e-b8f7-14abed9df8d4
-q_table = agent.policy.learner.approximator.table
+# ╔═╡ 23790d54-d24f-41f5-a72e-6ecbe054d17d
+md"## Print `Q-table`"
 
 # ╔═╡ 370a523d-6802-4bfe-9789-0e546a0ae537
-println("\nLearned Q-table:")
-
-# ╔═╡ 51821e1b-8fd1-4242-a9e5-f8dc4495d47a
-println(q_table)
+begin
+	println("\nLearned Q-table:")
+	println(agent.policy.learner.approximator)
+end
 
 # ╔═╡ Cell order:
 # ╠═c6090d38-8307-42c1-8265-9804ce090371
+# ╠═9ba566c6-470a-4232-912a-dc5d4f5ce318
+# ╠═f812809a-db39-42db-81cb-25a460401789
+# ╠═fb20a86c-d7aa-4282-a8b9-49b31c0ea0e7
+# ╠═674599bd-8d39-4847-9e42-187cd4bdbab2
 # ╠═1ec39a7a-2f80-4988-8985-8c01b2cd9961
+# ╠═ab5ce601-1f6b-4de1-bdf9-36f440abb49f
 # ╠═68cf99a5-c64d-4a12-b4ef-d8e17021ff7c
-# ╠═e9addb75-be17-432c-bc3e-6d5a701314f7
-# ╠═0e93b315-bcdb-48ad-be03-7f1a80d41b8b
+# ╠═8a8e49c5-a07a-409b-a58f-3e88936c261b
+# ╠═cfd93955-b3c1-451a-8ff3-e44f1b3c0536
+# ╠═288620f7-784e-41d9-a297-84150b286203
+# ╠═b4831f65-57d7-4164-bf92-3d4a3db3aaa5
+# ╠═a304b40a-f8bb-475e-a157-28bed3d6d27a
+# ╠═95b16227-4bed-4af0-9624-8cd02b04299a
+# ╠═cf565284-147d-47a6-86a4-2c8900ca5083
+# ╠═58020816-c6f4-49ff-b6fe-2c41a7c1d125
+# ╠═be99789f-8497-4c34-b7a2-38726693b6b2
 # ╠═4668e284-098b-49f5-bb13-70d0b7111122
-# ╠═67199d43-7854-4f2c-a2bb-49ef612f13a4
-# ╠═0070ffc4-9886-4bc9-98fd-57c0651edd03
-# ╠═0f1e09b8-063c-470e-b8f7-14abed9df8d4
+# ╠═b3e2309f-1f1a-4b13-b6d3-07ae732c5e28
+# ╠═8a69b7a1-934c-45da-ac79-b7fead1dbca3
+# ╠═23790d54-d24f-41f5-a72e-6ecbe054d17d
 # ╠═370a523d-6802-4bfe-9789-0e546a0ae537
-# ╠═51821e1b-8fd1-4242-a9e5-f8dc4495d47a
