@@ -5,7 +5,7 @@ using Markdown
 using InteractiveUtils
 
 # ╔═╡ cd0d7da6-4b16-41c5-9e85-64c01fd0e799
-import Pkg; Pkg.activate(".")
+import Pkg; Pkg.activate("."); Pkg.status()
 
 # ╔═╡ e63339ed-3e4c-41d4-b47c-a962838ee9a1
 using Statistics
@@ -185,18 +185,6 @@ md"**Save the model**"
 # ╔═╡ c8516e32-5fd2-4000-ac96-7ce87132d3b0
 @save "cnn.bson" model
 
-# ╔═╡ 548bb92a-b1e2-4245-b234-eb94b941c296
-html"""
-<style>
-	main {
-		margin: 0 auto;
-		max-width: 2000px;
-		padding-left: max(160px, 10%);
-		padding-right: max(160px, 10%);
-	}
-</style>
-"""
-
 # ╔═╡ Cell order:
 # ╠═4a1270e4-c751-48f2-af82-380d97ed2800
 # ╠═5721858c-52df-44df-a258-e727e645cdd6
@@ -237,4 +225,3 @@ html"""
 # ╠═f969e980-555c-4870-963c-095c75e0ff79
 # ╠═770d2663-7edf-4eba-ad03-eecf9f0a078e
 # ╠═c8516e32-5fd2-4000-ac96-7ce87132d3b0
-# ╟─548bb92a-b1e2-4245-b234-eb94b941c296
