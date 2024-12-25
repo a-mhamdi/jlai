@@ -14,7 +14,7 @@ using Markdown
 using InteractiveUtils
 
 # ╔═╡ 5f3b5700-d705-477d-8f20-6d09ecb4a8b3
-import Pkg; Pkg.activate(".")
+import Pkg; Pkg.activate("."); Pkg.status()
 
 # ╔═╡ bf1da4bc-48f4-4042-a7ab-e042bbd32d41
 using TextAnalysis
@@ -225,18 +225,6 @@ iterations = 1000  # number of Gibbs sampling iterations
 # ╔═╡ 92520517-1ba9-4436-9472-91699cb2b56c
 ϕ, θ  = lda(m, k, iterations, α, β)
 
-# ╔═╡ 1b94b44f-2c26-463e-bb24-2e8b895a2b5a
-html"""
-<style>
-	main {
-		margin: 0 auto;
-		max-width: 2000px;
-    	padding-left: max(160px, 10%);
-    	padding-right: max(160px, 10%);
-	}
-</style>
-"""
-
 # ╔═╡ Cell order:
 # ╠═d8292e75-d298-4e8e-b7bb-acc848e01b4a
 # ╠═384c0666-27c6-4bc8-8e9d-c20d0fd3c919
@@ -298,4 +286,3 @@ html"""
 # ╠═46c868e8-23f8-4c22-9742-2126c5b7e15e
 # ╠═e4ea104e-0bd9-4d54-a4f3-800ad6a3dde9
 # ╠═92520517-1ba9-4436-9472-91699cb2b56c
-# ╟─1b94b44f-2c26-463e-bb24-2e8b895a2b5a
