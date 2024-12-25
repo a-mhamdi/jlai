@@ -5,7 +5,7 @@ using Markdown
 using InteractiveUtils
 
 # ╔═╡ 879b46a6-88fc-4692-8892-4863906edc04
-import Pkg; Pkg.activate(".")
+import Pkg; Pkg.activate("."); Pkg.status()
 
 # ╔═╡ 98e12a37-d4be-4898-ad5d-0d2640140b5a
 using Flux # v"0.16.0"
@@ -132,18 +132,6 @@ plot(
     size = (800, 800)
 )
 
-# ╔═╡ a4979bbe-551f-4d7a-9196-030d0822ae7f
-html"""
-<style>
-	main {
-		margin: 0 auto;
-		max-width: 2000px;
-		padding-left: max(160px, 10%);
-		padding-right: max(160px, 10%);
-	}
-</style>
-"""
-
 # ╔═╡ Cell order:
 # ╠═e085fb51-8865-4b12-80e9-e5a0ebcdb5da
 # ╠═1ce188bb-b8ef-46c0-9f7f-bcc2141061c6
@@ -174,4 +162,3 @@ html"""
 # ╠═e50e02cb-8601-4b8b-adad-e9c8f39e7ce5
 # ╠═62f695e1-6cba-49df-b722-99ccfa5f8c73
 # ╠═036ebfaf-e14e-4558-b795-d04923922489
-# ╟─a4979bbe-551f-4d7a-9196-030d0822ae7f
