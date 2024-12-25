@@ -1,19 +1,15 @@
 ### A Pluto.jl notebook ###
-# v0.20.3
+# v0.20.4
 
 using Markdown
 using InteractiveUtils
 
-# ╔═╡ b9318360-c3de-49ee-9512-c2fe35d92f28
-# NOT WORKING YET
-
-#######################################
-#= Transfer Learning (MNIST DATASET) =#
-#######################################
-# Gray Color Images , i.e., n° of channnels = 1
-# `versioninfo()` -> 1.11.1
-
-using Markdown
+# ╔═╡ 12e93a0c-accc-4930-bc0f-4d58f722a2be
+begin
+	import Pkg;
+	Pkg.activate(".")
+	Pkg.status()
+end
 
 # ╔═╡ f96fceaf-1c64-4b57-bbe4-1bf61dcfcc2d
 using Metalhead
@@ -35,6 +31,14 @@ using Images
 
 # ╔═╡ 050f9987-b0fe-4cc8-9e2c-2eb330a2524f
 using ProgressMeter
+
+# ╔═╡ b9318360-c3de-49ee-9512-c2fe35d92f28
+md"# Transfer Learning _(MNIST DATASET)_"
+
+# Gray Color Images , i.e., n° of channnels = 1
+
+# ╔═╡ 6492e921-c6cc-4188-b14d-22975f4b3d9c
+versioninfo() # -> v"1.11.2"
 
 # ╔═╡ 6c26901a-6d9d-46a8-a71f-a4aa784314fd
 md"Load the pre-trained model"
@@ -79,17 +83,23 @@ train_loader = get_data(:train);
 # ╔═╡ c1a846db-f1a4-41d6-8d47-e7f2e972941a
 test_loader = get_data(:test);
 
-# Define a loss function and an optimizer
+# ╔═╡ 816f724f-b4f5-48f9-8de7-196017e2b419
+md"Define a loss function and an optimizer"
 
 # ╔═╡ 081bf283-d13e-415a-a2a8-f5e56cf786a4
 loss_fn = Flux.logitcrossentropy
 
+# ╔═╡ c05fa12c-c0f1-435e-9af9-748bca59d2fe
+md"Freeze the weights of the pre-trained layers"
+
 # ╔═╡ 64849012-8098-430d-9d4c-5178cf36b9ac
-opt_state = Flux.setup(Adam(3e-3), model[end]) # Freeze the weights of the pre-trained layers
+opt_state = Flux.setup(Adam(3e-3), model[end])
 
 # ╔═╡ 97c8b17e-a1c8-4f96-a1b2-3476183418b1
 epochs = 3
-# Fine-tune the model
+
+# ╔═╡ b140a8c6-0c71-4bd9-b81c-0e1a8060a8bc
+md" Fine-tune the model"
 
 # ╔═╡ f41f22d7-ebb8-4383-814e-1962909af5b9
 for epoch in 1:epochs
@@ -111,6 +121,8 @@ end
 
 # ╔═╡ Cell order:
 # ╠═b9318360-c3de-49ee-9512-c2fe35d92f28
+# ╠═6492e921-c6cc-4188-b14d-22975f4b3d9c
+# ╠═12e93a0c-accc-4930-bc0f-4d58f722a2be
 # ╠═f96fceaf-1c64-4b57-bbe4-1bf61dcfcc2d
 # ╠═6c26901a-6d9d-46a8-a71f-a4aa784314fd
 # ╠═b25dc1d7-e774-4841-b2b7-5d45499aad46
@@ -126,8 +138,11 @@ end
 # ╠═f069c872-8b2e-42e8-b7b9-6ed2a9a86527
 # ╠═567a10e4-1452-42f9-8963-c509e359f849
 # ╠═c1a846db-f1a4-41d6-8d47-e7f2e972941a
+# ╠═816f724f-b4f5-48f9-8de7-196017e2b419
 # ╠═081bf283-d13e-415a-a2a8-f5e56cf786a4
+# ╠═c05fa12c-c0f1-435e-9af9-748bca59d2fe
 # ╠═64849012-8098-430d-9d4c-5178cf36b9ac
 # ╠═050f9987-b0fe-4cc8-9e2c-2eb330a2524f
 # ╠═97c8b17e-a1c8-4f96-a1b2-3476183418b1
+# ╠═b140a8c6-0c71-4bd9-b81c-0e1a8060a8bc
 # ╠═f41f22d7-ebb8-4383-814e-1962909af5b9

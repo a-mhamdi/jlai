@@ -1,6 +1,7 @@
 [deps]
 DataAugmentation = "88a5189c-e7ff-4f85-ac6b-e6158070f02e"
 Flux = "587475ba-b771-5e3f-ad9e-33799f191a9c"
+ImageShow = "4e3cecfd-b093-5904-9786-8bbb286a6a31"
 Images = "916415d5-f1e6-5110-898d-aaa5f9f070e0"
 MLDatasets = "eb30cadb-4394-5ae3-aed4-317e484a6458"
 Markdown = "d6f4376e-aef5-505a-96c1-9c027394607a"
