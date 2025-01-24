@@ -7,6 +7,9 @@ using InteractiveUtils
 # ╔═╡ f812809a-db39-42db-81cb-25a460401789
 import Pkg; Pkg.activate("."); Pkg.status()
 
+# ╔═╡ e169a885-d375-48e4-9289-753cdb683e85
+using PlutoUI
+
 # ╔═╡ 674599bd-8d39-4847-9e42-187cd4bdbab2
 using ReinforcementLearning
 
@@ -18,6 +21,25 @@ md"# REINFORCEMENT LEARNING"
 
 # ╔═╡ 9ba566c6-470a-4232-912a-dc5d4f5ce318
 versioninfo() # -> v"1.11.2"
+
+# ╔═╡ b8a12312-e804-4bba-a4b5-f5c3e384b080
+md"## Problem Statement"
+
+# ╔═╡ b36c8259-65a0-4ef2-9631-f2ccbf01a2b9
+md""" Source: [https://juliareinforcementlearning.org/docs/tutorial/](https://juliareinforcementlearning.org/docs/tutorial/): $(LocalResource("RandomWalk1D.png")) """
+
+# ╔═╡ 55638d73-9b69-4c33-b86f-d37b1f1a35fe
+md"
+- **Initial Position:** The agent starts at position 4 on a number line _(positions range from 1 to 7)_
+- **Possible Actions:**
+    1. Action 1: Move left _(represented by integer 1)_
+    1. Action 2: Move right _(represented by integer 2)_
+- **Reward Structure:**
+    1. Reaching position 7: Reward = +1
+    1. Reaching position 1: Reward = -1
+    1. All other moves: Reward = 0
+- **Game Termination:** The game ends when the agent reaches either end of the number line *(positions 1 or 7)*
+"
 
 # ╔═╡ fb20a86c-d7aa-4282-a8b9-49b31c0ea0e7
 md"## Import required librairies"
@@ -50,7 +72,7 @@ policy = QBasedPolicy(;
     )
 
 # ╔═╡ a304b40a-f8bb-475e-a157-28bed3d6d27a
-run(policy, env, StopAfterNEpisodes(10), TotalRewardPerEpisode())
+run(policy, env, StopAfterNEpisodes(100), TotalRewardPerEpisode())
 
 # ╔═╡ 95b16227-4bed-4af0-9624-8cd02b04299a
 trajectory = Trajectory(
@@ -101,7 +123,11 @@ end
 # ╠═c6090d38-8307-42c1-8265-9804ce090371
 # ╠═9ba566c6-470a-4232-912a-dc5d4f5ce318
 # ╠═f812809a-db39-42db-81cb-25a460401789
+# ╠═b8a12312-e804-4bba-a4b5-f5c3e384b080
+# ╟─b36c8259-65a0-4ef2-9631-f2ccbf01a2b9
+# ╟─55638d73-9b69-4c33-b86f-d37b1f1a35fe
 # ╠═fb20a86c-d7aa-4282-a8b9-49b31c0ea0e7
+# ╠═e169a885-d375-48e4-9289-753cdb683e85
 # ╠═674599bd-8d39-4847-9e42-187cd4bdbab2
 # ╠═1ec39a7a-2f80-4988-8985-8c01b2cd9961
 # ╠═ab5ce601-1f6b-4de1-bdf9-36f440abb49f
