@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.20.4
+# v0.20.3
 
 #> [frontmatter]
 #> title = "ML Data Preprocessing Workflows"
@@ -26,7 +26,7 @@ using CSV, DataFrames
 using MLJ
 
 # ╔═╡ aa831e6c-66db-4884-90a4-3184bd540781
-md"# COMMON DATA PREPROCESSING `WORKFLOWS`"
+md"# COMMON DATA PREPROCESSING WORKFLOWS"
 
 # ╔═╡ 4ff29318-5d25-4909-adc6-3a2a8bc578b8
 md"
@@ -34,6 +34,9 @@ md"
 versioninfo() # -> v\"1.11.2\"
 ```
 "
+
+# ╔═╡ 542742f7-a6ac-4c54-90ee-8fa94bf66aee
+versioninfo()
 
 # ╔═╡ 6493ef22-17b1-4851-b537-b34496e3bc69
 md"Import librairies"
@@ -129,7 +132,10 @@ schema(y)
 md"Split data to train & test sets"
 
 # ╔═╡ d09b013d-ae68-424a-9f9f-cac6885f7953
-(Xtrain, Xtest), (ytrain, ytest) = partition((X, y), .8, rng=123, multi=true);
+(Xtrain, Xtest), (ytrain, ytest) = partition((X, y), .8, rng=123, multi=true, stratify=y.Purchased__No);
+
+# ╔═╡ ea24ea54-2f87-47c6-b83a-17a1700248cf
+y
 
 # ╔═╡ b5a83a2e-059e-49e4-bfd5-21cc14d3ac4b
 md"Standardizer"
@@ -155,9 +161,19 @@ Xtrain.Salary = MLJ.transform(sc_salary, Xtrain.Salary)
 # ╔═╡ 092355f9-6b62-4062-8687-0d4bb1e9c235
 Xtest.Salary = MLJ.transform(sc_salary, Xtest.Salary) 
 
+# ╔═╡ 59c92153-8498-4cab-bd5b-e7930fef166f
+#= 
+begin
+	sc_X = machine(sc_, select(Xtrain, :Age, :Salary)) |> fit!
+	MLJ.transform(sc_X, Xtrain)
+	MLJ.transform(sc_X, Xtest)
+end
+=#
+
 # ╔═╡ Cell order:
 # ╠═aa831e6c-66db-4884-90a4-3184bd540781
-# ╠═4ff29318-5d25-4909-adc6-3a2a8bc578b8
+# ╟─4ff29318-5d25-4909-adc6-3a2a8bc578b8
+# ╠═542742f7-a6ac-4c54-90ee-8fa94bf66aee
 # ╠═e75026f1-f5e4-48a1-b9c4-d65a19dfdd9d
 # ╠═6493ef22-17b1-4851-b537-b34496e3bc69
 # ╠═60c276fa-3605-4cc0-9805-ca331b5892a5
@@ -187,6 +203,7 @@ Xtest.Salary = MLJ.transform(sc_salary, Xtest.Salary)
 # ╠═5bcbafad-acd0-4058-8ac2-b0ccdce6ad87
 # ╠═717fc689-db96-4f0c-aa06-5ea47c123a9a
 # ╠═d09b013d-ae68-424a-9f9f-cac6885f7953
+# ╠═ea24ea54-2f87-47c6-b83a-17a1700248cf
 # ╠═b5a83a2e-059e-49e4-bfd5-21cc14d3ac4b
 # ╠═604a5a3f-a569-4816-8f97-2d945a48a02b
 # ╠═7f9722d9-ab0c-4a6b-9a81-4b22bf587e23
@@ -195,3 +212,4 @@ Xtest.Salary = MLJ.transform(sc_salary, Xtest.Salary)
 # ╠═ccee508e-ec60-46c8-88b8-b292a66bd6e7
 # ╠═e1859e5d-1d83-4461-86c1-8f032f09205e
 # ╠═092355f9-6b62-4062-8687-0d4bb1e9c235
+# ╠═59c92153-8498-4cab-bd5b-e7930fef166f
