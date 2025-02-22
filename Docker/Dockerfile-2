@@ -9,10 +9,11 @@ ENV JULIA_DEPOT_PATH=/root/.julia
 WORKDIR /workspace
 
 #= Copy datasets =#
-COPY ./Codes/Julia/Datasets ./Datasets/
+COPY Codes/Julia/Datasets Datasets/
+COPY Codes/Julia/Part-2/Jupyter Jupyter/
 
 #= Copy TOML files (deps, ver, pkg, UUID) =#
-COPY ./Codes/Julia/Part-2/Project.toml .
+COPY Codes/Julia/Part-2/Project.toml .
 
 #= Activate environment and add IJulia kernel and JupyterLab IDE =#
 RUN julia -e 'import Pkg; Pkg.activate("."); Pkg.instantiate(); Pkg.precompile(); Pkg.resolve()'
