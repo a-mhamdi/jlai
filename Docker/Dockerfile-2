@@ -11,6 +11,7 @@ WORKDIR /workspace
 #= Copy datasets =#
 COPY Codes/Julia/Datasets Datasets/
 COPY Codes/Julia/Part-2/Jupyter Jupyter/
+COPY Codes/Julia/Part-2/Pluto Pluto/
 
 #= Copy TOML files (deps, ver, pkg, UUID) =#
 COPY Codes/Julia/Part-2/Project.toml .
