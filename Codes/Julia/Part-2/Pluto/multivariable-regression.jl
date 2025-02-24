@@ -1,8 +1,20 @@
 ### A Pluto.jl notebook ###
-# v0.20.4
+# v0.20.3
 
 using Markdown
 using InteractiveUtils
+
+# This Pluto notebook uses @bind for interactivity. When running this notebook outside of Pluto, the following 'mock version' of @bind gives bound variables a default value (instead of an error).
+macro bind(def, element)
+    #! format: off
+    quote
+        local iv = try Base.loaded_modules[Base.PkgId(Base.UUID("6e696c72-6542-2067-7265-42206c756150"), "AbstractPlutoDingetjes")].Bonds.initial_value catch; b -> missing; end
+        local el = $(esc(element))
+        global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : iv(el)
+        el
+    end
+    #! format: on
+end
 
 # ╔═╡ 47d72653-b058-43bd-8add-255c6a030da5
 begin
@@ -15,6 +27,9 @@ using CSV, DataFrames
 
 # ╔═╡ 75250206-e124-4a09-bee6-f9c2bb82c4df
 using MLJ
+
+# ╔═╡ 6de4715e-b351-4b5c-89c8-618f6c69e54c
+using PlutoUI
 
 # ╔═╡ 0695ea0e-6206-453b-8df3-7561957fddd7
 md"# MULTIVARIABLE LINEAR REGRESSION"
@@ -60,6 +75,9 @@ ce = ContinuousEncoder()
 # ╔═╡ bf1a9860-2a35-4981-af88-b4c2e0ca0f9c
 X = machine(ce, X_) |> fit! |> MLJ.transform
 
+# ╔═╡ 3b5b683c-d8a4-4a4e-9a5a-9c557f644d7b
+state_cols = Symbol.(["state__California", "state__Florida", "state__New York"])
+
 # ╔═╡ da56acf8-7b3d-4c8f-ac98-0f1d21eb4915
 md"Extract target vector"
 
@@ -72,11 +90,17 @@ md"Preparing for the split"
 # ╔═╡ 2e4bd0b2-71b9-41c8-a045-5af3c96edaeb
 train, test = partition(eachindex(y), 0.8, shuffle=true, rng=123)
 
-# ╔═╡ c3ce413f-19ac-4b62-a911-7139a74f907e
+# ╔═╡ 143c6845-ef29-4ec5-a54f-516ff481ce48
+X[train, state_cols]
+
+# ╔═╡ 27de1ccc-842b-46e3-acf0-31676ec74204
 Xtrain, Xtest = X[train, :], X[test, :]
 
 # ╔═╡ e1bf455b-fe9b-46ab-a0e2-e3bd048bb17c
 ytrain, ytest = y[train], y[test]
+
+# ╔═╡ e1d325ad-8fc0-4978-a169-623d411fc357
+md"Standardize input data"
 
 # ╔═╡ d41153c1-ef30-4900-9562-0ac62f706bad
 md"Load & instantiate the linear regression model"
@@ -117,7 +141,8 @@ md"Using `MLJ` Builtin Methods For Evaluation"
 # ╔═╡ 7c3391d7-0899-435c-8878-42888182242d
 MLJ.evaluate!(lr, measure=[l1, l2, rms])
 
-### RIDGE REGRESSOR
+# ╔═╡ 17c15a03-6172-4158-98a7-2b95e748c04d
+md"### RIDGE REGRESSOR"
 
 # ╔═╡ 2f604799-9de6-4e10-aa33-f16e73defb6c
 md"Load Ridge Regressor"
@@ -125,23 +150,11 @@ md"Load Ridge Regressor"
 # ╔═╡ 5414674f-3620-428e-bdac-59fa56031a8c
 RIDGE = @load RidgeRegressor pkg=MLJLinearModels
 
-# ╔═╡ 63c8822d-9541-4b08-af56-38be05263e9c
-ridge_= RIDGE()
-
 # ╔═╡ c581b220-356c-42f0-8f42-bb28f5f4b64d
 md"Train & fit the model"
 
-# ╔═╡ ad10bfd2-415e-4d14-9429-4b9d8fc47ef4
-ridge = machine(ridge_, Xtrain, ytrain) |> fit!
-
 # ╔═╡ 738a9c94-b0ce-4f99-9f05-752bb53fd0ad
 md"Evalute the model"
-
-# ╔═╡ e324e3d7-40db-4409-afef-c45f0a3a6f9c
-yhat_ridge = predict(ridge, Xtest)
-
-# ╔═╡ c07b6017-2563-44db-a1a0-02b8dea760f7
-println("Error is $(sum((yhat_ridge .- ytest).^2) ./ length(ytest))")
 
 # ╔═╡ 25f91dd4-05d4-4edb-b7d3-7d24de3c01e1
 md"### LASSO REGRESSOR"
@@ -152,23 +165,11 @@ md"Load Lasso Regressor"
 # ╔═╡ c4f8aeda-74f2-4da1-ac4a-42b9751cb1c8
 LASSO = @load LassoRegressor pkg=MLJLinearModels
 
-# ╔═╡ b62223b8-e4cc-4c18-84bd-426e75563246
-lasso_= LASSO()
-
 # ╔═╡ a97ce729-fdff-4fbe-84cc-92ebb71de0c6
 md"Train & fit the model"
 
-# ╔═╡ f7952fd2-5a69-48a1-b7d2-be013fc18c27
-lasso = machine(lasso_, Xtrain, ytrain) |> fit!
-
 # ╔═╡ de935aef-f8a4-427e-af4c-00804446ae9a
 md"Evalute the model"
-
-# ╔═╡ 5f625bd4-b1dd-46e8-a040-487226588388
-yhat_lasso = predict(lasso, Xtest)
-
-# ╔═╡ 42c3615d-1483-4350-966f-e50fe5ca4df6
-println("Error is $(sum((yhat_lasso .- ytest).^2) ./ length(ytest))")
 
 # ╔═╡ 7d2612c2-0785-43b4-b165-28f014b25cd8
 md"### ELASTIC NET REGRESSOR"
@@ -179,23 +180,48 @@ md"Load Elastic Net Regressor"
 # ╔═╡ b504f502-90c2-4191-a5ff-2a819b5c02df
 EN = @load ElasticNetRegressor pkg=MLJLinearModels
 
-# ╔═╡ b2ac0786-9c0c-49d2-a6ea-0d7455e0134f
-en_= EN(lambda=.2)
-
 # ╔═╡ 33864a65-f46c-49a3-8e04-47ac1ae1cdb7
 md"Train & fit the model"
-
-# ╔═╡ 1fbb4ec9-c947-45e6-824c-c3a6e015b174
-en = machine(en_, Xtrain, ytrain) |> fit!
 
 # ╔═╡ 133540b0-464e-469d-90d2-5e44c804bdda
 md"Evalute the model"
 
+# ╔═╡ ac540eff-fdef-480b-b93f-90b5a9c6b668
+@bind λ Slider(0:0.1:1, default=.6)
+
+# ╔═╡ 63c8822d-9541-4b08-af56-38be05263e9c
+ridge_= RIDGE(lambda=λ)
+
+# ╔═╡ ad10bfd2-415e-4d14-9429-4b9d8fc47ef4
+ridge = machine(ridge_, Xtrain, ytrain) |> fit!
+
+# ╔═╡ e324e3d7-40db-4409-afef-c45f0a3a6f9c
+yhat_ridge = predict(ridge, Xtest)
+
+# ╔═╡ b62223b8-e4cc-4c18-84bd-426e75563246
+lasso_= LASSO(lambda=λ)
+
+# ╔═╡ f7952fd2-5a69-48a1-b7d2-be013fc18c27
+lasso = machine(lasso_, Xtrain, ytrain) |> fit!
+
+# ╔═╡ 5f625bd4-b1dd-46e8-a040-487226588388
+yhat_lasso = predict(lasso, Xtest)
+
+# ╔═╡ b2ac0786-9c0c-49d2-a6ea-0d7455e0134f
+en_= EN(lambda=λ)
+
+# ╔═╡ 1fbb4ec9-c947-45e6-824c-c3a6e015b174
+en = machine(en_, Xtrain, ytrain) |> fit!
+
 # ╔═╡ c49e6e0e-ea7e-458f-8cc4-91fed0c52d87
 yhat_en = predict(en, Xtest)
 
-# ╔═╡ b1e3685c-659c-42b4-ab5d-591f3337eb71
-println("Error is $(sum((yhat_en .- ytest).^2) ./ length(ytest))")
+# ╔═╡ 8c9a9bed-fd84-4435-8e18-ea2334571464
+begin
+	println("Error in Ridge is $(sum((yhat_ridge .- ytest).^2) ./ length(ytest))")
+	println("Error in Lasso is $(sum((yhat_lasso .- ytest).^2) ./ length(ytest))")
+	println("Error in Elastic Net is $(sum((yhat_en .- ytest).^2) ./ length(ytest))")
+end
 
 # ╔═╡ Cell order:
 # ╠═0695ea0e-6206-453b-8df3-7561957fddd7
@@ -213,12 +239,15 @@ println("Error is $(sum((yhat_en .- ytest).^2) ./ length(ytest))")
 # ╠═04da874b-d924-4d67-8760-72cabde38125
 # ╠═63d81c49-0992-435c-acf7-f9c8a1cb16e9
 # ╠═bf1a9860-2a35-4981-af88-b4c2e0ca0f9c
+# ╠═3b5b683c-d8a4-4a4e-9a5a-9c557f644d7b
+# ╠═143c6845-ef29-4ec5-a54f-516ff481ce48
 # ╠═da56acf8-7b3d-4c8f-ac98-0f1d21eb4915
 # ╠═1b83d407-e318-4017-9646-1ff76bec4db0
 # ╠═6052b3da-de93-48b6-a71a-656a85b758cb
 # ╠═2e4bd0b2-71b9-41c8-a045-5af3c96edaeb
-# ╠═c3ce413f-19ac-4b62-a911-7139a74f907e
+# ╠═27de1ccc-842b-46e3-acf0-31676ec74204
 # ╠═e1bf455b-fe9b-46ab-a0e2-e3bd048bb17c
+# ╠═e1d325ad-8fc0-4978-a169-623d411fc357
 # ╠═d41153c1-ef30-4900-9562-0ac62f706bad
 # ╠═3a4a42cd-0282-431d-a198-df7cfcc201de
 # ╠═4050d857-f995-45cd-81a0-27caf068bcfb
@@ -232,6 +261,7 @@ println("Error is $(sum((yhat_en .- ytest).^2) ./ length(ytest))")
 # ╠═04efaf69-3679-429d-8cca-efb6814891db
 # ╠═6a982384-e68d-4f20-b576-1dde3bb8e7c2
 # ╠═7c3391d7-0899-435c-8878-42888182242d
+# ╠═17c15a03-6172-4158-98a7-2b95e748c04d
 # ╠═2f604799-9de6-4e10-aa33-f16e73defb6c
 # ╠═5414674f-3620-428e-bdac-59fa56031a8c
 # ╠═63c8822d-9541-4b08-af56-38be05263e9c
@@ -239,7 +269,6 @@ println("Error is $(sum((yhat_en .- ytest).^2) ./ length(ytest))")
 # ╠═ad10bfd2-415e-4d14-9429-4b9d8fc47ef4
 # ╠═738a9c94-b0ce-4f99-9f05-752bb53fd0ad
 # ╠═e324e3d7-40db-4409-afef-c45f0a3a6f9c
-# ╠═c07b6017-2563-44db-a1a0-02b8dea760f7
 # ╠═25f91dd4-05d4-4edb-b7d3-7d24de3c01e1
 # ╠═c8b46cd5-e69d-4d82-af3a-8b9833e52d1c
 # ╠═c4f8aeda-74f2-4da1-ac4a-42b9751cb1c8
@@ -248,7 +277,6 @@ println("Error is $(sum((yhat_en .- ytest).^2) ./ length(ytest))")
 # ╠═f7952fd2-5a69-48a1-b7d2-be013fc18c27
 # ╠═de935aef-f8a4-427e-af4c-00804446ae9a
 # ╠═5f625bd4-b1dd-46e8-a040-487226588388
-# ╠═42c3615d-1483-4350-966f-e50fe5ca4df6
 # ╠═7d2612c2-0785-43b4-b165-28f014b25cd8
 # ╠═d6161806-603d-404b-a9f3-a1fb536f5d7e
 # ╠═b504f502-90c2-4191-a5ff-2a819b5c02df
@@ -257,4 +285,6 @@ println("Error is $(sum((yhat_en .- ytest).^2) ./ length(ytest))")
 # ╠═1fbb4ec9-c947-45e6-824c-c3a6e015b174
 # ╠═133540b0-464e-469d-90d2-5e44c804bdda
 # ╠═c49e6e0e-ea7e-458f-8cc4-91fed0c52d87
-# ╠═b1e3685c-659c-42b4-ab5d-591f3337eb71
+# ╠═6de4715e-b351-4b5c-89c8-618f6c69e54c
+# ╠═ac540eff-fdef-480b-b93f-90b5a9c6b668
+# ╠═8c9a9bed-fd84-4435-8e18-ea2334571464

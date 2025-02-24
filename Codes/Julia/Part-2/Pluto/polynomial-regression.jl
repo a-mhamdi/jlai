@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.20.4
+# v0.20.3
 
 using Markdown
 using InteractiveUtils
@@ -60,10 +60,16 @@ schema(df)
 md"Unpack data"
 
 # ╔═╡ cdf5f466-4ebb-46d6-b4b7-d5da7c9ccace
-x = select(df, :Level)
+begin
+	x = select(df, :Level)
+	coerce!(x, :Level => Continuous)
+end
 
 # ╔═╡ 9e0405d6-90f3-4009-aa55-66dceddff0ae
-y = df.Salary
+begin
+	t = select(df, :Salary) |> t -> coerce!(t, :Salary => Continuous) 
+	y = t.Salary
+end
 
 # ╔═╡ dcfd9309-9a01-4541-8fdd-6e21ae0d0180
 @bind p Slider(1:1:10, default=4)

@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.20.4
+# v0.20.3
 
 #> [frontmatter]
 #> title = "Simple Linear Regression"
