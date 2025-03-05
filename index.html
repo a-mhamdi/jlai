@@ -27,7 +27,7 @@
             <div>
                 <div class="radio-buttons">
                     <form>
-                        <input type="radio" name="part" value="part1"> Part 1 &nbsp;
+                        <input type="radio" name="part" value="part1" checked> Part 1 &nbsp;
                         <input type="radio" name="part" value="part2"> Part 2 &nbsp;
                         <input type="radio" name="part" value="part3"> Part 3
                     </form>
@@ -35,12 +35,11 @@
                 <div class="dropdown">
                     <button class="dropdown-button">Select Notebook</button>
                     <div class="dropdown-content" id="notebooks">
-                    <!--
+                        <a href="#" onclick="loadPage('src/part-1/julia-onramp.html')">Julia Onramp</a>';
                         <a href="#" onclick="loadPage('src/part-1/tipper.html')">Tipper</a>';
                         <a href="#" onclick="loadPage('src/part-1/selection-process.html')">Selection Process</a>';
                         <a href="#" onclick="loadPage('src/part-1/xor-gate.html')">XOR Gate</a>';
                         <a href="#" onclick="loadPage('src/part-1/classifier-ann.html')">Binary Classifier using ANN</a>';
-                    -->
                     </div>
                 </div>
             </div>
@@ -65,7 +64,8 @@
                     const selectedPart = part.value;
                     switch (selectedPart) {
                         case 'part1':
-                            notebooks.innerHTML  = '<a href="#" onclick="loadPage(\'src/part-1/tipper.html\')">Tipper</a>';
+                            notebooks.innerHTML  = '<a href="#" onclick="loadPage(\'src/part-1/julia-onramp.html\')">Julia Onramp</a>';
+                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'src/part-1/tipper.html\')">Tipper</a>';
                             notebooks.innerHTML += '<a href="#" onclick="loadPage(\'src/part-1/selection-process.html\')">Selection Process</a>';
                             notebooks.innerHTML += '<a href="#" onclick="loadPage(\'src/part-1/xor-gate.html\')">XOR Gate</a>';
                             notebooks.innerHTML += '<a href="#" onclick="loadPage(\'src/part-1/classifier-ann.html\')">Binary Classifier using ANN</a>';
