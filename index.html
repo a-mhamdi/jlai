@@ -27,18 +27,20 @@
             <div>
                 <div class="radio-buttons">
                     <form>
-                        <input type="radio" name="part" value="part1" checked> Part 1
-                        <input type="radio" name="part" value="part2"> Part 2
+                        <input type="radio" name="part" value="part1"> Part 1 &nbsp;
+                        <input type="radio" name="part" value="part2"> Part 2 &nbsp;
                         <input type="radio" name="part" value="part3"> Part 3
                     </form>
                 </div>
                 <div class="dropdown">
                     <button class="dropdown-button">Select Notebook</button>
                     <div class="dropdown-content" id="notebooks">
-                        <a href="#" onclick="loadPage('part-1/tipper.html')">Tipper</a>';
-                        <a href="#" onclick="loadPage('part-1/selection-process.html')">Selection Process</a>';
-                        <a href="#" onclick="loadPage('part-1/xor-gate.html')">XOR Gate</a>';
-                        <a href="#" onclick="loadPage('part-1/classifier-ann.html')">Binary Classifier using ANN</a>';
+                    <!--
+                        <a href="#" onclick="loadPage('src/part-1/tipper.html')">Tipper</a>';
+                        <a href="#" onclick="loadPage('src/part-1/selection-process.html')">Selection Process</a>';
+                        <a href="#" onclick="loadPage('src/part-1/xor-gate.html')">XOR Gate</a>';
+                        <a href="#" onclick="loadPage('src/part-1/classifier-ann.html')">Binary Classifier using ANN</a>';
+                    -->
                     </div>
                 </div>
             </div>
@@ -49,7 +51,7 @@
 
         </div>
 
-        <iframe id="contentFrame" class="iframe-container" src="part-1/tipper.html"></iframe> <br>
+        <iframe id="contentFrame" class="iframe-container" src="src/part-1/julia-onramp.html"></iframe> <br>
 
         <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
             <img src="pluto.svg" alt="Pluto" width="300">
@@ -63,28 +65,28 @@
                     const selectedPart = part.value;
                     switch (selectedPart) {
                         case 'part1':
-                            notebooks.innerHTML  = '<a href="#" onclick="loadPage(\'part-1/tipper.html\')">Tipper</a>';
-                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'part-1/selection-process.html\')">Selection Process</a>';
-                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'part-1/xor-gate.html\')">XOR Gate</a>';
-                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'part-1/classifier-ann.html\')">Binary Classifier using ANN</a>';
+                            notebooks.innerHTML  = '<a href="#" onclick="loadPage(\'src/part-1/tipper.html\')">Tipper</a>';
+                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'src/part-1/selection-process.html\')">Selection Process</a>';
+                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'src/part-1/xor-gate.html\')">XOR Gate</a>';
+                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'src/part-1/classifier-ann.html\')">Binary Classifier using ANN</a>';
                             break;
                         case 'part2':
-                            notebooks.innerHTML  = '<a href="#" onclick="loadPage(\'part-2/ml-workflows.html\')">Data Preprocessing</a>';
-                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'part-2/simple-regression-1.html\')">Simple Linear Regression (1)</a>';
-                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'part-2/simple-regression-2.html\')">Simple Linear Regression (2)</a>';
-                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'part-2/multivariable-regression.html\')">Multivariable Regression</a>';
-                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'part-2/polynomial-regression.html\')">Polynomial Regression</a>';
-                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'part-2/logistic-regression.html\')">Logistic Regression</a>';
-                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'part-2/knn.html\')">k-Nearest Neighbors</a>';
-                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'part-2/kmeans.html\')">K-Means</a>';
+                            notebooks.innerHTML  = '<a href="#" onclick="loadPage(\'src/part-2/ml-workflows.html\')">Data Preprocessing</a>';
+                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'src/part-2/simple-regression-1.html\')">Simple Linear Regression (1)</a>';
+                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'src/part-2/simple-regression-2.html\')">Simple Linear Regression (2)</a>';
+                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'src/part-2/multivariable-regression.html\')">Multivariable Regression</a>';
+                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'src/part-2/polynomial-regression.html\')">Polynomial Regression</a>';
+                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'src/part-2/logistic-regression.html\')">Logistic Regression</a>';
+                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'src/part-2/knn.html\')">k-Nearest Neighbors</a>';
+                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'src/part-2/kmeans.html\')">K-Means</a>';
                             break;
                         case 'part3':
-                            notebooks.innerHTML  = '<a href="#" onclick="loadPage(\'part-3/cnn.html\')">CNN</a>';
-                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'part-3/vae.html\')">VAE</a>';
-                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'part-3/gan.html\')">GAN</a>';
-                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'part-3/nlp.html\')">NLP</a>';
-                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'part-3/transfer-learning-cifar.html\')">TL</a>';
-                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'part-3/reinforcement-learning.html\')">RL</a>';
+                            notebooks.innerHTML  = '<a href="#" onclick="loadPage(\'src/part-3/cnn.html\')">CNN</a>';
+                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'src/part-3/vae.html\')">VAE</a>';
+                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'src/part-3/gan.html\')">GAN</a>';
+                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'src/part-3/nlp.html\')">NLP</a>';
+                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'src/part-3/transfer-learning-cifar.html\')">TL</a>';
+                            notebooks.innerHTML += '<a href="#" onclick="loadPage(\'src/part-3/reinforcement-learning.html\')">RL</a>';
                             break;
                     }
                 });
