@@ -7,13 +7,14 @@ This repository contains slides, labs and code examples for using `Julia` to imp
 [![Docker Pulls](https://img.shields.io/docker/pulls/abmhamdi/jlai)](https://hub.docker.com/r/abmhamdi/jlai)
 [![Docker Stars](https://img.shields.io/docker/stars/abmhamdi/jlai)](https://hub.docker.com/r/abmhamdi/jlai)
 
-To run the code, you will need to first pull the `Docker` image by running the following command:
-
-```zsh
-docker pull abmhamdi/jlai
-```
-
-This may take a while, as it will download and install all necessary dependencies.
+> [!NOTE]
+> To run the code, you will need to first pull the `Docker` image by running the following command:
+>
+> ```zsh
+> docker pull abmhamdi/jlai
+> ```
+> 
+> This may take a while, as it will download and install all necessary dependencies.
 
 ## How to control the containers:
 
