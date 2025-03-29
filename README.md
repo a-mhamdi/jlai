@@ -31,7 +31,7 @@ The repository includes implementation of the following algorithms:
 >1. Transfer Learning
 >1. Reinforcement Learning
 
-> [!CAUTION]
+> [!IMPORTANT]
 > 
 > You will need to have Docker installed on your machine. You can download it from the [Docker website](https://hub.docker.com).
 
