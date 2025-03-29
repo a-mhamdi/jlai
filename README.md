@@ -31,8 +31,9 @@ The repository includes implementation of the following algorithms:
 >1. Transfer Learning
 >1. Reinforcement Learning
 
-## Prerequisites
-You will need to have Docker installed on your machine. You can download it from the [Docker website](https://hub.docker.com).
+> [!CAUTION]
+> 
+> You will need to have Docker installed on your machine. You can download it from the [Docker website](https://hub.docker.com).
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](https://raw.githubusercontent.com/a-mhamdi/jlai/refs/heads/main/LICENSE) file for details.
