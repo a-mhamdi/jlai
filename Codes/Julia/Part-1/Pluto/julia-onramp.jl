@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.20.4
+# v0.20.3
 
 using Markdown
 using InteractiveUtils
@@ -353,17 +353,17 @@ mycos(x) = cos(x)
 # ╔═╡ f22cfcbe-8009-4f4a-b38a-9cd5d3c7e5ea
 mycos(adj, hyp) = adj/hyp # Extension to `mycos` function
 
-# ╔═╡ fcd81769-8a3f-4c16-888c-20571b9eff09
-mycos(adj, hyp=10) = adj/hyp
-
-# ╔═╡ 32d2b3bf-388a-4262-bbbb-ce7c26594e7a
-methods(mycos)
-
 # ╔═╡ 3999ae41-5e1a-4260-94fb-c80547643df1
 @which mycos(π)
 
 # ╔═╡ 0c60204b-b749-4777-9593-3c1e754cb1df
 @which mycos(5, 3)
+
+# ╔═╡ fcd81769-8a3f-4c16-888c-20571b9eff09
+mycos(adj, hyp=10) = adj/hyp
+
+# ╔═╡ 32d2b3bf-388a-4262-bbbb-ce7c26594e7a
+methods(mycos)
 
 # ╔═╡ ebd8959a-f0cc-4d0f-b084-1c96da16d69f
 @which mycos(π)
