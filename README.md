@@ -7,6 +7,18 @@ This repository contains slides, labs and code examples for using `Julia` to imp
 [![Docker Pulls](https://img.shields.io/docker/pulls/abmhamdi/jlai)](https://hub.docker.com/r/abmhamdi/jlai)
 [![Docker Stars](https://img.shields.io/docker/stars/abmhamdi/jlai)](https://hub.docker.com/r/abmhamdi/jlai)
 
+## Included Algorithms
+
+The repository includes implementation of the following algorithms:
+>1. Linear Regression, Logistic Regression, Naive Bayes, Decision Tree, k-NN, SVM, K-MEANS, and PCA
+>1. Fuzzy Logic, Fuzzy Inference Systems (FIS): Mamdani, Sugeno and Tsukamoto 
+>1. ANN, CNN, Transfer Learning, GAN, VAE, NLP
+>1. Reinforcement Learning
+
+> [!IMPORTANT]
+> 
+> You will need to have Docker installed on your machine. You can download it from the [Docker website](https://hub.docker.com).
+
 > [!NOTE]
 > To run the code, you will need to first pull the `Docker` image by running the following command:
 >
@@ -18,22 +30,16 @@ This repository contains slides, labs and code examples for using `Julia` to imp
 
 ## How to control the containers:
 
-* ```docker-compose up``` starts the container
-* ```docker-compose down``` stops and destroys the container
+Services can be run by typing the command `docker-compose up`:
 
-Services can be run by typing the command `docker-compose up`. This will start the `Jupyter Lab` on [http://localhost:2468](http://localhost:2468), and you should be able to use `Julia` from within the notebook by starting a new `Julia` notebook. You can parallelly start `Pluto` on [http://localhost:1234](http://localhost:1234).
+ ```bash
+docker-compose up # starts the containers
+```
+```bash
+docker-compose down # stops and removes the containers
+```
 
-## Included Algorithms
-The repository includes implementation of the following algorithms:
->1. Linear Regression, Logistic Regression, Naive Bayes, Decision Tree, k-NN, SVM, K-MEANS, and PCA
->1. Fuzzy Inference System (FIS), Fuzzy Logic Controller
->1. ANN, CNN, GAN, VAE, NLP
->1. Transfer Learning
->1. Reinforcement Learning
-
-> [!IMPORTANT]
-> 
-> You will need to have Docker installed on your machine. You can download it from the [Docker website](https://hub.docker.com).
+This will start the `Jupyter Lab` on [http://localhost:2468](http://localhost:2468), and you should be able to use `Julia` from within the notebook by starting a new `Julia` notebook. You can parallelly start `Pluto` on [http://localhost:1234](http://localhost:1234).
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](https://raw.githubusercontent.com/a-mhamdi/jlai/refs/heads/main/LICENSE) file for details.
