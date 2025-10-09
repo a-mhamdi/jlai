@@ -15,10 +15,6 @@ The repository includes implementation of the following algorithms:
 >1. ANN, CNN, Transfer Learning, GAN, VAE, NLP
 >1. Reinforcement Learning
 
-> [!IMPORTANT]
-> 
-> You will need to have Docker installed on your machine. You can download it from the [Docker website](https://hub.docker.com).
-
 > [!NOTE]
 > To run the code, you will need to first pull the `Docker` image by running the following command:
 >
@@ -30,16 +26,20 @@ The repository includes implementation of the following algorithms:
 
 ## How to control the containers:
 
-Services can be run by typing the command `docker-compose up`:
+Services can be started by typing the command:
 
- ```bash
+ ```zsh
 docker-compose up # starts the containers
 ```
-```bash
-docker-compose down # stops and removes the containers
+```zsh
+docker-compose down # stops and removes them
 ```
 
-This will start the `Jupyter Lab` on [http://localhost:2468](http://localhost:2468), and you should be able to use `Julia` from within the notebook by starting a new `Julia` notebook. You can parallelly start `Pluto` on [http://localhost:1234](http://localhost:1234).
+This will launch the `Jupyter Lab` on [http://localhost:2468](http://localhost:2468), and you should be able to use `Julia` from within the notebook by starting a new `Julia` notebook. You can parallelly use `Pluto` on [http://localhost:1234](http://localhost:1234).
+
+> [!IMPORTANT]
+> 
+> You will need to have Docker installed on your machine. You can download it from the [Docker website](https://hub.docker.com).
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](https://raw.githubusercontent.com/a-mhamdi/jlai/refs/heads/main/LICENSE) file for details.
