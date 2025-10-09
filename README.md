@@ -11,7 +11,7 @@ This repository contains slides, labs and code examples for using `Julia` to imp
 > To run the code, you will need to first pull the `Docker` image by running the following command:
 >
 > ```zsh
-> docker pull abmhamdi/jlai
+> docker pull abmhamdi/jlai-p1
 > ```
 > 
 > This may take a while, as it will download and install all necessary dependencies.
@@ -25,7 +25,7 @@ Services can be run by typing the command `docker-compose up`. This will start t
 
 ## Included Algorithms
 The repository includes implementation of the following algorithms:
->1. Linear Regression, Logistic Regression, k-NN, SVM, K-MEANS
+>1. Linear Regression, Logistic Regression, Naive Bayes, Decision Tree, k-NN, SVM, K-MEANS, and PCA
 >1. Fuzzy Inference System (FIS), Fuzzy Logic Controller
 >1. ANN, CNN, GAN, VAE, NLP
 >1. Transfer Learning
