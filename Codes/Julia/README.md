@@ -1,9 +1,14 @@
-Here are some codes written in `Julia`.
+This repository contains code examples written in **Julia**.
 
-For reference, I put, inside the folder _RUN-THROUGH_, screenshots of algorithms being executed, which show what the outcomes of the running codes would look like.
+> [!NOTE]
+> 
+> **Running the Code**  
+> - **Recommended**: Use the provided Docker image
+> - **For Julia beginners**: Launch an interactive environment directly in the browser [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/a-mhamdi/jlai/main?labpath=Codes%2FJulia)
 
-It is preferable to use the `Docker` image I provided. For users with little `Julia` experience, the codes can be run in an interactive environment through the link that follows:
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/a-mhamdi/jlai/main?labpath=Codes%2FJulia)
+> [!TIP]
+> 
+> The `_RUN-THROUGH_` folder includes screenshots demonstrating algorithm execution and expected outputs.
 
 ![Julia](logo-julia.png)
