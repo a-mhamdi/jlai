@@ -1,4 +1,4 @@
-FROM julia:1.11.2
+FROM julia:1.11.2-alpine
 
 LABEL author="A. Mhamdi <a_mhamdi@outlook.com>"
 LABEL version="latest"
