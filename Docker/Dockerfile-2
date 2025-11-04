@@ -1,5 +1,5 @@
 # Stage 1: Builder stage
-FROM julia:1.11-bookworm as builder
+FROM julia:1.11-bookworm AS builder
 
 # Set ENV variables and working directory
 ENV JULIA_DEPOT_PATH=/root/.julia
@@ -18,7 +18,7 @@ RUN julia -e 'import Pkg; Pkg.add(["Conda", "IJulia", "Pluto"]); Pkg.precompile(
 RUN julia -e 'import Conda; Conda.add("JupyterLab")'
 
 # Stage 2: Runner stage
-FROM julia:1.11-bookworm as runner
+FROM julia:1.11-bookworm AS runner
 
 LABEL author="A. Mhamdi <a_mhamdi@outlook.com>"
 LABEL version="latest"
