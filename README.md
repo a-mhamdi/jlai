@@ -2,10 +2,15 @@
 
 This repository contains slides, labs and code examples for using `Julia` to implement some **artificial intelligence** related algorithms. Codes run on top of a `Docker` image, ensuring a consistent and reproducible environment.
 
-[![CI/CD](https://github.com/a-mhamdi/jlai/actions/workflows/jlai.yml/badge.svg)](https://github.com/a-mhamdi/jlai/actions/workflows/jlai.yml)
-[![Docker Version](https://img.shields.io/docker/v/abmhamdi/jlai?sort=semver)](https://hub.docker.com/r/abmhamdi/jlai)
-[![Docker Pulls](https://img.shields.io/docker/pulls/abmhamdi/jlai)](https://hub.docker.com/r/abmhamdi/jlai)
-[![Docker Stars](https://img.shields.io/docker/stars/abmhamdi/jlai)](https://hub.docker.com/r/abmhamdi/jlai)
+
+[![CI/CD](https://github.com/a-mhamdi/jlai/actions/workflows/jlai-p1.yml/badge.svg)](https://github.com/a-mhamdi/jlai/actions/workflows/jlai-p1.yml)
+[![CI/CD](https://github.com/a-mhamdi/jlai/actions/workflows/jlai-p2.yml/badge.svg)](https://github.com/a-mhamdi/jlai/actions/workflows/jlai-p2.yml)
+[![CI/CD](https://github.com/a-mhamdi/jlai/actions/workflows/jlai-p3.yml/badge.svg)](https://github.com/a-mhamdi/jlai/actions/workflows/jlai-p3.yml)
+
+[![Docker Pulls](https://img.shields.io/docker/pulls/abmhamdi/jlai-p1)](https://hub.docker.com/r/abmhamdi/jlai-p1)
+[![Docker Pulls](https://img.shields.io/docker/pulls/abmhamdi/jlai-p2)](https://hub.docker.com/r/abmhamdi/jlai-p2)
+[![Docker Pulls](https://img.shields.io/docker/pulls/abmhamdi/jlai-p3)](https://hub.docker.com/r/abmhamdi/jlai-p3)
+
 
 ## Included Algorithms
 
