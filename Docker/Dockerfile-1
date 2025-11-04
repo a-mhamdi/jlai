@@ -28,7 +28,7 @@ WORKDIR /workspace
 
 # Copy built Julia environment from builder stage
 COPY --from=builder /root/.julia /root/.julia
-COPY --from=builder /workspace/ /workspace/
+COPY --from=builder /workspace/ /.
 
 # Copy remaining content
 COPY Codes/Julia/Datasets Datasets/
