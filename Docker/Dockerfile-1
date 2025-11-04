@@ -1,29 +1,42 @@
-FROM julia:1.11-bookworm
-
+# Stage 1: Builder stage
+FROM julia:1.11-bookworm as builder
 LABEL author="A. Mhamdi <a_mhamdi@outlook.com>"
 LABEL version="latest"
 
-#= Set ENV variables =#
+# Set ENV variables and working directory
 ENV JULIA_DEPOT_PATH=/root/.julia
-
 WORKDIR /workspace
 
-#= Copy datasets =#
+# Copy only necessary files for dependency installation
+COPY Codes/Julia/Part-1/Project.toml .
+
+# Install Julia dependencies
+RUN julia -e 'import Pkg; Pkg.activate("."); Pkg.instantiate(); Pkg.precompile(); Pkg.resolve()'
+
+# Install IJulia kernel and Pluto
+RUN julia -e 'import Pkg; Pkg.add(["Conda", "IJulia", "Pluto"]); Pkg.precompile(); Pkg.resolve()'
+
+# Install JupyterLab
+RUN julia -e 'import Conda; Conda.add("JupyterLab")'
+
+# Stage 2: Runner stage
+FROM julia:1.11-bookworm as runner
+
+# Set ENV variables and working directory
+ENV JULIA_DEPOT_PATH=/root/.julia
+WORKDIR /workspace
+
+# Copy built Julia environment from builder stage
+COPY --from=builder /root/.julia /root/.julia
+COPY --from=builder /workspace/.julia /workspace/.julia
+
+# Copy remaining content
 COPY Codes/Julia/Datasets Datasets/
 COPY Codes/Julia/Part-1/Jupyter Jupyter/
 COPY Codes/Julia/Part-1/Pluto Pluto/
 
-#= Copy TOML files (deps, ver, pkg, UUID) =#
-COPY Codes/Julia/Part-1/Project.toml .
-
-#= Activate environment and add IJulia kernel and JupyterLab IDE =#
-RUN julia -e 'import Pkg; Pkg.activate("."); Pkg.instantiate(); Pkg.precompile(); Pkg.resolve()'
-RUN julia -e 'import Pkg; Pkg.add(["Conda", "IJulia", "Pluto"]); Pkg.precompile(); Pkg.resolve()'
-RUN julia -e 'import Conda; Conda.add("JupyterLab")'
-
-#= Expose ports =#
+# Expose ports
 EXPOSE 1234 2468
 
-#= Default command =#
-CMD [ "julia" ]
-
+# Default command
+CMD ["julia"]
