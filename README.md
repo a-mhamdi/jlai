@@ -37,7 +37,7 @@ Services can be started by typing the command:
 docker compose up -d # starts the containers in detached mode
 ```
 ```zsh
-docker-compose down # stops and removes them
+docker compose down # stops and removes them
 ```
 
 This will launch the `Jupyter Lab` on [http://localhost:2468](http://localhost:2468), and you should be able to use `Julia` from within the notebook by starting a new `Julia` notebook. You can parallelly use `Pluto` on [http://localhost:1234](http://localhost:1234).
