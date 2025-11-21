@@ -72,7 +72,7 @@ md"Hyperparameters tuning"
 md"Load data from csv file"
 
 # ╔═╡ 0d137d2c-db4f-4ec1-8290-9f621f956ee4
-df = CSV.read("../../Datasets/Churn_Modelling.csv", DataFrame)
+df = CSV.read("../Datasets/Churn_Modelling.csv", DataFrame)
 
 # ╔═╡ 37665a62-4c7b-4cb3-a353-3a436de3d8a8
 md"Choose the target vector `y`"
