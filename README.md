@@ -34,7 +34,7 @@ The repository includes implementation of the following algorithms:
 Services can be started by typing the command:
 
  ```zsh
-docker compose up -d # starts the containers
+docker compose up -d # starts the containers in detached mode
 ```
 ```zsh
 docker-compose down # stops and removes them
