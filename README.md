@@ -27,7 +27,7 @@ The repository includes implementation of the following algorithms:
 > docker pull abmhamdi/jlai-p1
 > ```
 > 
-> This may take a while, as it will download source code, `julia` image, and install all necessary dependencies.
+> This may take a while, as it will download source code, `julia` image, and all necessary system dependencies.
 
 ## How to control the containers:
 
