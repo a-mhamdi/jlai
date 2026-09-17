@@ -1,0 +1,7 @@
+Machine learning allows computer systems to learn patterns from data and make predictions without being explicitly programmed for every individual case. Neural networks, classification algorithms, and anomaly detection are widely used to analyze sensor data and identify unusual behavior. In many applications, however, sending all sensor measurements to a remote cloud server introduces latency and requires continuous network connectivity.
+
+Edge computing addresses this problem by moving part of the computation closer to the physical device. A small embedded computer can collect measurements from sensors, preprocess the data, and execute a trained machine learning model locally. For example, an industrial device can monitor vibration and temperature and use an anomaly detection model to identify a possible fault.
+
+The same approach is useful in IoT systems containing many connected devices. Instead of transmitting every measurement through the network, an edge device can process the data locally and send only important events or predictions. This reduces communication traffic and can make the system respond faster.
+
+Machine learning models used at the edge must usually be smaller than models running on powerful servers. Techniques such as model compression and quantization can reduce computational requirements. The resulting system combines artificial intelligence, embedded computing, sensors, and network communication.

@@ -1,0 +1,7 @@
+An intelligent robot is more than a mechanical machine controlled by predefined commands. It continuously receives information from sensors and uses computation to decide how to react. Cameras and other sensors provide observations about objects, people, and the surrounding environment. These observations can then be processed by artificial intelligence algorithms.
+
+Machine learning is particularly useful when the environment is difficult to describe using simple rules. A neural network can learn to recognize objects in camera images, while another model can classify sensor measurements. The robot can combine these predictions with information about its position and movement to make navigation decisions.
+
+Because robots operate in the physical world, computation often needs to happen with low latency. An embedded computer installed on the robot can perform inference locally instead of sending every camera frame to a remote server. This edge architecture allows the robot to continue operating even when network connectivity is limited.
+
+Robotic systems can also participate in larger IoT networks. A robot may publish sensor information, receive commands, or exchange its state with other devices. In this way, autonomous robotics becomes connected to distributed computing systems involving sensors, embedded devices, networks, and intelligent algorithms.

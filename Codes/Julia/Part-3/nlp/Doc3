@@ -1,0 +1,7 @@
+The Internet of Things connects physical devices equipped with sensors, processors, and communication interfaces. A temperature sensor, for example, can periodically measure the environment and transmit its data to another computer. Industrial IoT systems can contain hundreds or thousands of such devices monitoring machines, buildings, vehicles, and production processes.
+
+Traditional IoT architectures often send measurements to a central server or cloud platform. The server stores the data and performs analysis. This approach is useful when large amounts of historical information must be collected, but it can introduce network traffic and delays when immediate decisions are required.
+
+Edge computing provides another solution. An IoT gateway or embedded computer can process sensor measurements close to their source. It can calculate statistics, detect anomalies, or execute a machine learning model before sending information to the cloud. For example, a monitoring device can analyze vibration measurements and transmit an alert only when the behavior of a machine becomes unusual.
+
+Artificial intelligence therefore becomes an important component of modern IoT systems. Machine learning can transform raw sensor measurements into predictions or decisions. At the same time, communication protocols allow devices, gateways, and servers to exchange information efficiently.

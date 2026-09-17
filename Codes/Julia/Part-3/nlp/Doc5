@@ -1,0 +1,9 @@
+The combination of artificial intelligence, edge computing, robotics, and the Internet of Things creates new types of autonomous systems. In such systems, physical devices collect information through sensors and use local computation to transform measurements into useful decisions.
+
+Consider an autonomous vehicle operating inside an industrial environment. Its sensors continuously collect information about position, temperature, obstacles, and surrounding objects. A machine learning model running on an embedded computer can analyze camera or sensor data and recognize important events. The vehicle can then modify its movement or communicate the event to another device.
+
+Communication remains important even when computation is performed at the edge. Several devices can exchange measurements and decisions through a network. An IoT gateway can collect information from multiple robots, while a monitoring server can store historical data for later analysis.
+
+This architecture reduces dependence on a centralized cloud system. Local inference can provide rapid responses, while network communication can coordinate multiple devices. The same architecture can be used for industrial monitoring, autonomous robots, smart buildings, and intelligent transportation systems.
+
+The main challenge is to balance computation, memory, energy consumption, and communication. Embedded devices have fewer resources than conventional servers, so machine learning models must often be optimized before deployment. Edge AI therefore brings together machine learning, sensors, embedded systems, robotics, and IoT communication.
