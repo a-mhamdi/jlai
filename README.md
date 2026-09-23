@@ -15,7 +15,7 @@ This repository contains slides, labs and code examples for using `Julia` to imp
 ## Included Algorithms
 
 The repository includes implementation of the following algorithms:
->1. Forward, and Backward Chaining
+>1. FOL, CNF, Forward, and Backward Chaining
 >1. Fuzzy Logic, Fuzzy Inference Systems (FIS): Mamdani, Sugeno and Tsukamoto
 >1. Linear Regression, Logistic Regression, Naive Bayes, Decision Tree, k-NN, SVM, K-MEANS, and PCA
 >1. ANN, CNN, Transfer Learning, GAN, VAE, NLP
