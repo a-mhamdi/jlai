@@ -22,7 +22,7 @@ The repository includes implementation of the following algorithms:
 >1. Reinforcement Learning
 
 > [!IMPORTANT]
-> You will need to have Docker installed on your machine. You can download it from the [Docker website](https://hub.docker.com).
+> You will need to have Docker installed on your machine. You can download it from the [Docker website](https://www.docker.com/products/docker-desktop/).
 
 > [!NOTE]
 > To run the code, you will need to first pull the `Docker` image by running the following command:
