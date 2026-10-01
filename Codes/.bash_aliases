@@ -1,5 +1,5 @@
-
 #= ALIASES =#
+
 alias jlai1="if [ ! -f ~/Desktop/jlai ]; then
 		rm -fr ~/Desktop/jlai
 	fi && \
