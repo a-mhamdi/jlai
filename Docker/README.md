@@ -1,7 +1,23 @@
-# DOCKER
+# Docker
 
-This repository is a stack of ready-to-run Docker images containing `Julia` and interactive computing tools: `Jupyter Lab` and `Pluto`. You'll find two main kinds of files in this repository:
-* `Dockerfile-\d` file I use to create an image which contains the build context to run codes of artificial intelligence using `Julia`.
-* `compose.yml` file which runs two services, `jupyter` and `pluto` to execute `Julia` codes. As for `Julia`, it is built using the context in the `Dockerfile`. The `jupyter` and `pluto` services map ports _2468_ and _1234_ on the host to ports _2468_ and _1234_ on the containers.
+This directory contains ready-to-run Docker images with [Julia](https://julialang.org/) and two interactive computing tools: [Jupyter Lab](https://jupyter.org/) and [Pluto](https://plutojl.org/). Together they provide a consistent, reproducible environment for the AI code samples in this repository.
 
-**GitHub Actions** build and push this image to [dockerhub](https://hub.docker.com/). Every update is available at [abmhamdi/jlai-p1](https://hub.docker.com/repository/docker/abmhamdi/jlai-p1)
+## Contents
+
+- **`Dockerfile-<n>`**: build context for the images used to run the artificial intelligence code in `Julia`. `<n>` is the variant number.
+- **`compose.yml`**: defines two services that run `Julia` code, both built from the Dockerfile:
+  - `jupyter`: Jupyter Lab, available at <http://localhost:2468>
+  - `pluto`: Pluto, available at <http://localhost:1234>
+
+  Each service maps its port on the host to the same port in the container (2468 and 1234).
+
+## Usage
+
+```bash
+docker compose up -d   # start both services in the background
+docker compose down    # stop and remove the containers
+```
+
+## Continuous integration
+
+**GitHub Actions** builds the image and pushes it to [Docker Hub](https://hub.docker.com/). Every update is published at [abmhamdi/jlai-p1](https://hub.docker.com/r/abmhamdi/jlai-p1).
