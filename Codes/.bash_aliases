@@ -1,20 +1,7 @@
 #= ALIASES =#
 
-alias jlai1="if [ ! -f ~/Desktop/jlai ]; then
-		rm -fr ~/Desktop/jlai
-	fi && \
-	cp -r /home/isetbz/jlai/ ~/Desktop/ && \
-	bash /home/isetbz/jlai1.sh"
-	
-alias jlai2="if [ ! -f ~/Desktop/jlai ]; then
-		rm -fr ~/Desktop/jlai
-	fi && \
-	cp -r /home/isetbz/jlai/ ~/Desktop/ && \
-	bash /home/isetbz/jlai2.sh"
-	
-alias jlai3="if [ ! -f ~/Desktop/jlai ]; then
-		rm -fr ~/Desktop/jlai
-	fi && \
-	cp -r /home/isetbz/jlai/ ~/Desktop/ && \
-	bash /home/isetbz/jlai3.sh && \
-	code ~/Desktop/jlai/"
+_jlai_reset='rm -rf ~/Desktop/jlai && cp -r /home/isetbz/jlai ~/Desktop/'
+
+alias jlai1="$_jlai_reset && bash /home/isetbz/jlai.sh 1"
+alias jlai2="$_jlai_reset && bash /home/isetbz/jlai.sh 2"
+alias jlai3="$_jlai_reset && bash /home/isetbz/jlai.sh 3 && code ~/Desktop/jlai/"
