@@ -10,8 +10,7 @@ end
 #=
 A `Rule` bundles:
 - `name`: a label used only for readable trace output (e.g. `"R1"`).
-- `premises`: the conjunction of facts that must **all** be in working memory
-  (`wm`) for the rule to be eligible to fire.
+- `premises`: the conjunction of facts that must **all** be in working memory (`wm`) for the rule to be eligible to fire.
 - `conclusion`: the single fact added to `wm` when the rule fires.
 
 Because `premises` is a plain `Vector{Symbol}`, checking "are all premises known?" is just a set-subset test (`issubset`) against working memory.
@@ -24,6 +23,7 @@ struct Rule
 end
 
 
+
 # THE FORWARD-CHAINING ENGINE
 """ Strategy: fire everything that matches. """
 
@@ -31,8 +31,7 @@ holds(p::Symbol, wm::Set{Symbol}) = p in wm
 holds(p::Neg,    wm::Set{Symbol}) = !(p.fact in wm)
 
 """
-Repeatedly fire every rule whose premises are satisfied and whose conclusion is not already known, until a full pass adds nothing new.
-Mutates and returns `wm`.
+Repeatedly fire every rule whose premises are satisfied and whose conclusion is not already known, until a full pass adds nothing new. Mutates and returns `wm`.
 """
 function forward_chain!(wm::Set{Symbol}, rules::Vector{Rule}; verbose::Bool=true)
     pass = 1
@@ -62,7 +61,6 @@ end
 
 
 # THE BACKWARD-CHAINING ENGINE
-
 """
 **Indexing rules by conclusion:** Backward chaining repeatedly asks, "Which rule(s) conclude *this* goal?" So it pays to index `RULES` by conclusion once, up front, rather than linear-scanning the whole rule base for every sub-goal. `Dict{Symbol, Vector{Rule}}` maps a conclusion to the (order-preserving) list of rules that can prove it.
 
@@ -81,17 +79,12 @@ end
 """ 
             Asking For Primitive _(Askable)_ Facts
 
-A predicate with **no** rule concluding it (e.g. `:has_hair`, `:eats_meat`)
-is, by construction, a *primitive fact* the engine cannot derive — it must be
-asked. `ask_user` supports two modes:
+A predicate with **no** rule concluding it (e.g. `:has_hair`, `:eats_meat`) is, by construction, a *primitive fact* the engine cannot derive — it must be asked. `ask_user` supports two modes:
 
-- **Scripted** (`scripted_answers`): looks up a pre-decided answer, for
-  reproducible demos/tests that don't block on stdin.
+- **Scripted** (`scripted_answers`): looks up a pre-decided answer, for reproducible demos/tests that don't block on stdin.
 - **Interactive**: prompts on stdin (`y`/`n`) when no scripted answer exists.
 
-Return true/false for a fact that no rule can derive. If `fact` has a pre-scripted answer (used for reproducible demos / testing), use it;
-otherwise prompt interactively on stdin. A scripted answer of `false` represents either an explicit "no" or an "I don\'t know" — for proof
-purposes both mean the fact cannot be established as true, exactly as in the hand-worked exercise where "unknown" made a premise fail.
+Return true/false for a fact that no rule can derive. If `fact` has a pre-scripted answer (used for reproducible demos / testing), use it; otherwise prompt interactively on stdin. A scripted answer of `false` represents either an explicit "no" or an "I don\'t know" — for proof purposes both mean the fact cannot be established as true, exactly as in the hand-worked exercise where "unknown" made a premise fail.
 """
 
 function ask_user(fact::Symbol, scripted_answers::Dict{Symbol,Bool})
@@ -112,31 +105,30 @@ end
 `prove_premise!(goal, ...)` is a recursive goal-prover with **memoization** and **backtracking**
 """
 function prove_premise!(p::Symbol, rules_idx, known_true, known_false, answers; depth, verbose)
-    prove_premise!(p, rules_idx, known_true, known_false, answers; depth=depth, verbose=verbose)
+    prove!(p, rules_idx, known_true, known_false, answers; depth=depth, verbose=verbose)
 end
 
 function prove_premise!(p::Neg, rules_idx, known_true, known_false, answers; depth, verbose)
     verbose && println("  "^depth, "¬$(p.fact): proving $(p.fact) then negating")
-    !prove_premise!(p.fact, rules_idx, known_true, known_false, answers; depth=depth+1, verbose=verbose)
+    !prove!(p.fact, rules_idx, known_true, known_false, answers; depth=depth+1, verbose=verbose)
 end
 
 """                                          
 Try to prove `goal` using backward chaining:
   1. Return cached result if `goal` was already proven true or false.
-  2. If some rule concludes `goal`, try each such rule IN ORDER, recursively proving all of its premises; the first rule whose
-     premises all succeed proves the goal (backtrack to the next rule on failure).
+  2. If some rule concludes `goal`, try each such rule IN ORDER, recursively proving all of its premises; the first rule whose premises all succeed proves the goal (backtrack to the next rule on failure).
   3. If no rule concludes `goal`, it\'s a primitive fact: ask the user.
 
 Mutates `known_true` / `known_false` as a memo cache, so a fact or sub-goal already settled earlier is never re-derived or re-asked.
 """
 
-function backward_chain!(goal::Symbol,
-                 rules_idx::Dict{Symbol,Vector{Rule}},
-                 known_true::Set{Symbol},
-                 known_false::Set{Symbol},
-                 answers::Dict{Symbol,Bool};
-                 depth::Int=0,
-                 verbose::Bool=true)
+function prove!(goal::Symbol,
+        rules_idx::Dict{Symbol,Vector{Rule}},
+        known_true::Set{Symbol},
+        known_false::Set{Symbol},
+        answers::Dict{Symbol,Bool};
+        depth::Int=0,
+        verbose::Bool=true)
 
     indent = "  " ^ depth
 
@@ -151,8 +143,8 @@ function backward_chain!(goal::Symbol,
     candidates = get(rules_idx, goal, Rule[])
 
     if isempty(candidates)
-        # No rule concludes this predicate -> it\'s an askable primitive fact.
-        verbose && cprintln("$(indent)$(goal): no rule concludes it -> ask user"; bold=true, color=red)
+        # No rule concludes this predicate -> it's an askable primitive fact.
+        verbose && cprintln("$(indent)$(goal): no rule concludes it -> ask user"; bold=true, color=:red)
         result = ask_user(goal, answers)
         push!(result ? known_true : known_false, goal)
         return result
@@ -164,14 +156,15 @@ function backward_chain!(goal::Symbol,
 
         for premise in rule.premises
             if !prove_premise!(premise, rules_idx, known_true, known_false, answers; depth=depth+1, verbose=verbose)
-                verbose && cprintln("$(indent)  $(rule.name) FAILS ($(premise) not provable) -> backtrack"; bold=true, color=red)
+                verbose && cprintln("$(indent)  $(rule.name) FAILS ($(premise) not provable) -> backtrack"; bold=true, color=:red)
                 success = false
                 break
             end
         end
+        
         if success
             push!(known_true, goal)
-            verbose && cprintln("$(indent)$(rule.name) succeeds -> $(goal) = TRUE"; bold=true, color=green)
+            verbose && cprintln("$(indent)$(rule.name) succeeds -> $(goal) = TRUE"; bold=true, color=:green)
             return true
         end
     end
